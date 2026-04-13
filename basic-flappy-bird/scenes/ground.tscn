@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://crgknxdifkp6x"]
+
+[ext_resource type="Script" uid="uid://d10yttbxvudcf" path="res://scripts/ground.gd" id="1_mi8v4"]
+[ext_resource type="Texture2D" uid="uid://bdikdevpcmcwe" path="res://sprites/Ground.png" id="1_pybca"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmksl"]
+atlas = ExtResource("1_pybca")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5yvf"]
+atlas = ExtResource("1_pybca")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ywih"]
+atlas = ExtResource("1_pybca")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ct7o8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmksl")
+}],
+"loop": true,
+"name": &"ground0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5yvf")
+}],
+"loop": true,
+"name": &"ground1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ywih")
+}],
+"loop": true,
+"name": &"ground2",
+"speed": 5.0
+}]
+
+[node name="Ground" type="Node2D" unique_id=622046731]
+script = ExtResource("1_mi8v4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1980500625]
+position = Vector2(0, 6)
+sprite_frames = SubResource("SpriteFrames_ct7o8")
+animation = &"ground0"
