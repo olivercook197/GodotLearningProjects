@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dhegv5kxm7pdg"]
+
+[ext_resource type="Script" uid="uid://bbwx8lleladag" path="res://scripts/score_label.gd" id="1_1kqdx"]
+[ext_resource type="FontFile" uid="uid://b252syhn50i31" path="res://sprites/PixelOperator8.ttf" id="1_rkbmc"]
+[ext_resource type="AudioStream" uid="uid://7wnpcivuq6ru" path="res://sprites/coin.wav" id="3_83l75"]
+
+[node name="ScoreLabel" type="Label" unique_id=1554329137]
+z_index = 4
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_rkbmc")
+text = "0"
+horizontal_alignment = 1
+script = ExtResource("1_1kqdx")
+
+[node name="ScoreSound" type="AudioStreamPlayer2D" parent="." unique_id=69914162]
+stream = ExtResource("3_83l75")
+bus = &"SFX"

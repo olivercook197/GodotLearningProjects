@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://vui6llcgaijr"]
+
+[ext_resource type="AudioStream" uid="uid://dkm2v81m0a676" path="res://sprites/FlappyBirdGameSong.mp3" id="1_f6gl3"]
+
+[node name="BGMusic" type="AudioStreamPlayer2D" unique_id=1742124766]
+stream = ExtResource("1_f6gl3")
+autoplay = true
+bus = &"Music"

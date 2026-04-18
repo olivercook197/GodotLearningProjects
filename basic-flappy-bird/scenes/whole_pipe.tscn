@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://sleiminlnouu"]
+
+[ext_resource type="Script" uid="uid://dj8b0dir23v0q" path="res://scripts/whole_pipe.gd" id="1_6keal"]
+
+[node name="WholePipe" type="Node2D" unique_id=1202512839]
+script = ExtResource("1_6keal")

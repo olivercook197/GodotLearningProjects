@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://1ubsbvt8to51" path="res://scenes/player.tscn" id="1_d0sv1"]
 [ext_resource type="Script" uid="uid://b2pgfrh8fn7di" path="res://scripts/flappy_bird_main_game.gd" id="1_kt4n6"]
-[ext_resource type="PackedScene" uid="uid://crgknxdifkp6x" path="res://scenes/ground.tscn" id="3_xiujr"]
 [ext_resource type="PackedScene" uid="uid://ciingiwmgwb0j" path="res://scenes/killzone.tscn" id="4_xiujr"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xiujr"]
@@ -11,19 +10,12 @@
 script = ExtResource("1_kt4n6")
 
 [node name="Player" parent="." unique_id=1295867161 instance=ExtResource("1_d0sv1")]
-z_index = 1
 position = Vector2(0, -37)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1880847703]
 position = Vector2(0, -8)
-offset = Vector2(10, -2)
-zoom = Vector2(5, 5)
-
-[node name="Ground" parent="." unique_id=622046731 instance=ExtResource("3_xiujr")]
-position = Vector2(-48, 48)
-
-[node name="Ground2" parent="." unique_id=646703674 instance=ExtResource("3_xiujr")]
-position = Vector2(80, 48)
+offset = Vector2(12, -4)
+zoom = Vector2(4.9, 4.9)
 
 [node name="Killzone" parent="." unique_id=1837067684 instance=ExtResource("4_xiujr")]
 position = Vector2(0, 58)

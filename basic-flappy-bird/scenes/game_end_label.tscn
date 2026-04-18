@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bn8qu1blvd0i1"]
+
+[ext_resource type="FontFile" uid="uid://b252syhn50i31" path="res://sprites/PixelOperator8.ttf" id="1_alp6m"]
+[ext_resource type="Script" uid="uid://je6btsljpvre" path="res://scripts/game_end_label.gd" id="1_ne6iq"]
+
+[node name="GameEndLabel" type="Label" unique_id=1074743733]
+z_index = 10
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_alp6m")
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+script = ExtResource("1_ne6iq")

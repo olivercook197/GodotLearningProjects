@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cj12qwi7w6b2a"]
+
+[ext_resource type="Script" uid="uid://dnujvp8uu4lw4" path="res://scripts/point_score_collision.gd" id="1_kftb3"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kftb3"]
+
+[node name="PointScoreCollision" type="Area2D" unique_id=2064427113]
+collision_mask = 2
+script = ExtResource("1_kftb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2105929481]
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_kftb3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
