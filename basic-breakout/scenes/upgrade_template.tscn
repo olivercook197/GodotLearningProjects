@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bvjp1u4vbsakd"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://scripts/upgrade_template.gd" id="1_82lir"]
+
+[node name="UpgradeTemplate" type="Node2D" unique_id=1048722865]
+script = ExtResource("1_82lir")
+upgrade_target = 2
+attribute_changed = 3
+number_change = 3

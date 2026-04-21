@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://v36pc1cur2mv"]
+
+[ext_resource type="Texture2D" uid="uid://bhr2xnfibuls8" path="res://assets/sprites/life.png" id="1_3syyo"]
+[ext_resource type="Script" uid="uid://cd1gqsj7c36hx" path="res://scripts/lives.gd" id="2_naohr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3syyo"]
+atlas = ExtResource("1_3syyo")
+region = Rect2(0, 0, 72, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_naohr"]
+atlas = ExtResource("1_3syyo")
+region = Rect2(72, 0, 72, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qms4d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3syyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_naohr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Lives" type="AnimatedSprite2D" unique_id=1285774909]
+z_index = 50
+sprite_frames = SubResource("SpriteFrames_qms4d")
+script = ExtResource("2_naohr")

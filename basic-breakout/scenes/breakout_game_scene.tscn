@@ -1,0 +1,192 @@
+[gd_scene format=3 uid="uid://cvg3jydpl18mw"]
+
+[ext_resource type="Script" uid="uid://ce45x1ewd7qmh" path="res://scripts/breakout_game_scene.gd" id="1_ycayy"]
+[ext_resource type="Texture2D" uid="uid://dotul7ovdgy88" path="res://assets/gui/scalable_panel.png" id="2_bw6k5"]
+[ext_resource type="Script" uid="uid://b40ttpxuluqca" path="res://scripts/game_over_label.gd" id="3_y3j0m"]
+[ext_resource type="Script" uid="uid://cjaibug1vl7j0" path="res://scripts/score_label.gd" id="4_6rsyv"]
+[ext_resource type="Script" uid="uid://m5girvi7aav6" path="res://scripts/gold_label.gd" id="4_kqmqr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o5qli"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vfxrd"]
+texture = ExtResource("2_bw6k5")
+region_rect = Rect2(50.378357, 36.54079, 51.00493, 39.808727)
+
+[sub_resource type="Theme" id="Theme_0wfyh"]
+Panel/styles/panel = SubResource("StyleBoxTexture_vfxrd")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqmqr"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_sugp2"]
+Panel/styles/panel = SubResource("StyleBoxFlat_kqmqr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbgi4"]
+texture = ExtResource("2_bw6k5")
+region_rect = Rect2(50.378, 36.541, 51.005, 39.809)
+
+[node name="GameScene" type="Node2D" unique_id=1780324345]
+script = ExtResource("1_ycayy")
+
+[node name="CarryThrough" type="Node2D" parent="." unique_id=1531148917]
+
+[node name="WorldBorder" type="Area2D" parent="CarryThrough" unique_id=1002445002]
+position = Vector2(0, 704)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CarryThrough/WorldBorder" unique_id=505362757]
+position = Vector2(0, 99)
+shape = SubResource("WorldBoundaryShape2D_o5qli")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CarryThrough/WorldBorder" unique_id=1653283964]
+position = Vector2(0, -1596)
+rotation = 3.1415927
+shape = SubResource("WorldBoundaryShape2D_o5qli")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="CarryThrough/WorldBorder" unique_id=1152470490]
+position = Vector2(-1425, -705)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_o5qli")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="CarryThrough/WorldBorder" unique_id=605044019]
+position = Vector2(1435, -705)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_o5qli")
+
+[node name="Button" type="Button" parent="CarryThrough" unique_id=623668514]
+offset_left = -784.0
+offset_top = -523.0
+offset_right = -482.0
+offset_bottom = -383.0
+text = "Press
+"
+
+[node name="Camera2D" type="Camera2D" parent="CarryThrough" unique_id=143315439]
+zoom = Vector2(0.5, 0.5)
+
+[node name="GameOver" type="Node2D" parent="CarryThrough" unique_id=1979493669]
+
+[node name="Panel" type="Panel" parent="CarryThrough/GameOver" unique_id=382873493]
+z_index = 99
+offset_left = -316.0
+offset_top = -226.0
+offset_right = 324.0
+offset_bottom = 240.0
+theme = SubResource("Theme_0wfyh")
+
+[node name="GameOverLabel" type="Label" parent="CarryThrough/GameOver/Panel" unique_id=1794591243]
+z_index = 100
+layout_mode = 0
+offset_top = 12.0
+offset_right = 640.0
+offset_bottom = 111.0
+theme_override_font_sizes/font_size = 72
+text = "Out of lives!"
+horizontal_alignment = 1
+script = ExtResource("3_y3j0m")
+
+[node name="GameOverButton" type="Button" parent="CarryThrough/GameOver/Panel" unique_id=411158616]
+z_index = 100
+layout_mode = 0
+offset_left = 186.0
+offset_top = 338.0
+offset_right = 446.0
+offset_bottom = 445.0
+theme_override_font_sizes/font_size = 72
+text = "Restart"
+
+[node name="ScorePanelContainer" type="PanelContainer" parent="CarryThrough" unique_id=1479412110]
+offset_left = -1167.0
+offset_top = -708.0
+offset_right = -986.0
+offset_bottom = -641.0
+
+[node name="Panel2" type="Panel" parent="CarryThrough/ScorePanelContainer" unique_id=1416580211]
+z_index = 99
+layout_mode = 2
+theme = SubResource("Theme_0wfyh")
+
+[node name="ScoreLabel" type="Label" parent="CarryThrough/ScorePanelContainer" unique_id=761184301]
+z_index = 100
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Score: 0"
+horizontal_alignment = 1
+script = ExtResource("4_6rsyv")
+
+[node name="GoldPanelContainer" type="PanelContainer" parent="CarryThrough" unique_id=1933441782]
+offset_left = -453.0
+offset_top = -708.0
+offset_right = -272.0
+offset_bottom = -641.0
+
+[node name="Panel2" type="Panel" parent="CarryThrough/GoldPanelContainer" unique_id=1240995179]
+z_index = 99
+layout_mode = 2
+theme = SubResource("Theme_0wfyh")
+
+[node name="GoldLabel" type="Label" parent="CarryThrough/GoldPanelContainer" unique_id=1216427516]
+z_index = 100
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Score: 0"
+horizontal_alignment = 1
+script = ExtResource("4_kqmqr")
+
+[node name="LevelWin" type="Node2D" parent="CarryThrough" unique_id=1168112625]
+
+[node name="PanelContainer" type="PanelContainer" parent="CarryThrough/LevelWin" unique_id=1834629153]
+z_index = 100
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -472.0
+offset_top = -49.5
+offset_right = 472.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_sugp2")
+theme_override_styles/panel = SubResource("StyleBoxTexture_tbgi4")
+
+[node name="MarginContainer" type="MarginContainer" parent="CarryThrough/LevelWin/PanelContainer" unique_id=48103511]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CarryThrough/LevelWin/PanelContainer/MarginContainer" unique_id=1608512653]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CarryThrough/LevelWin/PanelContainer/MarginContainer/VBoxContainer" unique_id=1002654918]
+z_index = 100
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 72
+text = "Congratulations, level won!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextLevelButton" type="Button" parent="CarryThrough/LevelWin/PanelContainer/MarginContainer/VBoxContainer" unique_id=1704398346]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Proceed"
+
+[connection signal="body_entered" from="CarryThrough/WorldBorder" to="." method="_on_world_border_body_entered"]
+[connection signal="pressed" from="CarryThrough/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CarryThrough/GameOver/Panel/GameOverButton" to="." method="_on_game_over_button_pressed"]
+[connection signal="pressed" from="CarryThrough/LevelWin/PanelContainer/MarginContainer/VBoxContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]

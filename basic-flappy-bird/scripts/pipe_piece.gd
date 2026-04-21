@@ -4,7 +4,6 @@ class_name Pipe
 signal player_died(name)
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-const KILLZONE = preload("uid://ciingiwmgwb0j")
 
 enum PipeType {WHOLE, TOP, BOTTOM}
 @export var pipe_type: PipeType:

@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://d772en1051bk"]
+
+[ext_resource type="Script" uid="uid://c4qgi3arm87tu" path="res://scripts/boundary.gd" id="1_7iu4k"]
+[ext_resource type="Texture2D" uid="uid://d0m6h8aesqu65" path="res://assets/sprites/boundary.png" id="2_ymxvx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ymxvx"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ymxvx"]
+texture = ExtResource("2_ymxvx")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tcmyj"]
+sources/0 = SubResource("TileSetAtlasSource_ymxvx")
+
+[node name="Boundary" type="StaticBody2D" unique_id=302635823]
+script = ExtResource("1_7iu4k")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1906029260]
+collision_priority = 5.0
+
+[node name="BoundaryCollisionShape2D" type="CollisionShape2D" parent="." unique_id=1902373501]
+z_index = 10
+shape = SubResource("RectangleShape2D_ymxvx")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1453581397]
+tile_set = SubResource("TileSet_tcmyj")

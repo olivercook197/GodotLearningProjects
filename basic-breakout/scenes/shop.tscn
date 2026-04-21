@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://cykrxgq8alrd2"]
+
+[ext_resource type="Script" uid="uid://cev0rhr8fmqao" path="res://scripts/shop.gd" id="1_lx5au"]
+[ext_resource type="Texture2D" uid="uid://dotul7ovdgy88" path="res://assets/gui/scalable_panel.png" id="2_1l46r"]
+[ext_resource type="Texture2D" uid="uid://52kv0ealje5" path="res://assets/sprites/upgrades/ball_speed_up_upgrade.png" id="3_032fp"]
+[ext_resource type="Texture2D" uid="uid://p2vobfbmpnk1" path="res://assets/sprites/upgrades/ball_speed_up_upgrade_pressed.png" id="4_032fp"]
+[ext_resource type="Texture2D" uid="uid://b77vt1bfxdet" path="res://assets/sprites/upgrades/upgrade_empty.png" id="5_2fc2m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqmqr"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_2fc2m"]
+Panel/styles/panel = SubResource("StyleBoxFlat_kqmqr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8r1wq"]
+texture = ExtResource("2_1l46r")
+region_rect = Rect2(50.378, 36.541, 51.005, 39.809)
+
+[node name="Shop" type="Node2D" unique_id=873135676]
+script = ExtResource("1_lx5au")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1793390718]
+zoom = Vector2(0.5, 0.5)
+
+[node name="UpgradeContainer" type="PanelContainer" parent="." unique_id=1150682030]
+z_index = 100
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1229.0
+offset_top = -405.0
+offset_right = -448.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_2fc2m")
+theme_override_styles/panel = SubResource("StyleBoxTexture_8r1wq")
+
+[node name="MarginContainer" type="MarginContainer" parent="UpgradeContainer" unique_id=1790832519]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeContainer/MarginContainer" unique_id=1394427613]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ItemName" type="Label" parent="UpgradeContainer/MarginContainer/VBoxContainer" unique_id=639131213]
+z_index = 100
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 72
+text = "Item Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemButton" type="TextureButton" parent="UpgradeContainer/MarginContainer/VBoxContainer" unique_id=1214212720]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_032fp")
+texture_pressed = ExtResource("4_032fp")
+texture_focused = ExtResource("5_2fc2m")
+stretch_mode = 5
+
+[node name="ItemDesc" type="Label" parent="UpgradeContainer/MarginContainer/VBoxContainer" unique_id=731959157]
+z_index = 100
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 60
+text = "Item Desc"
+horizontal_alignment = 1
+vertical_alignment = 1
