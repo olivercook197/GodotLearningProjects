@@ -6,16 +6,24 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var in_motion = false
 var paddle = PlayerPaddle
-var initial_x_spread = 600
+var initial_x_spread = 400
 const initial_speed = 750
-var max_speed = initial_speed
+var level_start_speed
+var max_speed
 var level_won = false
+var speed_change = 0
 
+signal level_started
 
 
 # speed - print(sqrt(velocity.x ** 2 + velocity.y ** 2))
 
 func _ready() -> void:
+	if GlobalVariables.ball_speed != 0:
+		level_start_speed = GlobalVariables.ball_speed - 50
+	else:
+		level_start_speed = initial_speed
+	max_speed = level_start_speed
 	$Sprite2D.visible = false
 
 func _physics_process(delta: float) -> void:
@@ -24,8 +32,9 @@ func _physics_process(delta: float) -> void:
 		go_to_paddle_position.y -= 32
 		position = go_to_paddle_position
 		$Sprite2D.visible = true
-		if Input.is_action_just_pressed("ui_accept"):	# initial ball jumping off
+		if Input.is_action_just_pressed("start_game"):	# initial ball jumping off
 			if !level_won:
+				level_started.emit()
 				position += Vector2(0, -1)
 				var x_velo = randi_range(-initial_x_spread, initial_x_spread)
 				var y_velo = sqrt((max_speed ** 2) - (x_velo ** 2))
@@ -39,19 +48,23 @@ func _physics_process(delta: float) -> void:
 			var collider := collision.get_collider()
 
 			if collider is Brick:	# increase speed when hitting a brick
-				
-				max_speed += change_speed(collider)
+				speed_change = change_speed(collider)
+				max_speed += speed_change
+				GlobalVariables.ball_speed = max_speed
+				GlobalVariables.current_score += speed_change
 				if collider is Brick:
 					collider.on_hit()
 				velocity = velocity.bounce(collision.get_normal())
 			elif collider is PlayerPaddle:	# change bounce depending on paddle position and speed
 				var paddle_width = collider.get_node("CollisionShape2D").shape.size.x
 				var relative_x = position.x - collider.position.x
-				
+				print(paddle_width)
+				var effective_width = min(paddle_width, 300.0)
 				# Normalize hit position to range [-1, 1]
-				var normalized = relative_x / (paddle_width / 2)
+				var normalized = relative_x / (effective_width / 2)
 				normalized = clamp(normalized, -1.0, 1.0)
-
+				
+				normalized = sign(normalized) * pow(abs(normalized), 1.5)
 				# Max bounce angle (in degrees)
 				var max_angle = deg_to_rad(60)
 

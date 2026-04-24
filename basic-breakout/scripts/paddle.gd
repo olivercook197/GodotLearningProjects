@@ -1,4 +1,5 @@
 class_name PlayerPaddle extends CharacterBody2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 
 const SPEED = 2200.0
@@ -19,5 +20,8 @@ func _physics_process(delta: float) -> void:
 		#move_and_slide()
 		pass
 
+func paddle_size():
+	print(GlobalVariables.paddle_x_length)
+	self.scale.x = GlobalVariables.paddle_x_length
 #func _player_colliding():
 #	player_colliding = true

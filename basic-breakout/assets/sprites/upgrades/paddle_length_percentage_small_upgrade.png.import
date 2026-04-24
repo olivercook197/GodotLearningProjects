@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://52kv0ealje5"
-path="res://.godot/imported/ball_speed_up_upgrade.png-759d92eeb1ad5960f3c76194eaec776a.ctex"
+uid="uid://bbao8tbwa885i"
+path="res://.godot/imported/paddle_length_percentage_small_upgrade.png-ea51f3183dd1d9ab5e001c7683549dac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/upgrades/ball_speed_up_upgrade.png"
-dest_files=["res://.godot/imported/ball_speed_up_upgrade.png-759d92eeb1ad5960f3c76194eaec776a.ctex"]
+source_file="res://assets/sprites/upgrades/paddle_length_percentage_small_upgrade.png"
+dest_files=["res://.godot/imported/paddle_length_percentage_small_upgrade.png-ea51f3183dd1d9ab5e001c7683549dac.ctex"]
 
 [params]
 

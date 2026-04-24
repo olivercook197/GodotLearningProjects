@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://t0jbcyec5707"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_lwtl8"]
+[ext_resource type="Texture2D" uid="uid://bbao8tbwa885i" path="res://assets/sprites/upgrades/paddle_length_percentage_small_upgrade.png" id="2_ohykj"]
+
+[resource]
+script = ExtResource("1_lwtl8")
+upgrade_name = "Paddle Length Increase Small"
+upgrade_desc = "Paddle length increases by 10%"
+upgrade_target = 1
+attribute_changed = 1
+number_change = 50.0
+percentage = true
+textures = Array[Texture2D]([ExtResource("2_ohykj")])
+gold_cost = 3
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

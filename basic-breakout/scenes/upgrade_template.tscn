@@ -1,9 +1,18 @@
 [gd_scene format=3 uid="uid://bvjp1u4vbsakd"]
 
-[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://scripts/upgrade_template.gd" id="1_82lir"]
+[sub_resource type="GDScript" id="GDScript_5kda0"]
+script/source = "class_name UpgradeManager
+extends Node2D
 
-[node name="UpgradeTemplate" type="Node2D" unique_id=1048722865]
-script = ExtResource("1_82lir")
-upgrade_target = 2
-attribute_changed = 3
-number_change = 3
+
+func apply_upgrade(upgrade: UpgradeTemplate, target):
+	match upgrade.attribute_changed:
+		UpgradeTemplate.AttributeChanged.SPEED_BALL:
+			target.speed += upgrade.number_change
+
+		UpgradeTemplate.AttributeChanged.LENGTH_PADDLE:
+			target.length += upgrade.number_change
+"
+
+[node name="UpgradeManager" type="Node2D" unique_id=1048722865]
+script = SubResource("GDScript_5kda0")

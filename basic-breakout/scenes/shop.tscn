@@ -1,29 +1,12 @@
 [gd_scene format=3 uid="uid://cykrxgq8alrd2"]
 
 [ext_resource type="Script" uid="uid://cev0rhr8fmqao" path="res://scripts/shop.gd" id="1_lx5au"]
-[ext_resource type="Texture2D" uid="uid://dotul7ovdgy88" path="res://assets/gui/scalable_panel.png" id="2_1l46r"]
-[ext_resource type="Texture2D" uid="uid://52kv0ealje5" path="res://assets/sprites/upgrades/ball_speed_up_upgrade.png" id="3_032fp"]
-[ext_resource type="Texture2D" uid="uid://p2vobfbmpnk1" path="res://assets/sprites/upgrades/ball_speed_up_upgrade_pressed.png" id="4_032fp"]
+[ext_resource type="StyleBox" uid="uid://mv2yh1c7vr2k" path="res://styles/panel_style_box_texture.tres" id="2_ajxib"]
 [ext_resource type="Texture2D" uid="uid://b77vt1bfxdet" path="res://assets/sprites/upgrades/upgrade_empty.png" id="5_2fc2m"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqmqr"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="Theme" id="Theme_2fc2m"]
-Panel/styles/panel = SubResource("StyleBoxFlat_kqmqr")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8r1wq"]
-texture = ExtResource("2_1l46r")
-region_rect = Rect2(50.378, 36.541, 51.005, 39.809)
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="5_8r1wq"]
+[ext_resource type="PackedScene" uid="uid://bsnn4vlv74skv" path="res://scenes/gold_panel_container.tscn" id="5_ajxib"]
+[ext_resource type="Script" uid="uid://r12yuhqe2pmv" path="res://scripts/apply_upgrade.gd" id="7_ajxib"]
+[ext_resource type="Texture2D" uid="uid://bqcbpk4daejcl" path="res://assets/sprites/proceed.png" id="7_y6sft"]
 
 [node name="Shop" type="Node2D" unique_id=873135676]
 script = ExtResource("1_lx5au")
@@ -31,58 +14,63 @@ script = ExtResource("1_lx5au")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1793390718]
 zoom = Vector2(0.5, 0.5)
 
-[node name="UpgradeContainer" type="PanelContainer" parent="." unique_id=1150682030]
-z_index = 100
+[node name="GoldPanelContainer" parent="." unique_id=1896753921 instance=ExtResource("5_ajxib")]
+offset_top = 414.0
+offset_bottom = 481.0
+gold_text_size = 72
+
+[node name="NextLevelContainer" type="PanelContainer" parent="." unique_id=153716866]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -1229.0
-offset_top = -405.0
-offset_right = -448.0
-offset_bottom = -30.0
+offset_left = -110.0
+offset_top = 527.0
+offset_right = 110.0
+offset_bottom = 647.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = SubResource("Theme_2fc2m")
-theme_override_styles/panel = SubResource("StyleBoxTexture_8r1wq")
+theme_override_styles/panel = ExtResource("2_ajxib")
 
-[node name="MarginContainer" type="MarginContainer" parent="UpgradeContainer" unique_id=1790832519]
+[node name="MarginContainer" type="MarginContainer" parent="NextLevelContainer" unique_id=754333847]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 125
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 125
+theme_override_constants/margin_bottom = 70
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeContainer/MarginContainer" unique_id=1394427613]
+[node name="Control" type="Control" parent="NextLevelContainer/MarginContainer" unique_id=1836713117]
 layout_mode = 2
-theme_override_constants/separation = 20
 
-[node name="ItemName" type="Label" parent="UpgradeContainer/MarginContainer/VBoxContainer" unique_id=639131213]
-z_index = 100
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 72
-text = "Item Name"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="TextureButton" type="TextureButton" parent="NextLevelContainer/MarginContainer/Control" unique_id=1770536555]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="ItemButton" type="TextureButton" parent="UpgradeContainer/MarginContainer/VBoxContainer" unique_id=1214212720]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("3_032fp")
-texture_pressed = ExtResource("4_032fp")
-texture_focused = ExtResource("5_2fc2m")
-stretch_mode = 5
+[node name="TextureRect" type="TextureRect" parent="NextLevelContainer/MarginContainer/Control/TextureButton" unique_id=117651582]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("7_y6sft")
 
-[node name="ItemDesc" type="Label" parent="UpgradeContainer/MarginContainer/VBoxContainer" unique_id=731959157]
-z_index = 100
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 60
-text = "Item Desc"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="HoverAnimator" type="Node" parent="NextLevelContainer/MarginContainer/Control" unique_id=973840802]
+script = ExtResource("5_8r1wq")
+press_scale = 0.6
+disabled_texture = ExtResource("5_2fc2m")
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../TextureButton/TextureRect")
+
+[node name="ApplyUpgrade" type="Node" parent="." unique_id=812743779]
+script = ExtResource("7_ajxib")
+
+[connection signal="confirmed" from="NextLevelContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]

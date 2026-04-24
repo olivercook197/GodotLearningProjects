@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://diprgck8e6i3a"]
+
+[ext_resource type="Script" uid="uid://cju221xn7c37m" path="res://scripts/upgrade_container.gd" id="1_myumb"]
+[ext_resource type="Resource" uid="uid://co6tp7m4xjxuv" path="res://upgrades/data/ball_speed_down_flat_medium_upgrade.tres" id="2_1a81d"]
+[ext_resource type="Script" uid="uid://cp254qxxikhrv" path="res://scripts/upgrade_item_name.gd" id="3_1a81d"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="3_ugig1"]
+[ext_resource type="Texture2D" uid="uid://b77vt1bfxdet" path="res://assets/sprites/upgrades/upgrade_empty.png" id="4_uy1w6"]
+[ext_resource type="Texture2D" uid="uid://byuqecwubfbwr" path="res://assets/sprites/upgrades/ball_speed_down_flat_medium_upgrade.tres.png" id="5_h5cb4"]
+[ext_resource type="Script" uid="uid://c6luhofpxqvgq" path="res://scripts/upgrade_item_gold_cost.gd" id="7_ugig1"]
+[ext_resource type="Script" uid="uid://dbgf6ptmasj3e" path="res://scripts/upgrade_handler.gd" id="7_uy1w6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqmqr"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_2fc2m"]
+Panel/styles/panel = SubResource("StyleBoxFlat_kqmqr")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rm3ow"]
+load_path = "res://.godot/imported/scalable_panel.png-7a9ba92372ef312ae92e1c089438d60c.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a212i"]
+texture = SubResource("CompressedTexture2D_rm3ow")
+region_rect = Rect2(50.378, 36.541, 51.005, 39.809)
+
+[node name="UpgradeContainer" type="PanelContainer" unique_id=1612555950]
+z_index = 100
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.5
+offset_top = -221.0
+offset_right = 223.5
+offset_bottom = 221.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = SubResource("Theme_2fc2m")
+theme_override_styles/panel = SubResource("StyleBoxTexture_a212i")
+script = ExtResource("1_myumb")
+data = ExtResource("2_1a81d")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1802509244]
+custom_minimum_size = Vector2(780, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=751213602]
+custom_minimum_size = Vector2(780, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="UpgradeItemName" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1865237309]
+z_index = 100
+custom_minimum_size = Vector2(780, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 70
+text = "Item Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+script = ExtResource("3_1a81d")
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1414917451]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="UpgradeItemButton" type="TextureButton" parent="MarginContainer/VBoxContainer/Control" unique_id=1505068418]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 100)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Control/UpgradeItemButton" unique_id=297759699]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_h5cb4")
+stretch_mode = 3
+
+[node name="HoverAnimator" type="Node" parent="MarginContainer/VBoxContainer/Control" unique_id=1616040089]
+script = ExtResource("3_ugig1")
+press_scale = 0.6
+disabled_texture = ExtResource("4_uy1w6")
+button_path = NodePath("../UpgradeItemButton")
+visual_path = NodePath("../UpgradeItemButton/TextureRect")
+button_has_requirements_to_press = true
+
+[node name="UpgradeHandler" type="Node" parent="MarginContainer/VBoxContainer/Control" unique_id=166363200]
+script = ExtResource("7_uy1w6")
+hover_animator_path = NodePath("../HoverAnimator")
+
+[node name="UpgradeItemGoldCost" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1364596509]
+z_index = 100
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 60
+text = "Item Gold Cost"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_ugig1")
+
+[connection signal="upgrade_clicked_too_expensive" from="MarginContainer/VBoxContainer/Control/UpgradeHandler" to="." method="_on_upgrade_handler_upgrade_clicked_too_expensive"]

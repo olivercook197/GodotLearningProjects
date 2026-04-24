@@ -4,16 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://dotul7ovdgy88" path="res://assets/gui/scalable_panel.png" id="2_bw6k5"]
 [ext_resource type="Script" uid="uid://b40ttpxuluqca" path="res://scripts/game_over_label.gd" id="3_y3j0m"]
 [ext_resource type="Script" uid="uid://cjaibug1vl7j0" path="res://scripts/score_label.gd" id="4_6rsyv"]
-[ext_resource type="Script" uid="uid://m5girvi7aav6" path="res://scripts/gold_label.gd" id="4_kqmqr"]
+[ext_resource type="PackedScene" uid="uid://bsnn4vlv74skv" path="res://scenes/gold_panel_container.tscn" id="5_6rsyv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o5qli"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vfxrd"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bjuba"]
 texture = ExtResource("2_bw6k5")
 region_rect = Rect2(50.378357, 36.54079, 51.00493, 39.808727)
 
 [sub_resource type="Theme" id="Theme_0wfyh"]
-Panel/styles/panel = SubResource("StyleBoxTexture_vfxrd")
+Panel/styles/panel = SubResource("StyleBoxTexture_bjuba")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqmqr"]
 content_margin_left = 0.0
@@ -60,14 +60,6 @@ shape = SubResource("WorldBoundaryShape2D_o5qli")
 position = Vector2(1435, -705)
 rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_o5qli")
-
-[node name="Button" type="Button" parent="CarryThrough" unique_id=623668514]
-offset_left = -784.0
-offset_top = -523.0
-offset_right = -482.0
-offset_bottom = -383.0
-text = "Press
-"
 
 [node name="Camera2D" type="Camera2D" parent="CarryThrough" unique_id=143315439]
 zoom = Vector2(0.5, 0.5)
@@ -122,24 +114,9 @@ text = "Score: 0"
 horizontal_alignment = 1
 script = ExtResource("4_6rsyv")
 
-[node name="GoldPanelContainer" type="PanelContainer" parent="CarryThrough" unique_id=1933441782]
-offset_left = -453.0
+[node name="GoldPanelContainer" parent="CarryThrough" unique_id=1896753921 instance=ExtResource("5_6rsyv")]
 offset_top = -708.0
-offset_right = -272.0
 offset_bottom = -641.0
-
-[node name="Panel2" type="Panel" parent="CarryThrough/GoldPanelContainer" unique_id=1240995179]
-z_index = 99
-layout_mode = 2
-theme = SubResource("Theme_0wfyh")
-
-[node name="GoldLabel" type="Label" parent="CarryThrough/GoldPanelContainer" unique_id=1216427516]
-z_index = 100
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "Score: 0"
-horizontal_alignment = 1
-script = ExtResource("4_kqmqr")
 
 [node name="LevelWin" type="Node2D" parent="CarryThrough" unique_id=1168112625]
 
@@ -186,7 +163,23 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 72
 text = "Proceed"
 
+[node name="StartGameLabel" type="Label" parent="CarryThrough" unique_id=322705769]
+z_index = 100
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = 131.0
+offset_right = 285.0
+offset_bottom = 214.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 60
+text = "Press Space to start"
+horizontal_alignment = 1
+
 [connection signal="body_entered" from="CarryThrough/WorldBorder" to="." method="_on_world_border_body_entered"]
-[connection signal="pressed" from="CarryThrough/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CarryThrough/GameOver/Panel/GameOverButton" to="." method="_on_game_over_button_pressed"]
 [connection signal="pressed" from="CarryThrough/LevelWin/PanelContainer/MarginContainer/VBoxContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]
