@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://e6e34qc12hoc"]
+
+[ext_resource type="Texture2D" uid="uid://dotul7ovdgy88" path="res://assets/gui/scalable_panel.png" id="1_1nsr2"]
+[ext_resource type="Script" uid="uid://dcswocroa7wgc" path="res://scripts/score_panel_container.gd" id="1_m6qk3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bjuba"]
+texture = ExtResource("1_1nsr2")
+region_rect = Rect2(50.378357, 36.54079, 51.00493, 39.808727)
+
+[sub_resource type="Theme" id="Theme_0wfyh"]
+Panel/styles/panel = SubResource("StyleBoxTexture_bjuba")
+
+[node name="ScorePanelContainer" type="PanelContainer" unique_id=551707213]
+offset_left = -1167.0
+offset_top = -708.0
+offset_right = -986.0
+offset_bottom = -641.0
+script = ExtResource("1_m6qk3")
+
+[node name="Panel2" type="Panel" parent="." unique_id=2054444579]
+z_index = 99
+layout_mode = 2
+theme = SubResource("Theme_0wfyh")
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=2003218447]
+z_index = 100
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Score: 0"
+horizontal_alignment = 1

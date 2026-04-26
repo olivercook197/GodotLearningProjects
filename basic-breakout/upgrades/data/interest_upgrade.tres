@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://byn70cyonf0ut"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_yticx"]
+[ext_resource type="Texture2D" uid="uid://by1lhbcaao6k4" path="res://assets/sprites/upgrades/interest_upgrade.png" id="2_xvf7q"]
+
+[resource]
+script = ExtResource("1_yticx")
+upgrade_name = "Gain Interest"
+upgrade_desc = "When leaving the shop, gain 1 interest per 10 unspent gold"
+upgrade_target = 3
+attribute_changed = 6
+number_change = 1.0
+textures = Array[Texture2D]([ExtResource("2_xvf7q")])
+gold_cost = 1
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

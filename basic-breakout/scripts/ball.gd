@@ -20,7 +20,7 @@ signal level_started
 
 func _ready() -> void:
 	if GlobalVariables.ball_speed != 0:
-		level_start_speed = GlobalVariables.ball_speed - 50
+		level_start_speed = GlobalVariables.ball_speed - GlobalVariables.speed_decrease_on_level_start
 	else:
 		level_start_speed = initial_speed
 	max_speed = level_start_speed
@@ -48,17 +48,21 @@ func _physics_process(delta: float) -> void:
 			var collider := collision.get_collider()
 
 			if collider is Brick:	# increase speed when hitting a brick
+				
 				speed_change = change_speed(collider)
-				max_speed += speed_change
+				if GlobalVariables.score_without_speed < randf() * 100:
+					max_speed += speed_change[1]
+				else:
+					print("Speed no added")
 				GlobalVariables.ball_speed = max_speed
-				GlobalVariables.current_score += speed_change
+				GlobalVariables.current_score += speed_change[0]
 				if collider is Brick:
 					collider.on_hit()
 				velocity = velocity.bounce(collision.get_normal())
+				print(GlobalVariables.ball_speed)
 			elif collider is PlayerPaddle:	# change bounce depending on paddle position and speed
 				var paddle_width = collider.get_node("CollisionShape2D").shape.size.x
 				var relative_x = position.x - collider.position.x
-				print(paddle_width)
 				var effective_width = min(paddle_width, 300.0)
 				# Normalize hit position to range [-1, 1]
 				var normalized = relative_x / (effective_width / 2)
@@ -99,18 +103,9 @@ func ball_reset():
 	in_motion = false
 
 func change_speed(collider):
-	if collider.animated_sprite_2d.frame == 0:
-		GlobalVariables.gold += GlobalVariables.brick_gold_value[0]
-		return GlobalVariables.brick_score_value[0]
-	elif collider.animated_sprite_2d.frame == 1:
-		GlobalVariables.gold += GlobalVariables.brick_gold_value[0]
-		return GlobalVariables.brick_score_value[1]
-	elif collider.animated_sprite_2d.frame == 2:
-		GlobalVariables.gold += GlobalVariables.brick_gold_value[0]
-		return GlobalVariables.brick_score_value[2]
-	elif collider.animated_sprite_2d.frame == 3:
-		GlobalVariables.gold += GlobalVariables.brick_gold_value[0]
-		return GlobalVariables.brick_score_value[3]
-	elif collider.animated_sprite_2d.frame == 4:
-		GlobalVariables.gold += GlobalVariables.brick_gold_value[0]
-		return GlobalVariables.brick_score_value[4]
+	var frame = collider.animated_sprite_2d.frame
+	
+	
+	GlobalVariables.gold += GlobalVariables.brick_gold_value[frame] * GlobalVariables.gold_multiplier
+	return [GlobalVariables.brick_score_value[frame], GlobalVariables.brick_speed_value[frame]]
+	

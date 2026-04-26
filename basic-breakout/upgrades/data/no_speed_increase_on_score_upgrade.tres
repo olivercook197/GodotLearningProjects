@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://bxsrp82yfmq5e"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_4uegf"]
+[ext_resource type="Texture2D" uid="uid://xyg4n3v006yf" path="res://assets/sprites/upgrades/no_speed_increase_on_score_upgrade.png" id="2_x51qv"]
+
+[resource]
+script = ExtResource("1_4uegf")
+upgrade_name = "Score Not Speed"
+upgrade_desc = "Adds a 5% chance of hitting a brick not increasing score"
+upgrade_target = 3
+attribute_changed = 7
+number_change = 5.0
+textures = Array[Texture2D]([ExtResource("2_x51qv")])
+gold_cost = 1
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

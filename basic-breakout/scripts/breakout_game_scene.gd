@@ -5,35 +5,35 @@ const PADDLE = preload("uid://tbgughlh81ae")
 const BALL = preload("uid://cuaeu3do68vtt")
 const BRICK = preload("uid://yuqauunfvg2t")
 const LIVES = preload("uid://v36pc1cur2mv")
+const POWERUP = preload("uid://cntm4nhm84n3n")
+const TEN_SECOND_TIMER = preload("uid://8ik8vqkn7hep")
+
 @onready var world_border: Area2D = $WorldBorder
 @onready var game_over_panel: Panel = $CarryThrough/GameOver/Panel
 @onready var level_win_panel: PanelContainer = $CarryThrough/LevelWin/PanelContainer
-@onready var score_label: Label = $CarryThrough/ScorePanelContainer/ScoreLabel
+@onready var score_label: PanelContainer = $CarryThrough/ScorePanelContainer
 @onready var game_over_label: Label = $CarryThrough/GameOver/Panel/GameOverLabel
 @onready var carry_through: Node2D = $CarryThrough
 @onready var gold_label: Label = $CarryThrough/GoldPanelContainer/GoldLabel
 @onready var start_game_label: Label = $CarryThrough/StartGameLabel
+@onready var life_manager: Node = $CarryThrough/LifeManager
 
 signal go_to_shop
 
 var main_ball = BALL
-var list_of_lives := []
 var score := 0
 var brick_count := 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in 3:
-		instantiate_lives(Vector2(794 + 75 * i, -675))
-	if GlobalVariables.current_score == 0 and GlobalVariables.gold == 0:
-		GlobalVariables.set_variables()
+	
 	start_scene()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug_reset"):
 			GlobalVariables.set_variables()
-			start_scene()
+			go_to_shop.emit()
 	elif Input.is_action_just_pressed("clear_all_bricks"):
 		print("Clear")
 		
@@ -57,7 +57,6 @@ func instantiate_boundary(rect):
 func instantiate_paddle(paddle_position):
 	var paddle = PADDLE.instantiate()
 	paddle.position = paddle_position
-	print(GlobalVariables.paddle_x_length)
 	paddle.paddle_size()
 	add_child(paddle)
 	
@@ -81,12 +80,12 @@ func instantiate_brick(pos: Vector2, sprite: int):
 	brick.hit.connect(_on_brick_hit)
 	brick.destroyed.connect(_on_brick_destroyed)
 
-func instantiate_lives(pos: Vector2):
-	var life := LIVES.instantiate()
-	life.position = pos
-	life.z_index = 50
-	carry_through.add_child(life)
-	list_of_lives.append(life)
+func instantiate_powerup(pos: Vector2) -> void:
+	var powerup = POWERUP.instantiate()
+	powerup.position = pos
+	add_child(powerup)
+	powerup.powerup_collected.connect(_on_powerup_collected)
+	powerup.add_to_group("powerup")
 
 func _on_button_pressed() -> void:
 	$CarryThrough/Camera2D.zoom *= 0.5
@@ -97,14 +96,14 @@ func _on_boundary_player_colliding():
 func _on_brick_hit(body):
 	if not body.is_in_group("bricks"):
 		return	# ignore non-brick collisions
-	#score += main_ball.max_speed - main_ball.level_start_speed
-	
-	#GlobalVariables.score_updated()
 	gold_label.update_gold()
-	score_label.update_score(GlobalVariables.current_score)
+	score_label.update_score()
 
-func _on_brick_destroyed():
+func _on_brick_destroyed(position: Vector2):
 	brick_count -= 1
+	if randf() * 100 < GlobalVariables.powerup_chance:
+		instantiate_powerup(position)
+		print(position)
 	if brick_count == 0:
 		level_win_panel.visible = true
 		main_ball.in_motion = false
@@ -112,18 +111,22 @@ func _on_brick_destroyed():
 
 func start_scene():
 	start_game_label.visible = true
+	start_game_label.text = str("Level " + str(GlobalVariables.level) + ": Press Space to start")
 	game_over_panel.visible = false
 	level_win_panel.visible = false
 	for child in get_children():
 		if child != carry_through:
 			child.queue_free()
-	for life in list_of_lives:
-		life.frame = 0
-	GlobalVariables.remaining_lives = 3
+	
+	for i in GlobalVariables.max_lives:
+		life_manager.add_lives_to_scene()
+	
 	score = 0
 	brick_count = 0
-	score_label.update_score(GlobalVariables.current_score)
+	score_label.update_score()
 	gold_label.update_gold()
+
+	
 	var window_size = Vector2(DisplayServer.window_get_size())
 	var zoom = $CarryThrough/Camera2D.zoom
 	var world_size = window_size / zoom
@@ -152,19 +155,15 @@ func start_scene():
 	instantiate_ball()
 	for i in 10:
 		for j in 4:
-			
-			var brick_position = Vector2(-4.5 * 248 + i * 248, -50 -j * 175)
+			var brick_position = Vector2(-4.5 * 248 + i * 248, -60 -j * 170)
 			instantiate_brick(brick_position, j)
 
 func _on_world_border_body_entered(body: Node2D) -> void:
 	if GlobalVariables.remaining_lives != 0:
-		var finalised_life_lost = false
-		for life in list_of_lives:
-			if life.frame == 0:
-				life.frame = 1
-				GlobalVariables.remaining_lives -= 1
-				break
-
+		life_manager.remove_life()
+		for powerup in get_tree().get_nodes_in_group("powerup"):
+			powerup.queue_free()
+	
 	if GlobalVariables.remaining_lives == 0:
 		GlobalVariables.high_score_updated(GlobalVariables.current_score)
 		game_over_label.display_high_score()
@@ -174,7 +173,7 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 
 func _on_game_over_button_pressed() -> void:
 	GlobalVariables.set_variables()
-	start_scene()
+	go_to_shop.emit()
 
 func _on_next_level_button_pressed() -> void:
 	go_to_shop.emit()
@@ -182,3 +181,29 @@ func _on_next_level_button_pressed() -> void:
 
 func _level_started():
 	start_game_label.visible = false
+
+func _on_powerup_collected(powerup):
+	if powerup == 0:
+		
+		if GlobalVariables.remaining_lives < GlobalVariables.max_lives:
+			print("Extra Life")
+			GlobalVariables.remaining_lives += 1
+			for i in GlobalVariables.max_lives:
+				life_manager.add_lives_to_scene()
+	elif powerup == 1:
+		print("Free Money")
+		GlobalVariables.gold += 10
+		gold_label.update_gold()
+	elif powerup == 2:
+		var timer: Timer = TEN_SECOND_TIMER.instantiate()
+		timer.timeout.connect(_double_money_timer_timeout)
+		GlobalVariables.gold_multiplier += 1
+		add_child(timer)
+		print("Double Money for a bit")
+	elif powerup == 3:
+		pass
+	pass
+
+func _double_money_timer_timeout() -> void:
+	GlobalVariables.gold_multiplier -= 1
+	pass

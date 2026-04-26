@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://diprgck8e6i3a"]
 
 [ext_resource type="Script" uid="uid://cju221xn7c37m" path="res://scripts/upgrade_container.gd" id="1_myumb"]
-[ext_resource type="Resource" uid="uid://co6tp7m4xjxuv" path="res://upgrades/data/ball_speed_down_flat_medium_upgrade.tres" id="2_1a81d"]
+[ext_resource type="Resource" uid="uid://co6tp7m4xjxuv" path="res://upgrades/data/ball_speed_down_flat_high_upgrade.tres" id="2_1a81d"]
 [ext_resource type="Script" uid="uid://cp254qxxikhrv" path="res://scripts/upgrade_item_name.gd" id="3_1a81d"]
 [ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="3_ugig1"]
 [ext_resource type="Texture2D" uid="uid://b77vt1bfxdet" path="res://assets/sprites/upgrades/upgrade_empty.png" id="4_uy1w6"]
-[ext_resource type="Texture2D" uid="uid://byuqecwubfbwr" path="res://assets/sprites/upgrades/ball_speed_down_flat_medium_upgrade.tres.png" id="5_h5cb4"]
+[ext_resource type="Texture2D" uid="uid://byuqecwubfbwr" path="res://assets/sprites/upgrades/ball_speed_down_flat_large_upgrade.tres.png" id="5_h5cb4"]
 [ext_resource type="Script" uid="uid://c6luhofpxqvgq" path="res://scripts/upgrade_item_gold_cost.gd" id="7_ugig1"]
 [ext_resource type="Script" uid="uid://dbgf6ptmasj3e" path="res://scripts/upgrade_handler.gd" id="7_uy1w6"]
 

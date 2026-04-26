@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://e54pji0xgq5a"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_cprvb"]
+[ext_resource type="Texture2D" uid="uid://fi3q5y1tm1wi" path="res://assets/sprites/upgrades/ball_speed_down_flat_small_upgrade.tres.png" id="2_cprvb"]
+
+[resource]
+script = ExtResource("1_cprvb")
+upgrade_name = "Ball Speed Down"
+upgrade_desc = "Reduces ball speed by 50"
+number_change = -50.0
+textures = Array[Texture2D]([ExtResource("2_cprvb")])
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

@@ -1,4 +1,6 @@
-extends Label
+extends PanelContainer
+
+@onready var score_label: Label = $ScoreLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,6 +11,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func update_score(score):
-	self.text = ("Score: " + str(score))
+func update_score():
+	score_label.text = ("Score: " + str(GlobalVariables.current_score))
 	

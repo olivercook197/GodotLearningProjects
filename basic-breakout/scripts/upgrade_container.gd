@@ -18,6 +18,8 @@ signal upgrade_selected_too_expensive
 func _ready() -> void:
 	assert(data != null, "UpgradeContainer: No data assigned")
 	assert(upgrade_handler != null, "UpgradeContainer: UpgradeHandler missing")
+	
+	upgrade_handler.data = data
 
 	calculate_gold_costs()
 	initial_ui_setting()
@@ -47,7 +49,7 @@ func calculate_gold_costs():
 		gold_cost * GlobalVariables.gold_costs[data.gold_cost] * GlobalVariables.inflation
 	))
 
-	# pass cost into handler (NEW WAY)
+	# pass cost into handler
 	upgrade_handler.cost = int_gold_cost
 
 	# update UI display
@@ -71,9 +73,10 @@ func upgrade_bought_logic():
 	pass
 
 func upgrade_bought_ui_updates():
-	item_name_label.text = "Sold Out"
-	item_name_label.fit_text(item_name_label.text)
-	gold_cost_label.text = ""
+	if data.attribute_changed != 8:
+		item_name_label.text = "Sold Out"
+		item_name_label.fit_text(item_name_label.text)
+		gold_cost_label.text = ""
 
 
 func _on_upgrade_handler_upgrade_clicked_too_expensive() -> void:

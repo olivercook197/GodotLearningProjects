@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://bc6s4qovutd6t"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_maena"]
+[ext_resource type="Texture2D" uid="uid://cc25v2kf18rl2" path="res://assets/sprites/upgrades/extra_life_upgrade.png" id="2_v284s"]
+
+[resource]
+script = ExtResource("1_maena")
+upgrade_name = "Extra Life"
+upgrade_desc = "Gain a permanent extra life"
+upgrade_target = 3
+attribute_changed = 5
+number_change = 1.0
+textures = Array[Texture2D]([ExtResource("2_v284s")])
+gold_cost = 3
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

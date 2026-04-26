@@ -21,7 +21,6 @@ func _physics_process(delta: float) -> void:
 		pass
 
 func paddle_size():
-	print(GlobalVariables.paddle_x_length)
 	self.scale.x = GlobalVariables.paddle_x_length
 #func _player_colliding():
 #	player_colliding = true

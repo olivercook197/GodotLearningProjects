@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://ce45x1ewd7qmh" path="res://scripts/breakout_game_scene.gd" id="1_ycayy"]
 [ext_resource type="Texture2D" uid="uid://dotul7ovdgy88" path="res://assets/gui/scalable_panel.png" id="2_bw6k5"]
 [ext_resource type="Script" uid="uid://b40ttpxuluqca" path="res://scripts/game_over_label.gd" id="3_y3j0m"]
-[ext_resource type="Script" uid="uid://cjaibug1vl7j0" path="res://scripts/score_label.gd" id="4_6rsyv"]
+[ext_resource type="PackedScene" uid="uid://e6e34qc12hoc" path="res://scenes/score_panel_container.tscn" id="4_bjuba"]
 [ext_resource type="PackedScene" uid="uid://bsnn4vlv74skv" path="res://scenes/gold_panel_container.tscn" id="5_6rsyv"]
+[ext_resource type="PackedScene" uid="uid://ckjkx1p1yic24" path="res://scenes/life_manager.tscn" id="6_bjuba"]
+[ext_resource type="PackedScene" uid="uid://8ik8vqkn7hep" path="res://scenes/ten_second_timer.tscn" id="7_hpu5y"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o5qli"]
 
@@ -95,24 +97,7 @@ offset_bottom = 445.0
 theme_override_font_sizes/font_size = 72
 text = "Restart"
 
-[node name="ScorePanelContainer" type="PanelContainer" parent="CarryThrough" unique_id=1479412110]
-offset_left = -1167.0
-offset_top = -708.0
-offset_right = -986.0
-offset_bottom = -641.0
-
-[node name="Panel2" type="Panel" parent="CarryThrough/ScorePanelContainer" unique_id=1416580211]
-z_index = 99
-layout_mode = 2
-theme = SubResource("Theme_0wfyh")
-
-[node name="ScoreLabel" type="Label" parent="CarryThrough/ScorePanelContainer" unique_id=761184301]
-z_index = 100
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "Score: 0"
-horizontal_alignment = 1
-script = ExtResource("4_6rsyv")
+[node name="ScorePanelContainer" parent="CarryThrough" unique_id=551707213 instance=ExtResource("4_bjuba")]
 
 [node name="GoldPanelContainer" parent="CarryThrough" unique_id=1896753921 instance=ExtResource("5_6rsyv")]
 offset_top = -708.0
@@ -179,6 +164,10 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 60
 text = "Press Space to start"
 horizontal_alignment = 1
+
+[node name="LifeManager" parent="CarryThrough" unique_id=568853142 instance=ExtResource("6_bjuba")]
+
+[node name="TenSecondTimer" parent="." unique_id=557367407 instance=ExtResource("7_hpu5y")]
 
 [connection signal="body_entered" from="CarryThrough/WorldBorder" to="." method="_on_world_border_body_entered"]
 [connection signal="pressed" from="CarryThrough/GameOver/Panel/GameOverButton" to="." method="_on_game_over_button_pressed"]

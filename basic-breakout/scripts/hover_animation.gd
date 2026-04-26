@@ -81,7 +81,7 @@ func _on_button_up():
 	update_visual()
 	
 	if is_hovered:
-		confirmed.emit()
+		confirmed.emit(button)
 
 func reject_press():
 	is_pressed = false

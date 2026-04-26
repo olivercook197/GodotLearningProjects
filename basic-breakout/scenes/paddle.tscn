@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://onced2swminv" path="res://assets/sprites/paddle.png" id="1_3xiby"]
 [ext_resource type="Script" uid="uid://cfk8775c023gs" path="res://scripts/paddle.gd" id="1_y7wee"]
+[ext_resource type="PackedScene" uid="uid://42cjmq6vyxf4" path="res://scenes/paddle_side_panel.tscn" id="3_mo4dg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7wee"]
 size = Vector2(340, 18)
@@ -15,3 +16,10 @@ shape = SubResource("RectangleShape2D_y7wee")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=922072975]
 texture = ExtResource("1_3xiby")
+
+[node name="PaddleSidePanel" parent="." unique_id=1806735412 instance=ExtResource("3_mo4dg")]
+position = Vector2(-230, 0)
+
+[node name="PaddleSidePanel2" parent="." unique_id=869655087 instance=ExtResource("3_mo4dg")]
+position = Vector2(230, 0)
+flip_h = true

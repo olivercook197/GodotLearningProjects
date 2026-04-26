@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://c6fhvqbvdij22"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_qgpx6"]
+[ext_resource type="Texture2D" uid="uid://nob7nfvwy225" path="res://assets/sprites/upgrades/gain_life.png" id="2_cxg82"]
+
+[resource]
+script = ExtResource("1_qgpx6")
+upgrade_name = "Gain Life"
+upgrade_desc = "Refill 1 heart container"
+upgrade_target = 3
+attribute_changed = 8
+number_change = 1.0
+textures = Array[Texture2D]([ExtResource("2_cxg82")])
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

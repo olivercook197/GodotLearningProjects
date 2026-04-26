@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://co6tp7m4xjxuv"]
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://cifmvup22u0lt"]
 
 [ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_rspto"]
-[ext_resource type="Texture2D" uid="uid://byuqecwubfbwr" path="res://assets/sprites/upgrades/ball_speed_down_flat_medium_upgrade.tres.png" id="2_5b57c"]
+[ext_resource type="Texture2D" uid="uid://cepvwn1d4tfk0" path="res://assets/sprites/upgrades/ball_speed_down_flat_medium_upgrade.tres.png" id="2_5b57c"]
 
 [resource]
 script = ExtResource("1_rspto")
