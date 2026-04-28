@@ -4,6 +4,7 @@ extends PanelContainer
 
 @onready var item_name_label: Label = $MarginContainer/VBoxContainer/UpgradeItemName
 @onready var gold_cost_label: Label = $MarginContainer/VBoxContainer/UpgradeItemGoldCost
+@onready var hover_gold_visual: Node = $MarginContainer/VBoxContainer/Control/HoverGoldVisual
 
 @onready var button: TextureButton = $MarginContainer/VBoxContainer/Control/UpgradeItemButton
 @onready var visual: TextureRect = button.get_child(0)
@@ -14,6 +15,9 @@ var int_gold_cost: int = 0
 
 signal upgrade_selected(data: UpgradeTemplate, paid_cost: int)
 signal upgrade_selected_too_expensive
+
+signal hovered
+signal stopped_hovering
 
 func _ready() -> void:
 	assert(data != null, "UpgradeContainer: No data assigned")
@@ -51,6 +55,7 @@ func calculate_gold_costs():
 
 	# pass cost into handler
 	upgrade_handler.cost = int_gold_cost
+	hover_gold_visual.cost = int_gold_cost
 
 	# update UI display
 	if !button.disabled:
@@ -81,4 +86,14 @@ func upgrade_bought_ui_updates():
 
 func _on_upgrade_handler_upgrade_clicked_too_expensive() -> void:
 	upgrade_selected_too_expensive.emit()
+	pass # Replace with function body.
+
+
+func _on_hover_gold_visual_hovered() -> void:
+	hovered.emit(int_gold_cost)
+	pass # Replace with function body.
+
+
+func _on_hover_gold_visual_stopped_hovering() -> void:
+	stopped_hovering.emit()
 	pass # Replace with function body.

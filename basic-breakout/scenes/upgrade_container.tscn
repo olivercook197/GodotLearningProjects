@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://byuqecwubfbwr" path="res://assets/sprites/upgrades/ball_speed_down_flat_large_upgrade.tres.png" id="5_h5cb4"]
 [ext_resource type="Script" uid="uid://c6luhofpxqvgq" path="res://scripts/upgrade_item_gold_cost.gd" id="7_ugig1"]
 [ext_resource type="Script" uid="uid://dbgf6ptmasj3e" path="res://scripts/upgrade_handler.gd" id="7_uy1w6"]
+[ext_resource type="Script" uid="uid://c8wlk5bmlf2j2" path="res://scripts/hover_gold_visual.gd" id="8_h5cb4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqmqr"]
 content_margin_left = 0.0
@@ -125,6 +126,10 @@ button_has_requirements_to_press = true
 script = ExtResource("7_uy1w6")
 hover_animator_path = NodePath("../HoverAnimator")
 
+[node name="HoverGoldVisual" type="Node" parent="MarginContainer/VBoxContainer/Control" unique_id=1428967097]
+script = ExtResource("8_h5cb4")
+button_path = NodePath("../UpgradeItemButton")
+
 [node name="UpgradeItemGoldCost" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1364596509]
 z_index = 100
 layout_mode = 2
@@ -136,3 +141,5 @@ vertical_alignment = 1
 script = ExtResource("7_ugig1")
 
 [connection signal="upgrade_clicked_too_expensive" from="MarginContainer/VBoxContainer/Control/UpgradeHandler" to="." method="_on_upgrade_handler_upgrade_clicked_too_expensive"]
+[connection signal="hovered" from="MarginContainer/VBoxContainer/Control/HoverGoldVisual" to="." method="_on_hover_gold_visual_hovered"]
+[connection signal="stopped_hovering" from="MarginContainer/VBoxContainer/Control/HoverGoldVisual" to="." method="_on_hover_gold_visual_stopped_hovering"]

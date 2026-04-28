@@ -25,3 +25,13 @@ func flash():
 	#tween = create_tween()
 	#tween.tween_property(self, "scale", 1.1, 0.1)
 	#tween.parallel().tween_property(self, "modulate", too_expensive_colour, 0.1)
+
+
+func _on_upgrade_handler_upgrade_clicked_too_expensive() -> void:
+	flash()
+	pass # Replace with function body.
+
+func show_potential_gold(gold_cost: int):
+	print(gold_cost)
+	gold_label.indicate_future_gold(gold_cost)
+	pass

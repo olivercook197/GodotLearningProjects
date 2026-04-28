@@ -29,8 +29,10 @@ const initial_score_without_speed = 0
 var score_without_speed
 const initial_speed_decrease_on_level_start = 50
 var speed_decrease_on_level_start
-const initial_powerup_chance = 55
+const initial_powerup_chance = 45
 var powerup_chance
+const initial_brick_change_chance = [0, 0, 0, 0]
+var brick_change_chance
 
 # gold costs
 const initial_inflation : float = 1
@@ -71,6 +73,7 @@ func set_variables():
 	
 	speed_decrease_on_level_start = initial_speed_decrease_on_level_start
 	powerup_chance = initial_powerup_chance
+	brick_change_chance = initial_brick_change_chance
 	
 	inflation = initial_inflation
 	inflation_rate = initial_inflation_rate

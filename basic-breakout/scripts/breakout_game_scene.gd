@@ -24,6 +24,8 @@ var main_ball = BALL
 var score := 0
 var brick_count := 0
 
+var paddle_timer: Timer = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
@@ -33,7 +35,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug_reset"):
 			GlobalVariables.set_variables()
+			remove_panels_hitbox()
 			go_to_shop.emit()
+			
 	elif Input.is_action_just_pressed("clear_all_bricks"):
 		print("Clear")
 		
@@ -50,6 +54,7 @@ func _process(delta: float) -> void:
 func instantiate_boundary(rect):
 	var border = BOUNDARY.instantiate()
 	border.set_position_and_size(rect)
+	print(rect)
 	border.player_colliding.connect(_on_boundary_player_colliding)
 	border.process_physics_priority = 10
 	add_child(border)
@@ -57,8 +62,10 @@ func instantiate_boundary(rect):
 func instantiate_paddle(paddle_position):
 	var paddle = PADDLE.instantiate()
 	paddle.position = paddle_position
-	paddle.paddle_size()
 	add_child(paddle)
+	paddle.paddle_size()
+	paddle.add_to_group("paddle")
+	
 	
 func instantiate_ball():
 	var ball = BALL.instantiate()
@@ -131,19 +138,34 @@ func start_scene():
 	var zoom = $CarryThrough/Camera2D.zoom
 	var world_size = window_size / zoom
 	
+	#var rect1 = Rect2(
+	#Vector2(0, -world_size[1] / 2 + 10),
+	#Vector2(world_size[0] + 40, 150)
+	#)
+#
+	#var rect2 = Rect2(
+	#Vector2(-world_size[0] / 2, 0),
+	#Vector2(60, world_size[1] + 40)
+	#)
+	#
+	#var rect3 = Rect2(
+	#Vector2(world_size[0] / 2, 0),
+	#Vector2(60, world_size[1] + 40)
+	#)
+	
 	var rect1 = Rect2(
-	Vector2(0, -world_size[1] / 2 + 10),
-	Vector2(world_size[0] + 40, 150)
+	Vector2(0, -710),
+	Vector2(2600, 150)
 	)
 
 	var rect2 = Rect2(
-	Vector2(-world_size[0] / 2, 0),
-	Vector2(60, world_size[1] + 40)
+	Vector2(-1280, 0),
+	Vector2(60, 1480)
 	)
 	
 	var rect3 = Rect2(
-	Vector2(world_size[0] / 2, 0),
-	Vector2(60, world_size[1] + 40)
+	Vector2(1280, 0),
+	Vector2(60, 1480)
 	)
 	
 	instantiate_boundary(rect1)
@@ -156,7 +178,56 @@ func start_scene():
 	for i in 10:
 		for j in 4:
 			var brick_position = Vector2(-4.5 * 248 + i * 248, -60 -j * 170)
-			instantiate_brick(brick_position, j)
+			var add_brick = choose_brick_to_add(j)
+			instantiate_brick(brick_position, add_brick)
+
+func choose_brick_to_add(preferred_brick):
+	if GlobalVariables.brick_change_chance == [0, 0, 0, 0]:
+		return preferred_brick
+		
+	var base_weights = GlobalVariables.brick_change_chance
+	var size = base_weights.size()
+	
+	var preferred_boost = 1.0
+	var bias_power = 7.5
+	
+	var scores = []
+	
+	for j in range(size):
+		var score = 0.0
+		
+		var bias = base_weights[j] / 80.0
+		
+		# Preferred node
+		if j == preferred_brick:
+			score += preferred_boost
+		
+		# Only biased nodes can steal
+		if bias > 0:
+			var distance = abs(j - preferred_brick)
+			var decay = pow(0.1, distance)
+			
+			score += bias_power * bias * decay
+		
+		scores.append(score)
+	
+	# Normalize and pick
+	var total = 0.0
+	for s in scores:
+		total += s
+	
+	if total == 0:
+		return preferred_brick
+	
+	var r = randf() * total
+	var cumulative = 0.0
+	
+	for i in range(size):
+		cumulative += scores[i]
+		if r <= cumulative:
+			return i
+	
+	return preferred_brick
 
 func _on_world_border_body_entered(body: Node2D) -> void:
 	if GlobalVariables.remaining_lives != 0:
@@ -173,9 +244,11 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 
 func _on_game_over_button_pressed() -> void:
 	GlobalVariables.set_variables()
+	remove_panels_hitbox()
 	go_to_shop.emit()
 
 func _on_next_level_button_pressed() -> void:
+	remove_panels_hitbox()
 	go_to_shop.emit()
 	pass # Replace with function body.
 
@@ -201,9 +274,28 @@ func _on_powerup_collected(powerup):
 		add_child(timer)
 		print("Double Money for a bit")
 	elif powerup == 3:
-		pass
-	pass
+		if paddle_timer == null or not is_instance_valid(paddle_timer):
+			paddle_timer = TEN_SECOND_TIMER.instantiate()
+			paddle_timer.wait_time = 20
+			paddle_timer.one_shot = true
+			paddle_timer.timeout.connect(_paddle_extension_timeout)
+			add_child(paddle_timer)
+			
+		paddle_timer.start()
+		
+		for paddle in get_tree().get_nodes_in_group("paddle"):
+			paddle.enable_side_panels()
+		print("Longer paddles")
+
 
 func _double_money_timer_timeout() -> void:
 	GlobalVariables.gold_multiplier -= 1
 	pass
+
+func _paddle_extension_timeout() -> void:
+	for paddle in get_tree().get_nodes_in_group("paddle"):
+			paddle.disable_side_panels()
+
+func remove_panels_hitbox() -> void:
+	for paddle in get_tree().get_nodes_in_group("paddle"):
+			paddle.remove_panel_hitbox()

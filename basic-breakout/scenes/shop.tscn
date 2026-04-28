@@ -8,10 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://be6ecnejeplmw" path="res://assets/sprites/upgrades/reroll_empty.png" id="6_24it5"]
 [ext_resource type="Texture2D" uid="uid://d2ddfpven1tug" path="res://assets/sprites/reroll.png" id="7_44xle"]
 [ext_resource type="Script" uid="uid://r12yuhqe2pmv" path="res://scripts/apply_upgrade.gd" id="7_ajxib"]
+[ext_resource type="Script" uid="uid://xbgkxo0pn33n" path="res://scripts/reroll_upgrade_container.gd" id="7_j14q8"]
 [ext_resource type="Texture2D" uid="uid://bqcbpk4daejcl" path="res://assets/sprites/proceed.png" id="7_y6sft"]
 [ext_resource type="PackedScene" uid="uid://e6e34qc12hoc" path="res://scenes/score_panel_container.tscn" id="8_y6sft"]
+[ext_resource type="Script" uid="uid://dbgf6ptmasj3e" path="res://scripts/upgrade_handler.gd" id="9_7mqwv"]
 [ext_resource type="PackedScene" uid="uid://ckjkx1p1yic24" path="res://scenes/life_manager.tscn" id="9_m4ofw"]
 [ext_resource type="PackedScene" uid="uid://diprgck8e6i3a" path="res://scenes/upgrade_container.tscn" id="10_1v8qu"]
+[ext_resource type="Script" uid="uid://c8wlk5bmlf2j2" path="res://scripts/hover_gold_visual.gd" id="10_gobkm"]
 [ext_resource type="Resource" uid="uid://c6fhvqbvdij22" path="res://upgrades/unique_data/gain_life.tres" id="11_44xle"]
 
 [node name="Shop" type="Node2D" unique_id=873135676]
@@ -98,6 +101,7 @@ offset_bottom = 364.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_ajxib")
+script = ExtResource("7_j14q8")
 
 [node name="MarginContainer" type="MarginContainer" parent="RerollUpgradeContainer" unique_id=1539426670]
 layout_mode = 2
@@ -149,6 +153,16 @@ press_scale = 0.6
 disabled_texture = ExtResource("6_24it5")
 button_path = NodePath("../RerollUpgradeButton")
 visual_path = NodePath("../RerollUpgradeButton/TextureRect")
+button_has_requirements_to_press = true
+
+[node name="UpgradeHandler" type="Node" parent="RerollUpgradeContainer/MarginContainer/Control" unique_id=1062121364]
+script = ExtResource("9_7mqwv")
+hover_animator_path = NodePath("../HoverAnimator")
+
+[node name="HoverGoldVisual" type="Node" parent="RerollUpgradeContainer/MarginContainer/Control" unique_id=1683856534]
+script = ExtResource("10_gobkm")
+button_path = NodePath("../RerollUpgradeButton")
+metadata/_custom_type_script = "uid://c8wlk5bmlf2j2"
 
 [node name="ApplyUpgrade" type="Node" parent="." unique_id=812743779]
 script = ExtResource("7_ajxib")
@@ -166,6 +180,13 @@ size_flags_stretch_ratio = 0.79
 data = ExtResource("11_44xle")
 
 [connection signal="confirmed" from="NextLevelContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
+[connection signal="hovered" from="RerollUpgradeContainer" to="." method="_on_reroll_upgrade_container_hovered"]
+[connection signal="stopped_hovering" from="RerollUpgradeContainer" to="." method="_on_reroll_upgrade_container_stopped_hovering"]
 [connection signal="confirmed" from="RerollUpgradeContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
+[connection signal="upgrade_clicked_too_expensive" from="RerollUpgradeContainer/MarginContainer/Control/UpgradeHandler" to="GoldPanelContainer" method="_on_upgrade_handler_upgrade_clicked_too_expensive"]
+[connection signal="hovered" from="RerollUpgradeContainer/MarginContainer/Control/HoverGoldVisual" to="RerollUpgradeContainer" method="_on_hover_gold_visual_hovered"]
+[connection signal="stopped_hovering" from="RerollUpgradeContainer/MarginContainer/Control/HoverGoldVisual" to="RerollUpgradeContainer" method="_on_hover_gold_visual_stopped_hovering"]
+[connection signal="hovered" from="UpgradeContainer" to="." method="_on_hovered"]
+[connection signal="stopped_hovering" from="UpgradeContainer" to="." method="_on_stopped_hovering"]
 [connection signal="upgrade_selected" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected"]
 [connection signal="upgrade_selected_too_expensive" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected_too_expensive"]

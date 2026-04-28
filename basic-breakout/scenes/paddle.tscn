@@ -2,24 +2,26 @@
 
 [ext_resource type="Texture2D" uid="uid://onced2swminv" path="res://assets/sprites/paddle.png" id="1_3xiby"]
 [ext_resource type="Script" uid="uid://cfk8775c023gs" path="res://scripts/paddle.gd" id="1_y7wee"]
-[ext_resource type="PackedScene" uid="uid://42cjmq6vyxf4" path="res://scenes/paddle_side_panel.tscn" id="3_mo4dg"]
+[ext_resource type="Texture2D" uid="uid://bbw46lriy4stq" path="res://assets/sprites/powerups/paddle_side_panel.png" id="3_mo4dg"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7wee"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mo4dg"]
 size = Vector2(340, 18)
 
 [node name="Paddle" type="CharacterBody2D" unique_id=582646004]
 script = ExtResource("1_y7wee")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1839760766]
-position = Vector2(0, -3)
-shape = SubResource("RectangleShape2D_y7wee")
-
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=922072975]
 texture = ExtResource("1_3xiby")
 
-[node name="PaddleSidePanel" parent="." unique_id=1806735412 instance=ExtResource("3_mo4dg")]
-position = Vector2(-230, 0)
+[node name="PaddleLeftSidePanel" type="Sprite2D" parent="." unique_id=1308392395]
+position = Vector2(-245, 0)
+texture = ExtResource("3_mo4dg")
 
-[node name="PaddleSidePanel2" parent="." unique_id=869655087 instance=ExtResource("3_mo4dg")]
-position = Vector2(230, 0)
+[node name="PaddleRightSidePanel" type="Sprite2D" parent="." unique_id=779512141]
+position = Vector2(245, 0)
+texture = ExtResource("3_mo4dg")
 flip_h = true
+
+[node name="CollisionMain" type="CollisionShape2D" parent="." unique_id=833735627]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_mo4dg")

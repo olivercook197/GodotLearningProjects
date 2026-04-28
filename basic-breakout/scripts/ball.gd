@@ -5,7 +5,7 @@ signal hit_brick
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var in_motion = false
-var paddle = PlayerPaddle
+var paddle: PlayerPaddle = null
 var initial_x_spread = 400
 const initial_speed = 750
 var level_start_speed
@@ -25,9 +25,14 @@ func _ready() -> void:
 		level_start_speed = initial_speed
 	max_speed = level_start_speed
 	$Sprite2D.visible = false
+	
 
 func _physics_process(delta: float) -> void:
 	if !in_motion: 	# initial ball snap to paddle
+		if paddle == null:
+			get_paddle()
+			if paddle == null:
+				return
 		var go_to_paddle_position = paddle.position
 		go_to_paddle_position.y -= 32
 		position = go_to_paddle_position
@@ -56,13 +61,16 @@ func _physics_process(delta: float) -> void:
 					print("Speed no added")
 				GlobalVariables.ball_speed = max_speed
 				GlobalVariables.current_score += speed_change[0]
-				if collider is Brick:
-					collider.on_hit()
+				collider.on_hit()
 				velocity = velocity.bounce(collision.get_normal())
 				print(GlobalVariables.ball_speed)
 			elif collider is PlayerPaddle:	# change bounce depending on paddle position and speed
-				var paddle_width = collider.get_node("CollisionShape2D").shape.size.x
-				var relative_x = position.x - collider.position.x
+				var paddle = collider
+
+				var paddle_width = paddle.get_total_width()
+
+				var relative_x = global_position.x - paddle.global_position.x
+				
 				var effective_width = min(paddle_width, 300.0)
 				# Normalize hit position to range [-1, 1]
 				var normalized = relative_x / (effective_width / 2)
@@ -78,7 +86,7 @@ func _physics_process(delta: float) -> void:
 				# Set velocity based on angle
 				velocity.x = sin(angle) * max_speed
 				velocity.y = -cos(angle) * max_speed
-				velocity.x += collider.velocity.x * 0.5
+				velocity.x += collider.velocity.x * 0.3
 				velocity = velocity.normalized() * max_speed
 			else:
 				velocity = velocity.bounce(collision.get_normal())
@@ -91,7 +99,7 @@ func _physics_process(delta: float) -> void:
 					angle = sign(angle) * min_angle
 
 				velocity = Vector2(cos(angle), sin(angle)) * max_speed
-			position += collision.get_normal() * max(2, velocity.length() * 0.01)
+			position += collision.get_normal() * 1.0
 
 
 func get_paddle():

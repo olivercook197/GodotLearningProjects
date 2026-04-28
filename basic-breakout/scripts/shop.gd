@@ -55,14 +55,15 @@ func _on_hover_animator_confirmed(button_clicked) -> void:
 		GlobalVariables.level += 1
 		go_to_game.emit()
 	elif button_clicked.name == reroll_upgrade_button.name:
-		GlobalVariables.gold -= (GlobalVariables.level + 1)
-		gold_panel_container.update_gold()
-		refresh_upgrades()
-		rerolls -= 1
-		if rerolls <= 0:
-			button_clicked.disabled = true
-			reroll_hover_animator.disable_button()
-		print("Reroll")
+		if GlobalVariables.gold >= GlobalVariables.level + 1:
+			GlobalVariables.gold -= (GlobalVariables.level + 1)
+			gold_panel_container.update_gold()
+			refresh_upgrades()
+			rerolls -= 1
+			if rerolls <= 0:
+				button_clicked.disabled = true
+				reroll_hover_animator.disable_button()
+			print("Reroll")
 		
 	pass # Replace with function body.
 
@@ -119,6 +120,8 @@ func refresh_upgrades():
 		upgrade.data = selected_upgrades[u]
 		upgrade.upgrade_selected.connect(_on_upgrade_container_upgrade_selected)
 		upgrade.upgrade_selected_too_expensive.connect(_on_upgrade_container_upgrade_selected_too_expensive)
+		upgrade.hovered.connect(_on_hovered)
+		upgrade.stopped_hovering.connect(_on_stopped_hovering)
 		if u == 0:
 			upgrade.position = Vector2(upgrade_position.x, upgrade_position.y)
 		elif u == 1:
@@ -133,3 +136,16 @@ func refresh_upgrades():
 		upgrade.add_to_group("upgrades_can_be_removed")
 	
 	
+func _on_hovered(gold_cost: int):
+	gold_panel_container.show_potential_gold(gold_cost)
+
+func _on_stopped_hovering():
+	gold_panel_container.update_gold()
+
+
+func _on_reroll_upgrade_container_hovered(gold_cost) -> void:
+	_on_hovered(gold_cost)
+
+
+func _on_reroll_upgrade_container_stopped_hovering() -> void:
+	gold_panel_container.update_gold()

@@ -21,6 +21,7 @@ texture = ExtResource("2_ymxvx")
 sources/0 = SubResource("TileSetAtlasSource_ymxvx")
 
 [node name="Boundary" type="StaticBody2D" unique_id=302635823]
+process_physics_priority = 10
 script = ExtResource("1_7iu4k")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1906029260]
