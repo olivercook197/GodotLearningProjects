@@ -25,6 +25,7 @@ const NO_SPEED_INCREASE_ON_SCORE_UPGRADE = preload("uid://bxsrp82yfmq5e")
 @onready var reroll_upgrade_button: TextureButton = $RerollUpgradeContainer/MarginContainer/Control/RerollUpgradeButton
 @onready var gain_life_upgrade_container: PanelContainer = $UpgradeContainer
 @onready var reroll_hover_animator: HoverAnimator = $RerollUpgradeContainer/MarginContainer/Control/HoverAnimator
+@onready var tooltip: PanelContainer = $TooltipPanelContainer
 
 var upgrade_data_path = "res://upgrades/data/"
 
@@ -82,6 +83,7 @@ func _on_upgrade_container_upgrade_selected(data: UpgradeTemplate, gold_cost: in
 			child.calculate_gold_costs()
 	if data.attribute_changed == 8 or data.attribute_changed == 5:
 		life_manager.add_lives_to_scene()
+	tooltip.visible = false
 
 func load_all_upgrades(path: String) -> Array:
 	var upgrades: Array = []
@@ -107,10 +109,28 @@ func load_all_upgrades(path: String) -> Array:
 
 func get_random_upgrades(count: int) -> Array:
 	var all = load_all_upgrades(upgrade_data_path)
+	all = remove_upgrades(all)
 	all.shuffle()
 	return all.slice(0, count)
 
+func remove_upgrades(upgrades: Array):
+	var valid_upgrades = []
+	for upgrade: UpgradeTemplate in upgrades:
+		if GlobalVariables.paddle_position.y >= 660 and upgrade.attribute_changed == 2:
+			pass
+		elif upgrade.attribute_changed == 1:
+			if (1 + upgrade.number_change * 0.01) * GlobalVariables.paddle_x_length > 4.2:
+				pass
+			else:
+				valid_upgrades.append(upgrade)
+		elif upgrade.attribute_changed == 0 and GlobalVariables.ball_speed < 800:
+			pass
+		else:
+			valid_upgrades.append(upgrade) 
+	return valid_upgrades
+
 func refresh_upgrades():
+	tooltip.visible = false
 	for child in get_children():
 		if child.is_in_group("upgrades_can_be_removed"):
 			child.queue_free()
@@ -136,12 +156,16 @@ func refresh_upgrades():
 		upgrade.add_to_group("upgrades_can_be_removed")
 	
 	
-func _on_hovered(gold_cost: int):
+func _on_hovered(gold_cost: int, upgrade_data: UpgradeTemplate = null):
 	gold_panel_container.show_potential_gold(gold_cost)
+	if upgrade_data != null:
+		tooltip.update_text(upgrade_data.upgrade_desc)
+	else:
+		tooltip.update_text("Reroll options")
 
 func _on_stopped_hovering():
 	gold_panel_container.update_gold()
-
+	tooltip.visible = false
 
 func _on_reroll_upgrade_container_hovered(gold_cost) -> void:
 	_on_hovered(gold_cost)
@@ -149,3 +173,4 @@ func _on_reroll_upgrade_container_hovered(gold_cost) -> void:
 
 func _on_reroll_upgrade_container_stopped_hovering() -> void:
 	gold_panel_container.update_gold()
+	tooltip.visible = false

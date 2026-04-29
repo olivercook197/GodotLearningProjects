@@ -63,7 +63,6 @@ func _physics_process(delta: float) -> void:
 				GlobalVariables.current_score += speed_change[0]
 				collider.on_hit()
 				velocity = velocity.bounce(collision.get_normal())
-				print(GlobalVariables.ball_speed)
 			elif collider is PlayerPaddle:	# change bounce depending on paddle position and speed
 				var paddle = collider
 
@@ -113,7 +112,11 @@ func ball_reset():
 func change_speed(collider):
 	var frame = collider.animated_sprite_2d.frame
 	
+	if frame != 4:
+		GlobalVariables.gold += GlobalVariables.brick_gold_value[frame] * GlobalVariables.gold_multiplier
+		return [GlobalVariables.brick_score_value[frame], GlobalVariables.brick_speed_value[frame]]
+	else:
+		GlobalVariables.gold += 2 * GlobalVariables.brick_gold_value[frame - 1] * GlobalVariables.gold_multiplier
+		return [GlobalVariables.brick_score_value[frame - 1] * 2, GlobalVariables.brick_speed_value[frame - 1] * 2]
 	
-	GlobalVariables.gold += GlobalVariables.brick_gold_value[frame] * GlobalVariables.gold_multiplier
-	return [GlobalVariables.brick_score_value[frame], GlobalVariables.brick_speed_value[frame]]
 	

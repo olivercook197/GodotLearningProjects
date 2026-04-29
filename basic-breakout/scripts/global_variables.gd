@@ -12,9 +12,9 @@ const initial_level = 0
 var level
 
 # upgrade stats
-const initial_brick_gold_value = [1, 1, 1, 1, 2]
+const initial_brick_gold_value = [1, 1, 1, 1]
 var brick_gold_value
-const initial_brick_score_speed_value = [1, 2, 5, 10, 20]
+const initial_brick_score_speed_value = [1, 2, 5, 10]
 var brick_score_value
 var brick_speed_value
 const initial_ball_speed = 750	#decreases by speed_decrease_on_level_start on first level, so real initial speed is lower
@@ -22,6 +22,7 @@ var ball_speed
 const initial_paddle_position = Vector2(0, 460)
 var paddle_position
 const initial_paddle_x_length = 1
+const max_paddle_x_length = 4
 var paddle_x_length
 const initial_interest = 0
 var interest
@@ -29,7 +30,7 @@ const initial_score_without_speed = 0
 var score_without_speed
 const initial_speed_decrease_on_level_start = 50
 var speed_decrease_on_level_start
-const initial_powerup_chance = 45
+const initial_powerup_chance = 5
 var powerup_chance
 const initial_brick_change_chance = [0, 0, 0, 0]
 var brick_change_chance

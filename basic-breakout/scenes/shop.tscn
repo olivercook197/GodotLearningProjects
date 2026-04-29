@@ -16,6 +16,15 @@
 [ext_resource type="PackedScene" uid="uid://diprgck8e6i3a" path="res://scenes/upgrade_container.tscn" id="10_1v8qu"]
 [ext_resource type="Script" uid="uid://c8wlk5bmlf2j2" path="res://scripts/hover_gold_visual.gd" id="10_gobkm"]
 [ext_resource type="Resource" uid="uid://c6fhvqbvdij22" path="res://upgrades/unique_data/gain_life.tres" id="11_44xle"]
+[ext_resource type="PackedScene" uid="uid://bvsnkrb2jgfjy" path="res://scenes/tooltip_container.tscn" id="17_5u241"]
+[ext_resource type="Texture2D" uid="uid://dpney7cw0bdcl" path="res://assets/sprites/stats.png" id="18_pqync"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yuijs"]
+load_path = "res://.godot/imported/scalable_panel.png-7a9ba92372ef312ae92e1c089438d60c.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aa4hd"]
+texture = SubResource("CompressedTexture2D_yuijs")
+region_rect = Rect2(50.378, 36.541, 51.005, 39.809)
 
 [node name="Shop" type="Node2D" unique_id=873135676]
 script = ExtResource("1_lx5au")
@@ -178,6 +187,71 @@ offset_right = 400.0
 offset_bottom = -233.0
 size_flags_stretch_ratio = 0.79
 data = ExtResource("11_44xle")
+
+[node name="TooltipPanelContainer" parent="." unique_id=752457451 instance=ExtResource("17_5u241")]
+offset_left = 140.477
+offset_top = 109.54896
+offset_right = 627.477
+offset_bottom = 192.54895
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=262755438]
+z_index = 100
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_aa4hd")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1134111270]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer" unique_id=444497889]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/Control" unique_id=1442388444]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/Control/TextureButton" unique_id=1097173751]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_pqync")
+stretch_mode = 2
 
 [connection signal="confirmed" from="NextLevelContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
 [connection signal="hovered" from="RerollUpgradeContainer" to="." method="_on_reroll_upgrade_container_hovered"]

@@ -32,6 +32,5 @@ func _on_upgrade_handler_upgrade_clicked_too_expensive() -> void:
 	pass # Replace with function body.
 
 func show_potential_gold(gold_cost: int):
-	print(gold_cost)
 	gold_label.indicate_future_gold(gold_cost)
 	pass

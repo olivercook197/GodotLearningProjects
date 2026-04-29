@@ -24,19 +24,19 @@ func apply_upgrade(upgrade_data: UpgradeTemplate):
 	pass
 
 func change_speed_ball():
-	print (GlobalVariables.ball_speed)
 	if data.percentage:
 		GlobalVariables.ball_speed += int(GlobalVariables.ball_speed * (data.number_change / 100))
 	else:
 		GlobalVariables.ball_speed += int(data.number_change)
-	print (GlobalVariables.ball_speed)
 
 func change_length_paddle():
 	if data.percentage:
 		GlobalVariables.paddle_x_length += GlobalVariables.paddle_x_length * (data.number_change / 100)
 	else:
 		GlobalVariables.paddle_x_length += data.number_change
-
+	if GlobalVariables.max_paddle_x_length < GlobalVariables.paddle_x_length or GlobalVariables.paddle_x_length + 0.25 > GlobalVariables.max_paddle_x_length:
+		GlobalVariables.paddle_x_length = GlobalVariables.max_paddle_x_length
+	
 func change_y_position_paddle():
 	GlobalVariables.paddle_position.y += data.number_change
 

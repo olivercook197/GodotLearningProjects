@@ -70,7 +70,6 @@ size_flags_vertical = 4
 theme_override_constants/separation = 20
 
 [node name="UpgradeItemName" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1865237309]
-z_index = 100
 custom_minimum_size = Vector2(780, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -131,7 +130,6 @@ script = ExtResource("8_h5cb4")
 button_path = NodePath("../UpgradeItemButton")
 
 [node name="UpgradeItemGoldCost" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1364596509]
-z_index = 100
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 60

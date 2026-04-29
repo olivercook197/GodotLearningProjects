@@ -90,7 +90,7 @@ func _on_upgrade_handler_upgrade_clicked_too_expensive() -> void:
 
 
 func _on_hover_gold_visual_hovered() -> void:
-	hovered.emit(int_gold_cost)
+	hovered.emit(int_gold_cost, data)
 	pass # Replace with function body.
 
 

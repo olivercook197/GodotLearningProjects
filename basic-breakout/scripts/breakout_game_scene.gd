@@ -54,7 +54,6 @@ func _process(delta: float) -> void:
 func instantiate_boundary(rect):
 	var border = BOUNDARY.instantiate()
 	border.set_position_and_size(rect)
-	print(rect)
 	border.player_colliding.connect(_on_boundary_player_colliding)
 	border.process_physics_priority = 10
 	add_child(border)
@@ -106,11 +105,10 @@ func _on_brick_hit(body):
 	gold_label.update_gold()
 	score_label.update_score()
 
-func _on_brick_destroyed(position: Vector2):
+func _on_brick_destroyed(position: Vector2, powerup_spawn: bool):
 	brick_count -= 1
-	if randf() * 100 < GlobalVariables.powerup_chance:
+	if powerup_spawn:
 		instantiate_powerup(position)
-		print(position)
 	if brick_count == 0:
 		level_win_panel.visible = true
 		main_ball.in_motion = false
@@ -265,7 +263,7 @@ func _on_powerup_collected(powerup):
 				life_manager.add_lives_to_scene()
 	elif powerup == 1:
 		print("Free Money")
-		GlobalVariables.gold += 10
+		GlobalVariables.gold += 5 * GlobalVariables.level
 		gold_label.update_gold()
 	elif powerup == 2:
 		var timer: Timer = TEN_SECOND_TIMER.instantiate()

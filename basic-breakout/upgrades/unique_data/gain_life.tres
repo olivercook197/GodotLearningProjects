@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_qgpx6")
-upgrade_name = "Gain Life"
+upgrade_name = "Regain Life"
 upgrade_desc = "Refill 1 heart container"
 upgrade_target = 3
 attribute_changed = 8

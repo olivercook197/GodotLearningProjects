@@ -29,6 +29,11 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
+	if self.position.y != GlobalVariables.paddle_position.y:
+		self.position.y = GlobalVariables.paddle_position.y
+	if has_panel_hitbox:
+		paddle_left_side_panel.visible = true
+		paddle_right_side_panel.visible = true
 
 func paddle_size():
 	var current_base_width = GlobalVariables.paddle_x_length * base_width

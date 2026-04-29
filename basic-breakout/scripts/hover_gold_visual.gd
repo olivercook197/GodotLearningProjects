@@ -20,11 +20,9 @@ func _connect_signals():
 
 func _on_mouse_entered():
 	if !button.disabled:
-		print("Enter")
 		hovered.emit()
 
 
 func _on_mouse_exited():
 	if !button.disabled:
-		print("Leave")
 		stopped_hovering.emit()
