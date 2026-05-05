@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 			if collider is Brick:	# increase speed when hitting a brick
 				
 				speed_change = change_speed(collider)
-				if GlobalVariables.score_without_speed < randf() * 100:
+				if GlobalVariables.score_without_speed < randf():
 					max_speed += speed_change[1]
 				else:
 					print("Speed no added")

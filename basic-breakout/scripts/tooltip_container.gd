@@ -42,6 +42,6 @@ func update_text(description: String):
 	reset_size()
 	
 	await get_tree().process_frame
-	
-	visible = true
+	if !get_tree().paused:
+		visible = true
 	

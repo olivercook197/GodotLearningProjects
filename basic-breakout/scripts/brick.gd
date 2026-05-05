@@ -21,12 +21,12 @@ func on_hit():
 		self.queue_free()
 		
 		if frame == 2:
-			if randf() * 100 < (GlobalVariables.powerup_chance * 20):
+			if randf() < (GlobalVariables.powerup_chance * 2):
 				destroyed.emit(self.position, true)
 			else:
 				destroyed.emit(self.position, false)
 		else:
-			if randf() * 100 < GlobalVariables.powerup_chance:
+			if randf() < GlobalVariables.powerup_chance:
 				destroyed.emit(self.position, true)
 			else:
 				destroyed.emit(self.position, false)

@@ -17,7 +17,7 @@ var brick_gold_value
 const initial_brick_score_speed_value = [1, 2, 5, 10]
 var brick_score_value
 var brick_speed_value
-const initial_ball_speed = 750	#decreases by speed_decrease_on_level_start on first level, so real initial speed is lower
+const initial_ball_speed = 800	#decreases by speed_decrease_on_level_start on first level, so real initial speed is lower
 var ball_speed
 const initial_paddle_position = Vector2(0, 460)
 var paddle_position
@@ -28,12 +28,14 @@ const initial_interest = 0
 var interest
 const initial_score_without_speed = 0
 var score_without_speed
-const initial_speed_decrease_on_level_start = 50
+const initial_speed_decrease_on_level_start = 100
 var speed_decrease_on_level_start
-const initial_powerup_chance = 5
+const initial_powerup_chance = 0.05
 var powerup_chance
 const initial_brick_change_chance = [0, 0, 0, 0]
 var brick_change_chance
+var initial_paddle_speed = 100
+var paddle_speed
 
 # gold costs
 const initial_inflation : float = 1
@@ -75,6 +77,8 @@ func set_variables():
 	speed_decrease_on_level_start = initial_speed_decrease_on_level_start
 	powerup_chance = initial_powerup_chance
 	brick_change_chance = initial_brick_change_chance
+	
+	paddle_speed = initial_paddle_speed
 	
 	inflation = initial_inflation
 	inflation_rate = initial_inflation_rate

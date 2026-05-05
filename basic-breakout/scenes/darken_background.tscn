@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cy4yhp5w1mhqn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0aw08"]
+bg_color = Color(0.003921569, 0.003921569, 0.003921569, 0.25490198)
+
+[node name="DarkenBackground" type="Panel" unique_id=897837134]
+z_index = 499
+custom_minimum_size = Vector2(5000, 4000)
+offset_left = -2500.0
+offset_top = -2000.0
+offset_right = 2500.0
+offset_bottom = 2000.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0aw08")

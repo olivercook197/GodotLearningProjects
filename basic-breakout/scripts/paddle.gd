@@ -7,7 +7,7 @@ class_name PlayerPaddle extends CharacterBody2D
 
 const panel_x_size = 150
 
-const SPEED = 2200.0
+var speed
 
 var is_flashing := false
 
@@ -18,17 +18,24 @@ const base_width := 340
 var target_x := 0.0
 var is_adjusting_position := false
 
+func _ready() -> void:
+	speed = GlobalVariables.paddle_speed
+
 
 func _physics_process(delta: float) -> void:
-	var collision = move_and_collide(velocity * delta)
+	var collision = move_and_collide(velocity)
+	var current_speed = speed / 3
 	if collision:
 		velocity = Vector2(0, 0)
 	else:
+		if Input.is_action_pressed("smooth_movement"):
+			current_speed /= 2.5
+			
 		var direction := Input.get_axis("move_left", "move_right")
 		if direction:
-			velocity.x = direction * SPEED
+			velocity.x = direction * current_speed
 		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.x = move_toward(velocity.x, 0, current_speed)
 	if self.position.y != GlobalVariables.paddle_position.y:
 		self.position.y = GlobalVariables.paddle_position.y
 	if has_panel_hitbox:

@@ -1,8 +1,10 @@
 extends Node2D
 
 var current_scene
+
 const BREAKOUT_GAME_SCENE = preload("uid://cvg3jydpl18mw")
 const SHOP = preload("uid://cykrxgq8alrd2")
+
 var shop
 var game
 
@@ -10,7 +12,6 @@ var game
 func _ready() -> void:
 	GlobalVariables.set_variables()
 	go_to_shop()
-	pass # Replace with function body.
 
 
 func go_to_game():

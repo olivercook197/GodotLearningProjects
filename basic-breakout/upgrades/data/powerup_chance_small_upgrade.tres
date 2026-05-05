@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://6f2k5k1btce8"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_751a4"]
+[ext_resource type="Texture2D" uid="uid://bt2bqtmfti6jp" path="res://assets/sprites/upgrades/powerup_chance_small_upgrade.png" id="2_x1mja"]
+
+[resource]
+script = ExtResource("1_751a4")
+upgrade_name = "Powerup Chance Small"
+upgrade_desc = "Increases the chance of a powerup dropping by 2.5%"
+upgrade_target = 3
+attribute_changed = 9
+number_change = 0.025
+textures = Array[Texture2D]([ExtResource("2_x1mja")])
+gold_cost = 1
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

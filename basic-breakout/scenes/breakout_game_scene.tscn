@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bsnn4vlv74skv" path="res://scenes/gold_panel_container.tscn" id="5_6rsyv"]
 [ext_resource type="PackedScene" uid="uid://ckjkx1p1yic24" path="res://scenes/life_manager.tscn" id="6_bjuba"]
 [ext_resource type="PackedScene" uid="uid://8ik8vqkn7hep" path="res://scenes/ten_second_timer.tscn" id="7_hpu5y"]
+[ext_resource type="PackedScene" uid="uid://bsa8wwffqb71y" path="res://scenes/xp_crystal.tscn" id="7_uv4by"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o5qli"]
 
@@ -64,12 +65,13 @@ rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_o5qli")
 
 [node name="Camera2D" type="Camera2D" parent="CarryThrough" unique_id=143315439]
+z_index = 1000
 zoom = Vector2(0.5, 0.5)
 
 [node name="GameOver" type="Node2D" parent="CarryThrough" unique_id=1979493669]
 
 [node name="Panel" type="Panel" parent="CarryThrough/GameOver" unique_id=382873493]
-z_index = 99
+z_index = 500
 offset_left = -316.0
 offset_top = -226.0
 offset_right = 324.0
@@ -88,7 +90,7 @@ horizontal_alignment = 1
 script = ExtResource("3_y3j0m")
 
 [node name="GameOverButton" type="Button" parent="CarryThrough/GameOver/Panel" unique_id=411158616]
-z_index = 100
+z_index = 500
 layout_mode = 0
 offset_left = 186.0
 offset_top = 338.0
@@ -106,7 +108,7 @@ offset_bottom = -641.0
 [node name="LevelWin" type="Node2D" parent="CarryThrough" unique_id=1168112625]
 
 [node name="PanelContainer" type="PanelContainer" parent="CarryThrough/LevelWin" unique_id=1834629153]
-z_index = 100
+z_index = 500
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -166,6 +168,42 @@ text = "Press Space to start"
 horizontal_alignment = 1
 
 [node name="LifeManager" parent="CarryThrough" unique_id=568853142 instance=ExtResource("6_bjuba")]
+
+[node name="XPCrystal" parent="CarryThrough" unique_id=757717774 instance=ExtResource("7_uv4by")]
+position = Vector2(176.3623, 81.91931)
+
+[node name="XPCrystal2" parent="CarryThrough" unique_id=1713103144 instance=ExtResource("7_uv4by")]
+position = Vector2(638, -50)
+
+[node name="XPCrystal3" parent="CarryThrough" unique_id=956876469 instance=ExtResource("7_uv4by")]
+position = Vector2(-384, -27)
+
+[node name="XPCrystal4" parent="CarryThrough" unique_id=1993465826 instance=ExtResource("7_uv4by")]
+position = Vector2(-353, -32)
+
+[node name="XPCrystal5" parent="CarryThrough" unique_id=476892336 instance=ExtResource("7_uv4by")]
+position = Vector2(-879, -58)
+
+[node name="XPCrystal6" parent="CarryThrough" unique_id=1578434981 instance=ExtResource("7_uv4by")]
+position = Vector2(988, -19)
+
+[node name="XPCrystal7" parent="CarryThrough" unique_id=887044717 instance=ExtResource("7_uv4by")]
+position = Vector2(542, -19)
+
+[node name="XPCrystal8" parent="CarryThrough" unique_id=1466605969 instance=ExtResource("7_uv4by")]
+position = Vector2(-674, -35)
+
+[node name="XPCrystal9" parent="CarryThrough" unique_id=1139388500 instance=ExtResource("7_uv4by")]
+position = Vector2(-552, -63)
+
+[node name="XPCrystal10" parent="CarryThrough" unique_id=317064326 instance=ExtResource("7_uv4by")]
+position = Vector2(-1045, -53)
+
+[node name="XPCrystal11" parent="CarryThrough" unique_id=1676787354 instance=ExtResource("7_uv4by")]
+position = Vector2(851, -32)
+
+[node name="XPCrystal12" parent="CarryThrough" unique_id=1489697394 instance=ExtResource("7_uv4by")]
+position = Vector2(-163, 4)
 
 [node name="TenSecondTimer" parent="." unique_id=557367407 instance=ExtResource("7_hpu5y")]
 

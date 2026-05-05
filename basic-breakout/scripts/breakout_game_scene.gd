@@ -7,6 +7,7 @@ const BRICK = preload("uid://yuqauunfvg2t")
 const LIVES = preload("uid://v36pc1cur2mv")
 const POWERUP = preload("uid://cntm4nhm84n3n")
 const TEN_SECOND_TIMER = preload("uid://8ik8vqkn7hep")
+const DARKEN_BACKGROUND = preload("uid://cy4yhp5w1mhqn")
 
 @onready var world_border: Area2D = $WorldBorder
 @onready var game_over_panel: Panel = $CarryThrough/GameOver/Panel
@@ -19,6 +20,7 @@ const TEN_SECOND_TIMER = preload("uid://8ik8vqkn7hep")
 @onready var life_manager: Node = $CarryThrough/LifeManager
 
 signal go_to_shop
+signal game_over
 
 var main_ball = BALL
 var score := 0
@@ -110,6 +112,7 @@ func _on_brick_destroyed(position: Vector2, powerup_spawn: bool):
 	if powerup_spawn:
 		instantiate_powerup(position)
 	if brick_count == 0:
+		show_dark_background()
 		level_win_panel.visible = true
 		main_ball.in_motion = false
 		main_ball.level_won = true
@@ -234,11 +237,24 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 			powerup.queue_free()
 	
 	if GlobalVariables.remaining_lives == 0:
+		show_dark_background()
 		GlobalVariables.high_score_updated(GlobalVariables.current_score)
 		game_over_label.display_high_score()
+		game_over_panel.z_index = 1000
 		game_over_panel.visible = true
+		game_over.emit()
+		if GlobalVariables.high_score > SaveLoad.highest_record:
+			SaveLoad.highest_record = GlobalVariables.high_score
+		SaveLoad.save_score()
+		
+
 	else:
 		main_ball.ball_reset()
+		
+func show_dark_background():
+	var darken_background = DARKEN_BACKGROUND.instantiate()
+	darken_background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(darken_background)
 
 func _on_game_over_button_pressed() -> void:
 	GlobalVariables.set_variables()
@@ -252,6 +268,7 @@ func _on_next_level_button_pressed() -> void:
 
 func _level_started():
 	start_game_label.visible = false
+	
 
 func _on_powerup_collected(powerup):
 	if powerup == 0:

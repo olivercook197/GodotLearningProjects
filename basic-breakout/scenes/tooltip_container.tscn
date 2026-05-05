@@ -21,11 +21,12 @@ region_rect = Rect2(0, 0, 50, 50)
 Panel/styles/panel = SubResource("StyleBoxTexture_pynia")
 
 [node name="TooltipPanelContainer" type="PanelContainer" unique_id=752457451]
+process_mode = 1
 modulate = Color(1, 1, 1, 0.8235294)
 light_mask = 2
 visibility_layer = 2
 z_index = 200
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(200, 140)
 offset_right = 100.0
 offset_bottom = 100.0
 mouse_behavior_recursive = 1

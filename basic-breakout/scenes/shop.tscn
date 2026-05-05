@@ -17,7 +17,10 @@
 [ext_resource type="Script" uid="uid://c8wlk5bmlf2j2" path="res://scripts/hover_gold_visual.gd" id="10_gobkm"]
 [ext_resource type="Resource" uid="uid://c6fhvqbvdij22" path="res://upgrades/unique_data/gain_life.tres" id="11_44xle"]
 [ext_resource type="PackedScene" uid="uid://bvsnkrb2jgfjy" path="res://scenes/tooltip_container.tscn" id="17_5u241"]
+[ext_resource type="Script" uid="uid://d0esd05rjvd8o" path="res://scripts/stats_panel_container.gd" id="18_aa4hd"]
 [ext_resource type="Texture2D" uid="uid://dpney7cw0bdcl" path="res://assets/sprites/stats.png" id="18_pqync"]
+[ext_resource type="Script" uid="uid://b5jloh6olqrua" path="res://scripts/stats_handler.gd" id="19_yuijs"]
+[ext_resource type="PackedScene" uid="uid://cy4yhp5w1mhqn" path="res://scenes/darken_background.tscn" id="21_68utx"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yuijs"]
 load_path = "res://.godot/imported/scalable_panel.png-7a9ba92372ef312ae92e1c089438d60c.ctex"
@@ -194,7 +197,7 @@ offset_top = 109.54896
 offset_right = 627.477
 offset_bottom = 192.54895
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=262755438]
+[node name="StatsPanelContainer" type="PanelContainer" parent="." unique_id=262755438]
 z_index = 100
 anchors_preset = 8
 anchor_left = 0.5
@@ -208,8 +211,9 @@ offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_aa4hd")
+script = ExtResource("18_aa4hd")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1134111270]
+[node name="MarginContainer" type="MarginContainer" parent="StatsPanelContainer" unique_id=1134111270]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -218,12 +222,12 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="Control" type="Control" parent="PanelContainer/MarginContainer" unique_id=444497889]
+[node name="Control" type="Control" parent="StatsPanelContainer/MarginContainer" unique_id=444497889]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/Control" unique_id=1442388444]
+[node name="TextureButton" type="TextureButton" parent="StatsPanelContainer/MarginContainer/Control" unique_id=1442388444]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -237,7 +241,7 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/Control/TextureButton" unique_id=1097173751]
+[node name="TextureRect" type="TextureRect" parent="StatsPanelContainer/MarginContainer/Control/TextureButton" unique_id=1097173751]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -253,6 +257,19 @@ grow_vertical = 2
 texture = ExtResource("18_pqync")
 stretch_mode = 2
 
+[node name="HoverAnimator" type="Node" parent="StatsPanelContainer/MarginContainer/Control" unique_id=1800672610]
+script = ExtResource("5_8r1wq")
+press_scale = 0.6
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../TextureButton/TextureRect")
+
+[node name="StatsHandler" type="Node" parent="StatsPanelContainer/MarginContainer/Control" unique_id=878166485]
+script = ExtResource("19_yuijs")
+hover_animator_path = NodePath("../HoverAnimator")
+
+[node name="DarkenBackground" parent="." unique_id=897837134 instance=ExtResource("21_68utx")]
+visible = false
+
 [connection signal="confirmed" from="NextLevelContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
 [connection signal="hovered" from="RerollUpgradeContainer" to="." method="_on_reroll_upgrade_container_hovered"]
 [connection signal="stopped_hovering" from="RerollUpgradeContainer" to="." method="_on_reroll_upgrade_container_stopped_hovering"]
@@ -264,3 +281,6 @@ stretch_mode = 2
 [connection signal="stopped_hovering" from="UpgradeContainer" to="." method="_on_stopped_hovering"]
 [connection signal="upgrade_selected" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected"]
 [connection signal="upgrade_selected_too_expensive" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected_too_expensive"]
+[connection signal="open_stats_menu" from="StatsPanelContainer" to="." method="_on_stats_panel_container_open_stats_menu"]
+[connection signal="confirmed" from="StatsPanelContainer/MarginContainer/Control/HoverAnimator" to="StatsPanelContainer" method="_on_hover_animator_confirmed"]
+[connection signal="pressed" from="StatsPanelContainer/MarginContainer/Control/HoverAnimator" to="StatsPanelContainer" method="_on_hover_animator_pressed"]

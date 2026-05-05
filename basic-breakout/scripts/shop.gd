@@ -12,6 +12,7 @@ const GOLD_BRICK_3_SMALL_UPGRADE = preload("uid://cog0yj5t55sja")
 const EXTRA_LIFE_UPGRADE = preload("uid://bc6s4qovutd6t")
 const INTEREST_UPGRADE = preload("uid://byn70cyonf0ut")
 const NO_SPEED_INCREASE_ON_SCORE_UPGRADE = preload("uid://bxsrp82yfmq5e")
+const STATS_MENU = preload("uid://cvxqf1v5li07v")
 
 
 
@@ -26,6 +27,7 @@ const NO_SPEED_INCREASE_ON_SCORE_UPGRADE = preload("uid://bxsrp82yfmq5e")
 @onready var gain_life_upgrade_container: PanelContainer = $UpgradeContainer
 @onready var reroll_hover_animator: HoverAnimator = $RerollUpgradeContainer/MarginContainer/Control/HoverAnimator
 @onready var tooltip: PanelContainer = $TooltipPanelContainer
+@onready var darken_background: Panel = $DarkenBackground
 
 var upgrade_data_path = "res://upgrades/data/"
 
@@ -174,3 +176,14 @@ func _on_reroll_upgrade_container_hovered(gold_cost) -> void:
 func _on_reroll_upgrade_container_stopped_hovering() -> void:
 	gold_panel_container.update_gold()
 	tooltip.visible = false
+
+
+func _on_stats_panel_container_open_stats_menu() -> void:
+	var stats_menu = STATS_MENU.instantiate()
+	add_child(stats_menu)
+	stats_menu.stat_menu_closed.connect(_stat_menu_closed)
+	darken_background.visible = true
+	pass # Replace with function body.
+
+func _stat_menu_closed():
+	darken_background.visible = false

@@ -1,0 +1,222 @@
+[gd_scene format=3 uid="uid://cvxqf1v5li07v"]
+
+[ext_resource type="Texture2D" uid="uid://bmykkfihsihq4" path="res://assets/gui/info_panel_thick_border.png" id="1_s2thd"]
+[ext_resource type="Script" uid="uid://bc6xfgfic0sv8" path="res://scripts/stats_menu.gd" id="2_khwun"]
+[ext_resource type="Texture2D" uid="uid://cbsmmpldx250o" path="res://assets/gui/yellow_panel_thick_border.png" id="3_4hldr"]
+[ext_resource type="Texture2D" uid="uid://bfk17cncaqwfq" path="res://assets/gui/scroll_bar.png" id="4_khwun"]
+[ext_resource type="Texture2D" uid="uid://db0ix1ky8a0x8" path="res://assets/gui/scroll_icon.png" id="4_v28qv"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="5_04bas"]
+[ext_resource type="Texture2D" uid="uid://bdstvbbqgjv46" path="res://assets/gui/scroll_icon_pressed.png" id="5_s2thd"]
+[ext_resource type="Texture2D" uid="uid://bt2pie0jsxymn" path="res://assets/gui/close_button.png" id="7_4hldr"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rewml"]
+texture = ExtResource("1_s2thd")
+texture_margin_left = 36.0
+texture_margin_top = 22.0
+texture_margin_right = 36.0
+texture_margin_bottom = 22.0
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xr0we"]
+texture = ExtResource("3_4hldr")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="DPITexture" id="DPITexture_khwun"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24\" height=\"32\" viewBox=\"0 0 6.35 8.467\"><defs><linearGradient id=\"a\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\".3\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><linearGradient xlink:href=\"#a\" id=\"b\" x1=\"4.233\" x2=\"4.233\" y1=\"0\" y2=\"6.35\" gradientTransform=\"translate(-8.467)\" gradientUnits=\"userSpaceOnUse\"/></defs><path fill=\"url(#b)\" d=\"M-8.467 0H0V6.35H-8.467z\" paint-order=\"fill markers stroke\" transform=\"rotate(-90)\"/></svg>
+"
+
+[sub_resource type="DPITexture" id="DPITexture_4hldr"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"32\" height=\"24\" viewBox=\"0 0 8.467 6.35\"><defs><linearGradient id=\"a\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\".3\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><linearGradient xlink:href=\"#a\" id=\"b\" x1=\"4.233\" x2=\"4.233\" y1=\"0\" y2=\"6.35\" gradientUnits=\"userSpaceOnUse\"/></defs><path fill=\"url(#b)\" d=\"M0 0H8.467V6.35H0z\" paint-order=\"fill markers stroke\"/></svg>
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04bas"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.75)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rewml"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_khwun"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_04bas"]
+content_margin_left = 50.0
+texture = ExtResource("4_v28qv")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 7.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0sfrv"]
+content_margin_left = 50.0
+texture = ExtResource("5_s2thd")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 7.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_01rek"]
+content_margin_left = 50.0
+texture = ExtResource("4_khwun")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbere"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="Theme" id="Theme_drvno"]
+ScrollContainer/colors/scroll_hint_horizontal_color = Color(0, 0, 0, 1)
+ScrollContainer/colors/scroll_hint_vertical_color = Color(0, 0, 0, 1)
+ScrollContainer/icons/scroll_hint_horizontal = SubResource("DPITexture_khwun")
+ScrollContainer/icons/scroll_hint_vertical = SubResource("DPITexture_4hldr")
+ScrollContainer/styles/focus = SubResource("StyleBoxFlat_04bas")
+ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_rewml")
+VScrollBar/icons/decrement = SubResource("ImageTexture_khwun")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_khwun")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_khwun")
+VScrollBar/icons/increment = SubResource("ImageTexture_khwun")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_khwun")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_khwun")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_04bas")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_04bas")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_0sfrv")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_01rek")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_dbere")
+
+[node name="StatsMenuContainer" type="PanelContainer" unique_id=612498449]
+z_index = 500
+custom_minimum_size = Vector2(1500, 1250)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -97.0
+offset_right = 750.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_rewml")
+script = ExtResource("2_khwun")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=328881482]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=50280586]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1436198946]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1498250220]
+custom_minimum_size = Vector2(1325, 120)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_xr0we")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Title" unique_id=2063227553]
+custom_minimum_size = Vector2(1398, 120)
+layout_mode = 0
+offset_right = 1398.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 86
+text = "Stats"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1729158168]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" unique_id=1225636206]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/CloseButton/TextureButton" unique_id=1344266166]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_4hldr")
+
+[node name="HoverAnimator" type="Node" parent="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" unique_id=2062434841]
+script = ExtResource("5_04bas")
+hover_scale = 1.0
+press_scale = 0.8
+hover_color = Color(0.74978, 0.74978, 0.7497799, 1)
+pressed_color = Color(0.7490196, 0.7490196, 0.7490196, 1)
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../TextureButton/TextureRect")
+metadata/_custom_type_script = "uid://b6qc7edybv8sl"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=416698849]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_drvno")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=1069017100]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[connection signal="confirmed" from="MarginContainer/VBoxContainer/HBoxContainer/CloseButton/HoverAnimator" to="." method="_on_hover_animator_confirmed"]

@@ -21,11 +21,12 @@ func apply_upgrade(upgrade_data: UpgradeTemplate):
 		change_score_without_speed()
 	elif data.attribute_changed == 8:
 		gain_life()
-	pass
+	elif data.attribute_changed == 9:
+		change_powerup_chance()
 
 func change_speed_ball():
 	if data.percentage:
-		GlobalVariables.ball_speed += int(GlobalVariables.ball_speed * (data.number_change / 100))
+		GlobalVariables.ball_speed += GlobalVariables.ball_speed * data.number_change
 	else:
 		GlobalVariables.ball_speed += int(data.number_change)
 
@@ -60,8 +61,11 @@ func change_interest():
 	GlobalVariables.interest += int(data.number_change)
 
 func change_score_without_speed():
-	GlobalVariables.score_without_speed += int(data.number_change)
+	GlobalVariables.score_without_speed += data.number_change
 
 func gain_life():
 	if GlobalVariables.remaining_lives < GlobalVariables.max_lives:
 		GlobalVariables.remaining_lives += int(data.number_change)
+
+func change_powerup_chance():
+	GlobalVariables.powerup_chance += data.number_change
