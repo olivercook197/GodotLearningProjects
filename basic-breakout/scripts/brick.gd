@@ -16,18 +16,19 @@ func on_hit():
 	if frame == 3:
 		animated_sprite_2d.frame += 1
 	else:
+		var powerup = false
+		var extra_xp = false
 		self.visible = false
 		collision_shape_2d.disabled = true
 		self.queue_free()
-		
+		if frame == 1:
+			if randf() < GlobalVariables.extra_xp_chance:
+				extra_xp = true
 		if frame == 2:
-			if randf() < (GlobalVariables.powerup_chance * 2):
-				destroyed.emit(self.position, true)
-			else:
-				destroyed.emit(self.position, false)
+			if randf() < (GlobalVariables.powerup_chance * GlobalVariables.extra_powerup_chance):
+				powerup = true
 		else:
 			if randf() < GlobalVariables.powerup_chance:
-				destroyed.emit(self.position, true)
-			else:
-				destroyed.emit(self.position, false)
-		destroyed.emit(self.position)
+				powerup = true
+
+		destroyed.emit(self.position, powerup, extra_xp)

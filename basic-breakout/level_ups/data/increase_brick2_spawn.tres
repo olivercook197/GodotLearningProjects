@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://dipihfayn03uc"]
+
+[ext_resource type="PackedScene" uid="uid://bqdcvh4bkj2bj" path="res://level_ups/scenes/increase_brick2_spawn.tscn" id="1_apalx"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="2_ikcwq"]
+
+[resource]
+script = ExtResource("2_ikcwq")
+option_name = "Increase Scared Brick Spawn Chance"
+modifier_scene = ExtResource("1_apalx")
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

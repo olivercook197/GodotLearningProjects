@@ -23,6 +23,10 @@ func apply_upgrade(upgrade_data: UpgradeTemplate):
 		gain_life()
 	elif data.attribute_changed == 9:
 		change_powerup_chance()
+	elif data.attribute_changed == 10:
+		change_paddle_speed()
+	elif data.attribute_changed == 11:
+		change_xp_gain()
 
 func change_speed_ball():
 	if data.percentage:
@@ -69,3 +73,9 @@ func gain_life():
 
 func change_powerup_chance():
 	GlobalVariables.powerup_chance += data.number_change
+
+func change_paddle_speed():
+	GlobalVariables.paddle_speed += data.number_change
+
+func change_xp_gain():
+	GlobalVariables.bonus_xp_percent += data.number_change

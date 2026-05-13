@@ -1,6 +1,7 @@
 extends Label
 var flash_colour = Color(1.0, 0.278, 0.0, 1.0)
 var preview_colour = Color(1.0, 0.9, 0.4, 0.7) # soft gold, semi-transparent
+var positive_preview_colour = Color(0.659, 1.0, 0.18, 0.70)
 
 var base_colour: Color
 var base_scale: Vector2
@@ -30,11 +31,17 @@ func indicate_too_expensive():
 	tween.tween_property(self, "scale", base_scale, 0.1)
 	tween.parallel().tween_property(self, "modulate", base_colour, 0.1)
 
-func indicate_future_gold(gold_cost: int):
+func indicate_future_gold(gold_cost: int, positive: bool = false):
 	is_previewing = true
 	#self.text = ("Gold: " + str(GlobalVariables.gold - gold_cost))
-	text = "Gold: " + str(GlobalVariables.gold - gold_cost) + " (-" + str(gold_cost) + ")"
-	animate_to(preview_colour)
+	if positive:
+		text = "Gold: " + str(GlobalVariables.gold + gold_cost) + " (+" + str(gold_cost) + ")"
+		animate_to(positive_preview_colour)
+	else:
+		text = "Gold: " + str(GlobalVariables.gold - gold_cost) + " (-" + str(gold_cost) + ")"
+		animate_to(preview_colour)
+		pass
+	
 	pass
 
 func animate_to(target_color: Color):

@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://bvtod31hgjql"]
+
+[ext_resource type="Texture2D" uid="uid://cbsmmpldx250o" path="res://assets/gui/yellow_panel_thick_border.png" id="1_fxc03"]
+[ext_resource type="Script" uid="uid://b246387e463nx" path="res://scripts/level_up_panel.gd" id="2_qv458"]
+
+[sub_resource type="Theme" id="Theme_16lk3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5l1el"]
+texture = ExtResource("1_fxc03")
+texture_margin_left = 11.0
+texture_margin_top = 11.0
+texture_margin_right = 11.0
+texture_margin_bottom = 11.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_502pc"]
+load_path = "res://.godot/imported/yellow_panel.png-dca13dff4269f1924fd59a6cf014afd0.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qmtfy"]
+texture = SubResource("CompressedTexture2D_502pc")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sr6tv"]
+load_path = "res://.godot/imported/yellow_panel.png-dca13dff4269f1924fd59a6cf014afd0.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ro60h"]
+texture = SubResource("CompressedTexture2D_sr6tv")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="LevelUpPanel" type="Panel" unique_id=762139468]
+z_index = 500
+clip_contents = true
+custom_minimum_size = Vector2(0, 580)
+offset_right = 1600.0
+offset_bottom = 750.0
+size_flags_vertical = 3
+theme = SubResource("Theme_16lk3")
+theme_override_styles/panel = SubResource("StyleBoxTexture_5l1el")
+script = ExtResource("2_qv458")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=493623667]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -790.0
+offset_right = 790.0
+offset_bottom = 758.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer" unique_id=1550616488]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer3" unique_id=1056239825]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer3/MarginContainer" unique_id=697567717]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_qmtfy")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer3/MarginContainer/PanelContainer" unique_id=78789137]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Level Up!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer3" unique_id=576713220]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer3/MarginContainer2" unique_id=309702179]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ro60h")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer3/MarginContainer2/PanelContainer2" unique_id=601430277]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Pick 1 Reward"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer3" unique_id=2100703814]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 500
+alignment = 1

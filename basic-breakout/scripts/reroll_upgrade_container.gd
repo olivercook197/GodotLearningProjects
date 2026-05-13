@@ -4,7 +4,7 @@ signal hovered
 signal stopped_hovering
 
 func _on_hover_gold_visual_hovered() -> void:
-	hovered.emit(GlobalVariables.level + 1)
+	hovered.emit(GlobalVariables.stage + 1)
 	pass # Replace with function body.
 
 

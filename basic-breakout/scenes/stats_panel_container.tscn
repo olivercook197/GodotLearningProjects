@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://cp1tk5ip3vxtn"]
+
+[ext_resource type="Script" uid="uid://d0esd05rjvd8o" path="res://scripts/stats_panel_container.gd" id="1_uj3mm"]
+[ext_resource type="Texture2D" uid="uid://dpney7cw0bdcl" path="res://assets/sprites/stats.png" id="2_dq10p"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="3_07rjg"]
+[ext_resource type="Script" uid="uid://b5jloh6olqrua" path="res://scripts/stats_handler.gd" id="4_w3qka"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yuijs"]
+load_path = "res://.godot/imported/scalable_panel.png-7a9ba92372ef312ae92e1c089438d60c.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aa4hd"]
+texture = SubResource("CompressedTexture2D_yuijs")
+region_rect = Rect2(50.378, 36.541, 51.005, 39.809)
+
+[node name="StatsPanelContainer" type="PanelContainer" unique_id=453277515]
+z_index = 500
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_aa4hd")
+script = ExtResource("1_uj3mm")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=661726798]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Control" type="Control" parent="MarginContainer" unique_id=1578999401]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/Control" unique_id=1108159457]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/TextureButton" unique_id=251556645]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_dq10p")
+stretch_mode = 2
+
+[node name="HoverAnimator" type="Node" parent="MarginContainer/Control" unique_id=1933540849]
+script = ExtResource("3_07rjg")
+press_scale = 0.6
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../TextureButton/TextureRect")
+
+[node name="StatsHandler" type="Node" parent="MarginContainer/Control" unique_id=652397602]
+script = ExtResource("4_w3qka")
+hover_animator_path = NodePath("../HoverAnimator")
+
+[connection signal="confirmed" from="MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
+[connection signal="pressed" from="MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_pressed"]

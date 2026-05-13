@@ -11,6 +11,7 @@ var game
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalVariables.set_variables()
+	LevelUpVariables.set_variables()
 	go_to_shop()
 
 

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://vt508max7nsx"]
+
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_315p5"]
+[ext_resource type="PackedScene" uid="uid://c5tn8k2xxxs2" path="res://level_ups/scenes/destroy_random_brick_10_seconds.tscn" id="1_gqfky"]
+
+[resource]
+script = ExtResource("1_315p5")
+option_name = "Destroy Random Brick Every 10 Seconds"
+modifier_scene = ExtResource("1_gqfky")
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

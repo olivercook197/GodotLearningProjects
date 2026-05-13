@@ -50,7 +50,7 @@ func initial_ui_setting():
 func calculate_gold_costs():
 	var gold_cost = 1
 	int_gold_cost = int(round(
-		gold_cost * GlobalVariables.gold_costs[data.gold_cost] * GlobalVariables.inflation
+		gold_cost * GlobalVariables.gold_costs[data.gold_cost] * (1 + GlobalVariables.inflation)
 	))
 
 	# pass cost into handler

@@ -30,8 +30,11 @@ func set_position_and_size(rect: Rect2):
 			0, Vector2(i % 3, j % 3))
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is PlayerPaddle:
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.get_parent() == PlayerPaddle:
 		player_colliding.emit()
-	if body is Ball:
+	elif area.get_parent() == Ball:
 		pass
+	else:
+		print(str(area) + " destroyed") 
+		area.queue_free()

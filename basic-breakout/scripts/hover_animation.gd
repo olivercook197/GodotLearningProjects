@@ -31,6 +31,9 @@ var is_disabled := false
 signal pressed   # user clicked
 signal confirmed
 
+signal hovered
+signal stopped_hovering
+
 func _ready():
 	assert(button != null, "HoverAnimator: button_path invalid")	# set in Inspector
 	assert(visual != null, "HoverAnimator: visual_path invalid")	# set in Inspector
@@ -54,12 +57,14 @@ func _on_mouse_entered():
 	if is_disabled: 
 		return
 	is_hovered = true
+	hovered.emit()
 	update_visual()
 
 func _on_mouse_exited():
 	if is_disabled: 
 		return
 	is_hovered = false
+	stopped_hovering.emit()
 	update_visual()
 
 func _on_button_down():

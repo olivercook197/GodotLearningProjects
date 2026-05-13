@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c8vnvb06l4eif"]
+
+[ext_resource type="Script" uid="uid://cvalk631jaepx" path="res://scripts/xp_label.gd" id="1_2xrdk"]
+[ext_resource type="Script" uid="uid://c5pjlja1b5fso" path="res://scripts/xp_panel_container.gd" id="1_t0wmy"]
+
+[sub_resource type="Theme" id="Theme_2iixl"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2xrdk"]
+load_path = "res://.godot/imported/scalable_panel.png-7a9ba92372ef312ae92e1c089438d60c.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t0wmy"]
+texture = SubResource("CompressedTexture2D_2xrdk")
+region_rect = Rect2(50.378357, 36.54079, 51.00493, 39.808727)
+
+[node name="XPPanelContainer" type="PanelContainer" unique_id=2067107312]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.5
+offset_top = 395.0
+offset_right = 90.5
+offset_bottom = 462.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t0wmy")
+
+[node name="XPPanel" type="Panel" parent="." unique_id=1725272438]
+layout_mode = 2
+theme = SubResource("Theme_2iixl")
+theme_override_styles/panel = SubResource("StyleBoxTexture_t0wmy")
+
+[node name="XPLabel" type="Label" parent="." unique_id=752766120]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19607843, 1, 1, 1)
+theme_override_font_sizes/font_size = 48
+text = "XP: 0/100"
+horizontal_alignment = 1
+script = ExtResource("1_2xrdk")

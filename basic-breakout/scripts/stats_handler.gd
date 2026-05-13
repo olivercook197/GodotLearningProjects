@@ -19,7 +19,7 @@ func _ready():
 
 func _on_pressed():
 	if data == null:
-		cost = GlobalVariables.level + 1
+		cost = GlobalVariables.stage + 1
 		if cost > GlobalVariables.gold:
 			hover.reject_press()
 			upgrade_clicked_too_expensive.emit()

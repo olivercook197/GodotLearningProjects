@@ -8,8 +8,12 @@ var high_score := 0
 var current_score := 0
 const starting_gold = 50
 var gold := 50
-const initial_level = 0
-var level
+const initial_stage = 0
+var stage
+var xp_level_cap : int
+var xp_level : int
+var xp : float
+var levels_gained: int
 
 # upgrade stats
 const initial_brick_gold_value = [1, 1, 1, 1]
@@ -17,30 +21,40 @@ var brick_gold_value
 const initial_brick_score_speed_value = [1, 2, 5, 10]
 var brick_score_value
 var brick_speed_value
-const initial_ball_speed = 800	#decreases by speed_decrease_on_level_start on first level, so real initial speed is lower
+const initial_ball_speed = 800	#decreases by speed_decrease_on_stage_start on first stage, so real initial speed is lower
 var ball_speed
 const initial_paddle_position = Vector2(0, 460)
 var paddle_position
 const initial_paddle_x_length = 1
 const max_paddle_x_length = 4
 var paddle_x_length
+var initial_paddle_speed = 100
+var paddle_speed: int
 const initial_interest = 0
 var interest
 const initial_score_without_speed = 0
 var score_without_speed
-const initial_speed_decrease_on_level_start = 100
-var speed_decrease_on_level_start
+const initial_speed_decrease_on_stage_start = 100
+var speed_decrease_on_stage_start
 const initial_powerup_chance = 0.05
 var powerup_chance
+const initial_extra_powerup_chance = 2
+var extra_powerup_chance
 const initial_brick_change_chance = [0, 0, 0, 0]
 var brick_change_chance
-var initial_paddle_speed = 100
-var paddle_speed
+
+
+var extra_xp_chance : float
+var bonus_xp_percent : float
+
+# misc
+const initial_level_up_options = 3
+var level_up_options: int
 
 # gold costs
 const initial_inflation : float = 1
 var inflation
-const initial_inflation_rate = 1.1
+const initial_inflation_rate = 0.1
 var inflation_rate
 const initial_gold_costs = [3, 6, 9, 12, 15, 20]	#{VERY_LOW, LOW, MEDIUM, HIGH, VERY_HIGH, EXTREME}
 var gold_costs
@@ -50,18 +64,54 @@ var max_rerolls
 # in-game
 var gold_multiplier: int = 1
 
+# enum used as requirements for levelups
+enum RequirementsLevelUpStats {
+	MAX_LIVES,
+	GOLD,
+	STAGE,
+	XP_LEVEL,
+	
+	BRICK_GOLD_VALUE,
+	BRICK_SCORE_VALUE,
+	
+	BALL_SPEED,
+	PADDLE_POSITION,
+	PADDLE_SPEED,
+	PADDLE_X_LENGTH,
+	
+	SCORE_WITHOUT_SPEED,
+	SPEED_DECREASE_ON_STAGE_START,
+	POWERUP_CHANCE,
+	BRICK_CHANGE_CHANCE,
+	
+	BONUS_XP_PERCENT,
+	LEVEL_UP_OPTIONS,
+	
+	INFLATION,
+	INFLATION_RATE
+}
+
+var bonus_xp = 0
+
 func high_score_updated(score):
 	current_score = score
 	if score >= high_score:
 		high_score = score
 
 func set_variables():
+	xp_level_cap = 50
+	xp_level = 1
+	xp = 0
+	levels_gained = 0
+	extra_xp_chance = 0.1
+	bonus_xp_percent = 0
+	
 	max_lives = initial_lives
 	remaining_lives = max_lives
 	
 	gold = starting_gold
 	current_score = 0
-	level = initial_level
+	stage = initial_stage
 
 	brick_gold_value = initial_brick_gold_value.duplicate()
 	brick_score_value = initial_brick_score_speed_value.duplicate()
@@ -74,9 +124,10 @@ func set_variables():
 	interest = initial_interest
 	score_without_speed = initial_score_without_speed
 	
-	speed_decrease_on_level_start = initial_speed_decrease_on_level_start
+	speed_decrease_on_stage_start = initial_speed_decrease_on_stage_start
 	powerup_chance = initial_powerup_chance
-	brick_change_chance = initial_brick_change_chance
+	extra_powerup_chance = initial_extra_powerup_chance
+	brick_change_chance = initial_brick_change_chance.duplicate()
 	
 	paddle_speed = initial_paddle_speed
 	
@@ -85,4 +136,56 @@ func set_variables():
 	gold_costs = initial_gold_costs
 	max_rerolls = initial_rerolls
 	
+	level_up_options = initial_level_up_options
 	
+
+#extends Node
+
+#var xp_collected_base = 0
+#var total_xp_collected_base = 0
+#var xp_collected_with_bonus = 0
+#var total_xp_collected_bonus = 0
+#var bonus_xp_mult = 1.3
+#var xp_cap_base = 50
+#var xp_cap_bonus = 50
+#var level_base = 0
+#var level_bonus = 0
+#var upgrades_base = 0
+#var upgrades_bonus = -1
+#
+#func _ready():
+	#while upgrades_bonus < upgrades_base + 1:
+		#xp_collected_base = increase_xp(xp_collected_base)
+		#total_xp_collected_base = increase_xp(total_xp_collected_base)
+		#if level_bonus > 0:
+			#xp_collected_with_bonus = increase_xp(xp_collected_with_bonus, bonus_xp_mult)
+			#total_xp_collected_bonus = increase_xp(total_xp_collected_bonus, bonus_xp_mult)
+		#else:
+			#xp_collected_with_bonus = increase_xp(xp_collected_with_bonus)
+			#total_xp_collected_bonus = increase_xp(total_xp_collected_bonus)
+		#
+		#if xp_collected_base >= xp_cap_base:
+			#
+			#xp_collected_base -= xp_cap_base
+			#xp_cap_base += 25 * level_base
+			#level_base += 1
+			#upgrades_base += 1
+			#print("No bonus xp levelled up to level " + str(level_base) + " - upgrades: " + str(upgrades_base))
+		#
+		#if xp_collected_with_bonus >= xp_cap_bonus:
+			#
+			#xp_collected_with_bonus -= xp_cap_bonus
+			#xp_cap_bonus += 25 * level_bonus
+			#level_bonus += 1
+			#upgrades_bonus += 1
+			#print("Bonus xp levelled up to level " + str(level_bonus) + " - upgrades: " + str(upgrades_bonus))
+		#
+	#print(str(xp_collected_base) + " / " + str(xp_cap_base))
+	#print(xp_collected_with_bonus)
+	#print("Total Xp collected base - " + str(total_xp_collected_base))
+	#print("Total Xp collected with bonus - " + str(total_xp_collected_bonus))
+	#print("Done")
+	#
+#func increase_xp(current_xp, bonus_mult = 1):
+	#current_xp += 1 * bonus_mult
+	#return current_xp

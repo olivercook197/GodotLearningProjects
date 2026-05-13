@@ -8,16 +8,22 @@ const LIVES = preload("uid://v36pc1cur2mv")
 const POWERUP = preload("uid://cntm4nhm84n3n")
 const TEN_SECOND_TIMER = preload("uid://8ik8vqkn7hep")
 const DARKEN_BACKGROUND = preload("uid://cy4yhp5w1mhqn")
+const XP_CRYSTAL = preload("uid://bsa8wwffqb71y")
+const STATS_MENU = preload("uid://cvxqf1v5li07v")
 
 @onready var world_border: Area2D = $WorldBorder
 @onready var game_over_panel: Panel = $CarryThrough/GameOver/Panel
-@onready var level_win_panel: PanelContainer = $CarryThrough/LevelWin/PanelContainer
+@onready var stage_win_panel: PanelContainer = $CarryThrough/StageWin/PanelContainer
 @onready var score_label: PanelContainer = $CarryThrough/ScorePanelContainer
 @onready var game_over_label: Label = $CarryThrough/GameOver/Panel/GameOverLabel
 @onready var carry_through: Node2D = $CarryThrough
 @onready var gold_label: Label = $CarryThrough/GoldPanelContainer/GoldLabel
 @onready var start_game_label: Label = $CarryThrough/StartGameLabel
 @onready var life_manager: Node = $CarryThrough/LifeManager
+@onready var xp_panel_container: PanelContainer = $CarryThrough/XPPanelContainer
+@onready var level_up_panel: Panel = $CarryThrough/LevelUpPanel
+@onready var tooltip_panel_container: PanelContainer = $CarryThrough/TooltipPanelContainer
+@onready var stats_panel_container: PanelContainer = $CarryThrough/StatsPanelContainer
 
 signal go_to_shop
 signal game_over
@@ -27,6 +33,8 @@ var score := 0
 var brick_count := 0
 
 var paddle_timer: Timer = null
+var xp_timer: Timer = null
+var magnet_xp: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,6 +45,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug_reset"):
 			GlobalVariables.set_variables()
+			LevelUpVariables.set_variables()
 			remove_panels_hitbox()
 			go_to_shop.emit()
 			
@@ -46,12 +55,15 @@ func _process(delta: float) -> void:
 		for brick in get_tree().get_nodes_in_group("bricks"):
 			brick.queue_free()
 			
-		level_win_panel.visible = true
+		stage_win_panel.visible = true
 		main_ball.in_motion = false
-		main_ball.level_won = true
+		main_ball.stage_won = true
 	elif Input.is_action_just_pressed("gain_gold_button"):
 		GlobalVariables.gold += 50
 		gold_label.update_gold()
+	elif Input.is_action_just_pressed("gain_xp"):
+		GlobalVariables.xp += 50
+		xp_panel_container.update_xp(true)
 
 func instantiate_boundary(rect):
 	var border = BOUNDARY.instantiate()
@@ -70,10 +82,11 @@ func instantiate_paddle(paddle_position):
 	
 func instantiate_ball():
 	var ball = BALL.instantiate()
-	ball.level_started.connect(_level_started)
+	ball.stage_started.connect(_stage_started)
 	add_child(ball)
 	ball.get_paddle()
 	main_ball = ball
+	ball.add_to_group("ball")
 
 func instantiate_brick(pos: Vector2, sprite: int):
 	var brick = BRICK.instantiate()
@@ -82,8 +95,6 @@ func instantiate_brick(pos: Vector2, sprite: int):
 	brick.choose_frame(sprite)
 	brick.add_to_group("bricks")
 	brick_count += 1
-	
-	#brick.tree_exited.connect(_on_brick_removed)
 	
 	brick.hit.connect(_on_brick_hit)
 	brick.destroyed.connect(_on_brick_destroyed)
@@ -94,6 +105,15 @@ func instantiate_powerup(pos: Vector2) -> void:
 	add_child(powerup)
 	powerup.powerup_collected.connect(_on_powerup_collected)
 	powerup.add_to_group("powerup")
+
+func instantiate_xp(pos: Vector2) -> void:
+	var xp = XP_CRYSTAL.instantiate()
+	xp.position = pos + Vector2(randi_range(-35, 35), randi_range(-15, 15))
+	add_child(xp)
+	xp.xp_collected.connect(_on_xp_collected)
+	xp.add_to_group("xp")
+	if magnet_xp:
+		xp.go_to_paddle()
 
 func _on_button_pressed() -> void:
 	$CarryThrough/Camera2D.zoom *= 0.5
@@ -107,21 +127,33 @@ func _on_brick_hit(body):
 	gold_label.update_gold()
 	score_label.update_score()
 
-func _on_brick_destroyed(position: Vector2, powerup_spawn: bool):
+func _on_brick_destroyed(position: Vector2, powerup_spawn: bool, extra_xp: bool = false):
 	brick_count -= 1
+	
+	if extra_xp:
+		instantiate_xp(position + Vector2(30, 0))
+		instantiate_xp(position + Vector2(-30, 0))
+	else:
+		instantiate_xp(position)
 	if powerup_spawn:
 		instantiate_powerup(position)
 	if brick_count == 0:
 		show_dark_background()
-		level_win_panel.visible = true
+		stage_win_panel.visible = true
 		main_ball.in_motion = false
-		main_ball.level_won = true
+		main_ball.stage_won = true
+		for xp in get_tree().get_nodes_in_group("xp"):
+			xp.go_to_paddle()
 
 func start_scene():
+	GlobalVariables.levels_gained = 0
+	
 	start_game_label.visible = true
-	start_game_label.text = str("Level " + str(GlobalVariables.level) + ": Press Space to start")
+	start_game_label.text = str("Stage " + str(GlobalVariables.stage) + ": Press Space to start")
 	game_over_panel.visible = false
-	level_win_panel.visible = false
+	stage_win_panel.visible = false
+	level_up_panel.visible = false
+	stats_panel_container.visible = false
 	for child in get_children():
 		if child != carry_through:
 			child.queue_free()
@@ -138,21 +170,7 @@ func start_scene():
 	var window_size = Vector2(DisplayServer.window_get_size())
 	var zoom = $CarryThrough/Camera2D.zoom
 	var world_size = window_size / zoom
-	
-	#var rect1 = Rect2(
-	#Vector2(0, -world_size[1] / 2 + 10),
-	#Vector2(world_size[0] + 40, 150)
-	#)
-#
-	#var rect2 = Rect2(
-	#Vector2(-world_size[0] / 2, 0),
-	#Vector2(60, world_size[1] + 40)
-	#)
-	#
-	#var rect3 = Rect2(
-	#Vector2(world_size[0] / 2, 0),
-	#Vector2(60, world_size[1] + 40)
-	#)
+
 	
 	var rect1 = Rect2(
 	Vector2(0, -710),
@@ -235,6 +253,8 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 		life_manager.remove_life()
 		for powerup in get_tree().get_nodes_in_group("powerup"):
 			powerup.queue_free()
+		for xp in get_tree().get_nodes_in_group("xp"):
+			xp.go_to_paddle()
 	
 	if GlobalVariables.remaining_lives == 0:
 		show_dark_background()
@@ -247,10 +267,16 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 			SaveLoad.highest_record = GlobalVariables.high_score
 		SaveLoad.save_score()
 		
-
 	else:
 		main_ball.ball_reset()
-		
+		stop_level_timers()
+
+func _on_world_border_area_entered(area: Area2D) -> void:
+	if area != Ball:
+		print(area.get_parent())
+		area.get_parent().queue_free()
+	
+
 func show_dark_background():
 	var darken_background = DARKEN_BACKGROUND.instantiate()
 	darken_background.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -258,17 +284,50 @@ func show_dark_background():
 
 func _on_game_over_button_pressed() -> void:
 	GlobalVariables.set_variables()
+	LevelUpVariables.set_variables()
 	remove_panels_hitbox()
 	go_to_shop.emit()
 
-func _on_next_level_button_pressed() -> void:
+func _on_next_stage_button_pressed() -> void:
 	remove_panels_hitbox()
-	go_to_shop.emit()
-	pass # Replace with function body.
+	if GlobalVariables.levels_gained > 0:
+		stage_win_panel.visible = false
+		level_up_panel.activate()
+		level_up_panel.visible = true
+		stats_panel_container.visible = true
+		GlobalVariables.levels_gained -= 1
+		
+	else:
+		GlobalVariables.levels_gained = 0
+		go_to_shop.emit()
 
-func _level_started():
+func _stage_started():
 	start_game_label.visible = false
-	
+	if LevelUpVariables.destroy_random_brick:
+		var timer:Timer = TEN_SECOND_TIMER.instantiate()
+		timer.wait_time = 1
+		timer.autostart = true
+		timer.one_shot = false
+		timer.timeout.connect(_destroy_random_brick)
+		timer.add_to_group("level_timer")
+		add_child(timer)
+		
+
+func stop_level_timers():
+	for timer in get_tree().get_nodes_in_group("level_timer"):
+		timer.queue_free()
+
+func _destroy_random_brick():
+	var brick_list = []
+	for brick in get_tree().get_nodes_in_group("bricks"):
+		brick_list.append(brick)
+	var destroyed_brick: Brick = brick_list.pick_random()
+	if destroyed_brick != null:
+		destroyed_brick.on_hit()
+		for ball:Ball in get_tree().get_nodes_in_group("ball"):
+			ball.hit_brick_logic(destroyed_brick)
+	print(brick_count)
+
 
 func _on_powerup_collected(powerup):
 	if powerup == 0:
@@ -280,7 +339,7 @@ func _on_powerup_collected(powerup):
 				life_manager.add_lives_to_scene()
 	elif powerup == 1:
 		print("Free Money")
-		GlobalVariables.gold += 5 * GlobalVariables.level
+		GlobalVariables.gold += 5 * GlobalVariables.stage
 		gold_label.update_gold()
 	elif powerup == 2:
 		var timer: Timer = TEN_SECOND_TIMER.instantiate()
@@ -301,16 +360,60 @@ func _on_powerup_collected(powerup):
 		for paddle in get_tree().get_nodes_in_group("paddle"):
 			paddle.enable_side_panels()
 		print("Longer paddles")
+	elif powerup == 4:
+		for xp in get_tree().get_nodes_in_group("xp"):
+			xp.go_to_paddle()
+		magnet_xp = true
+		if xp_timer == null or not is_instance_valid(xp_timer):
+			xp_timer = TEN_SECOND_TIMER.instantiate()
+			xp_timer.wait_time = 20
+			xp_timer.one_shot = true
+			xp_timer.timeout.connect(_xp_magnet_timeout)
+			add_child(xp_timer)
+		
+		xp_timer.start()
+		print("XP Magnet")
 
+func _on_xp_collected(xp_collected):
+	var actual_collected_xp: float = xp_collected * (1 + GlobalVariables.bonus_xp_percent) * (1 + GlobalVariables.current_score/50000.0)
+	GlobalVariables.xp += actual_collected_xp
+	print(xp_collected)
+	print(actual_collected_xp)
+	GlobalVariables.bonus_xp += actual_collected_xp - xp_collected
+	xp_panel_container.update_xp(true)
 
 func _double_money_timer_timeout() -> void:
 	GlobalVariables.gold_multiplier -= 1
-	pass
 
 func _paddle_extension_timeout() -> void:
 	for paddle in get_tree().get_nodes_in_group("paddle"):
 			paddle.disable_side_panels()
 
+func _xp_magnet_timeout() -> void:
+	magnet_xp = false
+
 func remove_panels_hitbox() -> void:
 	for paddle in get_tree().get_nodes_in_group("paddle"):
 			paddle.remove_panel_hitbox()
+
+
+func _on_level_up_panel_level_up_chosen(update_gold_panel: bool) -> void:
+	if update_gold_panel:
+		gold_label.update_gold()
+		
+	_on_next_stage_button_pressed()
+
+
+
+func _on_level_up_panel_level_up_hovered(tooltip: String) -> void:
+	tooltip_panel_container.update_text(tooltip)
+	tooltip_panel_container.visible = true
+
+
+func _on_level_up_panel_level_up_stopped_hovering() -> void:
+	tooltip_panel_container.visible = false
+
+
+func _on_stats_panel_container_open_stats_menu() -> void:
+	var stats_menu = STATS_MENU.instantiate()
+	add_child(stats_menu)

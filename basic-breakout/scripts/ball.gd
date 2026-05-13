@@ -8,22 +8,22 @@ var in_motion = false
 var paddle: PlayerPaddle = null
 var initial_x_spread = 400
 const initial_speed = 750
-var level_start_speed
+var stage_start_speed
 var max_speed
-var level_won = false
-var speed_change = 0
+var stage_won = false
+var speed_and_score_change = []
 
-signal level_started
+signal stage_started
 
 
 # speed - print(sqrt(velocity.x ** 2 + velocity.y ** 2))
 
 func _ready() -> void:
 	if GlobalVariables.ball_speed != 0:
-		level_start_speed = GlobalVariables.ball_speed - GlobalVariables.speed_decrease_on_level_start
+		stage_start_speed = GlobalVariables.ball_speed - GlobalVariables.speed_decrease_on_stage_start
 	else:
-		level_start_speed = initial_speed
-	max_speed = level_start_speed
+		stage_start_speed = initial_speed
+	max_speed = stage_start_speed
 	$Sprite2D.visible = false
 	
 
@@ -34,12 +34,12 @@ func _physics_process(delta: float) -> void:
 			if paddle == null:
 				return
 		var go_to_paddle_position = paddle.position
-		go_to_paddle_position.y -= 32
+		go_to_paddle_position.y -= 34
 		position = go_to_paddle_position
 		$Sprite2D.visible = true
 		if Input.is_action_just_pressed("start_game"):	# initial ball jumping off
-			if !level_won:
-				level_started.emit()
+			if !stage_won:
+				stage_started.emit()
 				position += Vector2(0, -1)
 				var x_velo = randi_range(-initial_x_spread, initial_x_spread)
 				var y_velo = sqrt((max_speed ** 2) - (x_velo ** 2))
@@ -53,16 +53,10 @@ func _physics_process(delta: float) -> void:
 			var collider := collision.get_collider()
 
 			if collider is Brick:	# increase speed when hitting a brick
-				
-				speed_change = change_speed(collider)
-				if GlobalVariables.score_without_speed < randf():
-					max_speed += speed_change[1]
-				else:
-					print("Speed no added")
-				GlobalVariables.ball_speed = max_speed
-				GlobalVariables.current_score += speed_change[0]
-				collider.on_hit()
+				hit_brick_logic(collider)
 				velocity = velocity.bounce(collision.get_normal())
+				collider.on_hit()
+				
 			elif collider is PlayerPaddle:	# change bounce depending on paddle position and speed
 				var paddle = collider
 
@@ -108,6 +102,16 @@ func get_paddle():
 
 func ball_reset():
 	in_motion = false
+
+func hit_brick_logic(collider):
+	speed_and_score_change = change_speed(collider)
+	if GlobalVariables.score_without_speed < randf():
+		max_speed += speed_and_score_change[1]
+	else:
+		print("Speed no added")
+	GlobalVariables.ball_speed = max_speed
+	GlobalVariables.current_score += speed_and_score_change[0]
+
 
 func change_speed(collider):
 	var frame = collider.animated_sprite_2d.frame

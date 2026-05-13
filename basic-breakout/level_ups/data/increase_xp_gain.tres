@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://dxs8yacnb1w2c"]
+
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_r1ow2"]
+[ext_resource type="PackedScene" uid="uid://hgopfpc56fhw" path="res://level_ups/scenes/increase_xp_gain.tscn" id="1_vv3xv"]
+
+[resource]
+script = ExtResource("1_r1ow2")
+option_name = "Increase Xp Gain"
+modifier_scene = ExtResource("1_vv3xv")
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

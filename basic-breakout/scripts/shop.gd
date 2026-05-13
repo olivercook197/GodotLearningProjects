@@ -22,7 +22,7 @@ const STATS_MENU = preload("uid://cvxqf1v5li07v")
 @onready var apply_upgrade: Node = $ApplyUpgrade
 @onready var life_manager: Node = $LifeManager
 @onready var score_panel_container: PanelContainer = $ScorePanelContainer
-@onready var next_level_button: TextureButton = $NextLevelContainer/MarginContainer/Control/NextLevelButton
+@onready var next_stage_button: TextureButton = $NextStageContainer/MarginContainer/Control/NextStageButton
 @onready var reroll_upgrade_button: TextureButton = $RerollUpgradeContainer/MarginContainer/Control/RerollUpgradeButton
 @onready var gain_life_upgrade_container: PanelContainer = $UpgradeContainer
 @onready var reroll_hover_animator: HoverAnimator = $RerollUpgradeContainer/MarginContainer/Control/HoverAnimator
@@ -36,6 +36,7 @@ var rerolls = GlobalVariables.max_rerolls
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("Bonus xp gained by score: " + str(GlobalVariables.bonus_xp))
 	refresh_upgrades()
 	gain_life_upgrade_container.add_to_group("upgrades")
 	
@@ -53,13 +54,13 @@ func _on_upgrade_item_button_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_hover_animator_confirmed(button_clicked) -> void:
-	if button_clicked.name == next_level_button.name:
+	if button_clicked.name == next_stage_button.name:
 		GlobalVariables.gold += int(floori(GlobalVariables.gold / 10.0) * GlobalVariables.interest)
-		GlobalVariables.level += 1
+		GlobalVariables.stage += 1
 		go_to_game.emit()
 	elif button_clicked.name == reroll_upgrade_button.name:
-		if GlobalVariables.gold >= GlobalVariables.level + 1:
-			GlobalVariables.gold -= (GlobalVariables.level + 1)
+		if GlobalVariables.gold >= GlobalVariables.stage + 1:
+			GlobalVariables.gold -= (GlobalVariables.stage + 1)
 			gold_panel_container.update_gold()
 			refresh_upgrades()
 			rerolls -= 1
@@ -77,7 +78,7 @@ func _on_upgrade_container_upgrade_selected_too_expensive() -> void:
 
 func _on_upgrade_container_upgrade_selected(data: UpgradeTemplate, gold_cost: int) -> void:
 	apply_upgrade.apply_upgrade(data)
-	GlobalVariables.inflation *= GlobalVariables.inflation_rate
+	GlobalVariables.inflation *= (1 + GlobalVariables.inflation_rate)
 	gold_panel_container.update_gold()
 	
 	for child in get_children():
@@ -118,14 +119,18 @@ func get_random_upgrades(count: int) -> Array:
 func remove_upgrades(upgrades: Array):
 	var valid_upgrades = []
 	for upgrade: UpgradeTemplate in upgrades:
-		if GlobalVariables.paddle_position.y >= 660 and upgrade.attribute_changed == 2:
+		if GlobalVariables.paddle_position.y >= 660 and upgrade.attribute_changed == 2:	# paddle can only go so low
 			pass
 		elif upgrade.attribute_changed == 1:
 			if (1 + upgrade.number_change * 0.01) * GlobalVariables.paddle_x_length > 4.2:
 				pass
 			else:
 				valid_upgrades.append(upgrade)
-		elif upgrade.attribute_changed == 0 and GlobalVariables.ball_speed < 800:
+		elif upgrade.attribute_changed == 0 and GlobalVariables.ball_speed < 850:	# ball speed down only shows up if it's high enough
+			pass
+		elif upgrade.attribute_changed == 10 and GlobalVariables.ball_speed < 1400:	# paddle speed up only shows up if ball speed is low enough
+			pass
+		elif upgrade.attribute_changed == 11 and GlobalVariables.bonus_xp_percent == 0:	# bonus xp only shows up if the player has obtained a bonus xp level up
 			pass
 		else:
 			valid_upgrades.append(upgrade) 
@@ -187,3 +192,11 @@ func _on_stats_panel_container_open_stats_menu() -> void:
 
 func _stat_menu_closed():
 	darken_background.visible = false
+
+
+func _on_hover_animator_hovered() -> void:
+	if GlobalVariables.interest > 0:
+		gold_panel_container.show_potential_gold(int(floori(GlobalVariables.gold / 10.0) * GlobalVariables.interest), true)
+
+func _on_hover_animator_stopped_hovering() -> void:
+	gold_panel_container.update_gold()
