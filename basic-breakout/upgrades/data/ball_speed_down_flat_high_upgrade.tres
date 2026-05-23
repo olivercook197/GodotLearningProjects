@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("1_1rdd2")
 upgrade_name = "Ball Speed Down"
-upgrade_desc = "Reduces ball speed by 150"
-number_change = -150.0
+upgrade_desc = "Reduces ball speed by 180"
+number_change = -180.0
 textures = Array[Texture2D]([ExtResource("2_1rdd2")])
 gold_cost = 2
 metadata/_custom_type_script = "uid://bqtob7nsgri3w"

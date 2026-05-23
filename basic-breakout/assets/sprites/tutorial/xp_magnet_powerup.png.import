@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu21gempttj00"
-path="res://.godot/imported/inflation_rate_decrease_levelup.png-32c1ba9b5470ad8e5b3f94f338b926ab.ctex"
+uid="uid://dy2s4mmgpcbkt"
+path="res://.godot/imported/xp_magnet_powerup.png-c3469f8b6fc65ad5b182985a07577b88.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/level_up/inflation_rate_decrease_levelup.png"
-dest_files=["res://.godot/imported/inflation_rate_decrease_levelup.png-32c1ba9b5470ad8e5b3f94f338b926ab.ctex"]
+source_file="res://assets/sprites/tutorial/xp_magnet_powerup.png"
+dest_files=["res://.godot/imported/xp_magnet_powerup.png-c3469f8b6fc65ad5b182985a07577b88.ctex"]
 
 [params]
 

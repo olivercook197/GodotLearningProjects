@@ -34,10 +34,10 @@ func activate() -> void:
 		
 		h_box_container.add_child(level_up_choice)
 
-func _level_up_chosen(update_gold_panel: bool):
+func _level_up_chosen(update_gold_panel: bool, gold_gained: int = 0):
 	print("Level up chosen")
-	level_up_chosen.emit(update_gold_panel)
-	pass
+	level_up_chosen.emit(update_gold_panel, gold_gained)
+	Signals.level_ups_taken.emit()
 
 func _hovered(tooltip: String):
 	level_up_hovered.emit(tooltip)
@@ -63,13 +63,25 @@ func load_all_level_ups(path: String) -> Array:
 	
 	while file_name != "":
 		if file_name.ends_with(".tres"):
-			var resource = load(path + "/" + file_name)
+			var full_path = path + "/" + file_name
+			var resource = load(full_path)
+			var add_level_up = true
 			if resource is LevelUpOption:
-				if resource.requirements_to_unlock:
-					print(resource.get_stat_value(resource.requirements_to_unlock[0]))
-					if resource.get_stat_value(resource.requirements_to_unlock[0]) > resource.requirement_minimum:
-						level_ups.append(resource)
-				else:
+				if resource.one_time:	# don't add one time level ups
+					if LevelUpVariables.taken_level_ups.has(resource.id):
+						add_level_up = false
+				if resource.stat_requirements_to_unlock:	# only add level ups that meet the minimum requirement
+					print(resource.get_stat_value(resource.stat_requirements_to_unlock[0]))
+					if resource.get_stat_value(resource.stat_requirements_to_unlock[0]) <= resource.requirement_minimum:
+						add_level_up = false
+				if resource.levelup_requirements_to_unlock:	# only add level ups that have prerequisite levelup
+					var lookup = 0
+					for i in resource.levelup_requirements_to_unlock:
+						if resource.get_levelup_option(resource.levelup_requirements_to_unlock[lookup]) not in LevelUpVariables.taken_level_ups:
+							add_level_up = false
+						lookup += 1
+					
+				if add_level_up:
 					level_ups.append(resource)
 		
 		file_name = dir.get_next()

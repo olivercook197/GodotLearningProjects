@@ -55,7 +55,9 @@ func _on_upgrade_item_button_pressed() -> void:
 
 func _on_hover_animator_confirmed(button_clicked) -> void:
 	if button_clicked.name == next_stage_button.name:
-		GlobalVariables.gold += int(floori(GlobalVariables.gold / 10.0) * GlobalVariables.interest)
+		if GlobalVariables.interest != 0:
+			GlobalVariables.gold += int(floori(GlobalVariables.gold / 10.0) * GlobalVariables.interest)
+			Signals.gold_gained.emit(int(floori(GlobalVariables.gold / 10.0) * GlobalVariables.interest))
 		GlobalVariables.stage += 1
 		go_to_game.emit()
 	elif button_clicked.name == reroll_upgrade_button.name:
@@ -68,6 +70,7 @@ func _on_hover_animator_confirmed(button_clicked) -> void:
 				button_clicked.disabled = true
 				reroll_hover_animator.disable_button()
 			print("Reroll")
+			Signals.rerolls.emit()
 		
 	pass # Replace with function body.
 
@@ -80,6 +83,7 @@ func _on_upgrade_container_upgrade_selected(data: UpgradeTemplate, gold_cost: in
 	apply_upgrade.apply_upgrade(data)
 	GlobalVariables.inflation *= (1 + GlobalVariables.inflation_rate)
 	gold_panel_container.update_gold()
+	Signals.upgrades_taken.emit()
 	
 	for child in get_children():
 		if child.is_in_group("upgrades"):
@@ -188,7 +192,7 @@ func _on_stats_panel_container_open_stats_menu() -> void:
 	add_child(stats_menu)
 	stats_menu.stat_menu_closed.connect(_stat_menu_closed)
 	darken_background.visible = true
-	pass # Replace with function body.
+
 
 func _stat_menu_closed():
 	darken_background.visible = false

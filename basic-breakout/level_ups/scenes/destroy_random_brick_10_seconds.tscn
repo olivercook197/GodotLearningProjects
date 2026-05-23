@@ -8,7 +8,7 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_8w4eh")
-description = "Causes a random brick to self-destruct every 10 seconds"
+description = "Causes a random brick to be hit every 10 seconds"
 metadata/_custom_type_script = "uid://b12k8s4ltppra"
 
 [node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_m8vqj")]

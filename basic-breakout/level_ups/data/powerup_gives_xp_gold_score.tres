@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://ddvkgrhdu4q5n"]
+
+[ext_resource type="PackedScene" uid="uid://dw7xy37nxywey" path="res://level_ups/scenes/powerup_gives_xp_gold_score.tscn" id="1_gokfu"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_myt6o"]
+
+[resource]
+script = ExtResource("1_myt6o")
+id = 15
+option_name = "Powerup Gives XP, Gold and Score"
+modifier_scene = ExtResource("1_gokfu")
+one_time = true
+levelup_requirements_to_unlock = Array[int]([3])
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

@@ -21,6 +21,12 @@ func on_hit():
 		self.visible = false
 		collision_shape_2d.disabled = true
 		self.queue_free()
+		if frame == 0:
+			if randf() < GlobalVariables.increase_score_multiplier_chance:
+				print("Score multiplier increased")
+				GlobalVariables.score_multiplier += 0.01
+				if LevelUpVariables.brick0_increases_gold_multiplier:
+					GlobalVariables.global_gold_multiplier += 0.01
 		if frame == 1:
 			if randf() < GlobalVariables.extra_xp_chance:
 				extra_xp = true
@@ -32,3 +38,4 @@ func on_hit():
 				powerup = true
 
 		destroyed.emit(self.position, powerup, extra_xp)
+		Signals.brick_destroyed.emit()

@@ -9,6 +9,7 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_v0jod")
 description = "Increases the value of all XP by 30%"
+id = 5
 
 [node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_mqd52")]
 layout_mode = 1

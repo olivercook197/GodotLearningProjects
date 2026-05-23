@@ -1,4 +1,4 @@
 extends LevelUpScene
 
 func apply_level_up():
-	GlobalVariables.brick_change_chance[3] += 25
+	GlobalVariables.brick_change_chance[3] += 33.333

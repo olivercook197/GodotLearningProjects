@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_cprvb")
 upgrade_name = "Ball Speed Down"
-upgrade_desc = "Reduces ball speed by 50"
-number_change = -50.0
+upgrade_desc = "Reduces ball speed by 60"
+number_change = -60.0
 textures = Array[Texture2D]([ExtResource("2_cprvb")])
 metadata/_custom_type_script = "uid://bqtob7nsgri3w"

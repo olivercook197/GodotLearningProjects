@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" uid="uid://disux13w3hnrm" path="res://level_ups/scripts/interest_rate_decrease.gd" id="1_gjaso"]
 [ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_noloj"]
-[ext_resource type="Texture2D" uid="uid://cu21gempttj00" path="res://assets/sprites/level_up/inflation_rate_decrease_levelup.png" id="3_ifbkf"]
+[ext_resource type="Texture2D" uid="uid://cu21gempttj00" path="res://assets/sprites/level_up/inflation_rate_decrease.png" id="3_ifbkf"]
 
 [node name="InflationRateDecrease" type="Control" unique_id=1185728798]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_gjaso")
 description = "Decrease Interest Rate by 3%"
+id = 6
 metadata/_custom_type_script = "uid://b12k8s4ltppra"
 
 [node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_noloj")]

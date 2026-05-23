@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://itd4myxjf5dj"]
+
+[ext_resource type="Script" uid="uid://8an3wlqg6fts" path="res://level_ups/scripts/double_powerup_timer.gd" id="1_kbnho"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_4p3vd"]
+[ext_resource type="Texture2D" uid="uid://byg80ncbi3wj4" path="res://assets/sprites/level_up/double_powerup_timer.png" id="3_1g1ag"]
+
+[node name="DoublePowerupTimer" type="Control" unique_id=311950119]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kbnho")
+description = "Doubles the length of all powerups"
+id = 8
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_4p3vd")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_1g1ag")

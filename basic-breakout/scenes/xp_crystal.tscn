@@ -82,7 +82,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ckij6"]
-radius = 19.0
+radius = 21.0
 
 [node name="XPCrystal" type="AnimatedSprite2D" unique_id=1713103144]
 sprite_frames = SubResource("SpriteFrames_i8amq")

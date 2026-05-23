@@ -1,10 +1,13 @@
 class_name LevelUpOption
 extends Resource
 
+@export var id: int	# must be the same as the level_up_scene ID
 @export var option_name: String
 @export var modifier_scene: PackedScene
-@export var requirements_to_unlock: Array[GlobalVariables.RequirementsLevelUpStats]
+@export var stat_requirements_to_unlock: Array[GlobalVariables.RequirementsLevelUpStats]
 @export var requirement_minimum: float
+@export var one_time: bool
+@export var levelup_requirements_to_unlock: Array[LevelUpVariables.RequirementsLevelUpLevels]
 
 func get_stat_value(stat: GlobalVariables.RequirementsLevelUpStats):
 	match stat:
@@ -44,5 +47,21 @@ func get_stat_value(stat: GlobalVariables.RequirementsLevelUpStats):
 			return GlobalVariables.inflation
 		GlobalVariables.RequirementsLevelUpStats.INFLATION_RATE:
 			return GlobalVariables.inflation_rate
+		
+		_:
+			return null
+
+func get_levelup_option(levelup: LevelUpVariables.RequirementsLevelUpLevels):
+	match levelup:
+		LevelUpVariables.RequirementsLevelUpLevels.START_WITH_EXTRA_SLOW_BALL:
+			return LevelUpVariables.level_up_id_list["start_with_extra_slow_ball"]
+		LevelUpVariables.RequirementsLevelUpLevels.INCREASE_BRICK0_SPAWN:
+			return LevelUpVariables.level_up_id_list["increase_brick0_spawn"]
+		LevelUpVariables.RequirementsLevelUpLevels.INCREASE_BRICK1_SPAWN:
+			return LevelUpVariables.level_up_id_list["increase_brick1_spawn"]
+		LevelUpVariables.RequirementsLevelUpLevels.INCREASE_BRICK2_SPAWN:
+			return LevelUpVariables.level_up_id_list["increase_brick2_spawn"]
+		LevelUpVariables.RequirementsLevelUpLevels.INCREASE_BRICK3_SPAWN:
+			return LevelUpVariables.level_up_id_list["increase_brick3_spawn"]
 		_:
 			return null

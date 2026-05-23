@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://cs0qoqusr2u7w"]
+
+[ext_resource type="PackedScene" uid="uid://u24saml3o7gm" path="res://level_ups/scenes/slow_ball_bounces_off_bottom.tscn" id="1_5qwht"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_lc5dd"]
+
+[resource]
+script = ExtResource("1_lc5dd")
+id = 10
+option_name = "Slow Ball Bounces Off Bottom"
+modifier_scene = ExtResource("1_5qwht")
+one_time = true
+levelup_requirements_to_unlock = Array[int]([0])
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

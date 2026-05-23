@@ -4,16 +4,18 @@ extends Node2D
 const initial_lives := 3
 var max_lives
 var remaining_lives
-var high_score := 0
-var current_score := 0
+var high_score: int = 0
+var current_score: float
 const starting_gold = 50
-var gold := 50
+var gold: float = 50
 const initial_stage = 0
 var stage
 var xp_level_cap : int
 var xp_level : int
 var xp : float
 var levels_gained: int
+
+var score_multiplier: float
 
 # upgrade stats
 const initial_brick_gold_value = [1, 1, 1, 1]
@@ -40,16 +42,18 @@ const initial_powerup_chance = 0.05
 var powerup_chance
 const initial_extra_powerup_chance = 2
 var extra_powerup_chance
-const initial_brick_change_chance = [0, 0, 0, 0]
+const initial_brick_change_chance = [float(0.0), float(0.0), float(0.0), float(0.0)]
 var brick_change_chance
 
-
+# unique brick stats
+var increase_score_multiplier_chance: float
 var extra_xp_chance : float
 var bonus_xp_percent : float
 
 # misc
 const initial_level_up_options = 3
 var level_up_options: int
+var global_gold_multiplier: float = 1
 
 # gold costs
 const initial_inflation : float = 1
@@ -62,7 +66,7 @@ const initial_rerolls = 1
 var max_rerolls
 
 # in-game
-var gold_multiplier: int = 1
+var local_gold_multiplier: int = 1
 
 # enum used as requirements for levelups
 enum RequirementsLevelUpStats {
@@ -103,9 +107,12 @@ func set_variables():
 	xp_level = 1
 	xp = 0
 	levels_gained = 0
-	extra_xp_chance = 0.1
+	extra_xp_chance = 0.2
 	bonus_xp_percent = 0
+	increase_score_multiplier_chance = 0.2
 	
+	score_multiplier = 1
+	global_gold_multiplier = 1
 	max_lives = initial_lives
 	remaining_lives = max_lives
 	
@@ -138,54 +145,4 @@ func set_variables():
 	
 	level_up_options = initial_level_up_options
 	
-
-#extends Node
-
-#var xp_collected_base = 0
-#var total_xp_collected_base = 0
-#var xp_collected_with_bonus = 0
-#var total_xp_collected_bonus = 0
-#var bonus_xp_mult = 1.3
-#var xp_cap_base = 50
-#var xp_cap_bonus = 50
-#var level_base = 0
-#var level_bonus = 0
-#var upgrades_base = 0
-#var upgrades_bonus = -1
-#
-#func _ready():
-	#while upgrades_bonus < upgrades_base + 1:
-		#xp_collected_base = increase_xp(xp_collected_base)
-		#total_xp_collected_base = increase_xp(total_xp_collected_base)
-		#if level_bonus > 0:
-			#xp_collected_with_bonus = increase_xp(xp_collected_with_bonus, bonus_xp_mult)
-			#total_xp_collected_bonus = increase_xp(total_xp_collected_bonus, bonus_xp_mult)
-		#else:
-			#xp_collected_with_bonus = increase_xp(xp_collected_with_bonus)
-			#total_xp_collected_bonus = increase_xp(total_xp_collected_bonus)
-		#
-		#if xp_collected_base >= xp_cap_base:
-			#
-			#xp_collected_base -= xp_cap_base
-			#xp_cap_base += 25 * level_base
-			#level_base += 1
-			#upgrades_base += 1
-			#print("No bonus xp levelled up to level " + str(level_base) + " - upgrades: " + str(upgrades_base))
-		#
-		#if xp_collected_with_bonus >= xp_cap_bonus:
-			#
-			#xp_collected_with_bonus -= xp_cap_bonus
-			#xp_cap_bonus += 25 * level_bonus
-			#level_bonus += 1
-			#upgrades_bonus += 1
-			#print("Bonus xp levelled up to level " + str(level_bonus) + " - upgrades: " + str(upgrades_bonus))
-		#
-	#print(str(xp_collected_base) + " / " + str(xp_cap_base))
-	#print(xp_collected_with_bonus)
-	#print("Total Xp collected base - " + str(total_xp_collected_base))
-	#print("Total Xp collected with bonus - " + str(total_xp_collected_bonus))
-	#print("Done")
-	#
-#func increase_xp(current_xp, bonus_mult = 1):
-	#current_xp += 1 * bonus_mult
-	#return current_xp
+	

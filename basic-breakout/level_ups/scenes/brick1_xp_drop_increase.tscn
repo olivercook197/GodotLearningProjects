@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c76bcvlerwruq"]
+
+[ext_resource type="Script" uid="uid://cgn6jgq62oysq" path="res://level_ups/scripts/brick_1_xp_drop_increase.gd" id="1_1nvrj"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_vobya"]
+[ext_resource type="Texture2D" uid="uid://gqk3ib1y1gen" path="res://assets/sprites/level_up/brick1_xp_drop_increase.png" id="3_rkh4e"]
+
+[node name="Brick1XpDropIncrease" type="Control" unique_id=314083481]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_1nvrj")
+description = "Triple the chance of Worried Bricks dropping double XP"
+id = 12
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_vobya")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_rkh4e")

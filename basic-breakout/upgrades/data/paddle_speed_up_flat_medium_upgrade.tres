@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://djn114sra6rv7"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_mxkdl"]
+[ext_resource type="Texture2D" uid="uid://d354dpnwjuh0n" path="res://assets/sprites/upgrades/paddle_speed_flat_medium_upgrade.png" id="2_8i4fc"]
+
+[resource]
+script = ExtResource("1_mxkdl")
+upgrade_name = "Paddle Speed"
+upgrade_desc = "Increase paddle speed by 30"
+upgrade_target = 1
+attribute_changed = 10
+number_change = 30.0
+textures = Array[Texture2D]([ExtResource("2_8i4fc")])
+gold_cost = 1
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

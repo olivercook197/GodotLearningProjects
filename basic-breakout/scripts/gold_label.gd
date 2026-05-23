@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func update_gold():
 	is_previewing = false
-	self.text = ("Gold: " + str(GlobalVariables.gold))
+	self.text = ("Gold: " + str(int(GlobalVariables.gold)))
 	animate_to(base_colour)
 
 func indicate_too_expensive():
@@ -35,10 +35,10 @@ func indicate_future_gold(gold_cost: int, positive: bool = false):
 	is_previewing = true
 	#self.text = ("Gold: " + str(GlobalVariables.gold - gold_cost))
 	if positive:
-		text = "Gold: " + str(GlobalVariables.gold + gold_cost) + " (+" + str(gold_cost) + ")"
+		text = "Gold: " + str(int(GlobalVariables.gold) + gold_cost) + " (+" + str(gold_cost) + ")"
 		animate_to(positive_preview_colour)
 	else:
-		text = "Gold: " + str(GlobalVariables.gold - gold_cost) + " (-" + str(gold_cost) + ")"
+		text = "Gold: " + str(int(GlobalVariables.gold) - gold_cost) + " (-" + str(gold_cost) + ")"
 		animate_to(preview_colour)
 		pass
 	

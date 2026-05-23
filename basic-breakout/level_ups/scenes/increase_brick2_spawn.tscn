@@ -8,7 +8,8 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_0c0pw")
-description = "Increases the chance of Scared Bricks spawning by 25%"
+description = "Increases the chance of Scared Bricks spawning by 33%"
+id = 3
 
 [node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_wplhc")]
 layout_mode = 1

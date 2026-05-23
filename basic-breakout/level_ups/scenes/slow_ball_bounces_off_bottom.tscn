@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://u24saml3o7gm"]
+
+[ext_resource type="Script" uid="uid://dygdpkdbd6tr3" path="res://level_ups/scripts/slow_ball_bounces_off_bottom.gd" id="1_5unrl"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_joqyj"]
+[ext_resource type="Texture2D" uid="uid://cjg4dc7ugradk" path="res://assets/sprites/level_up/slow_ball_bounces_off_bottom.png" id="3_ccbew"]
+
+[node name="SlowBallBouncesOffBottom" type="Control" unique_id=1066209742]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5unrl")
+description = "Starting slow ball bounces off the bottom of the screen"
+id = 10
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_joqyj")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_ccbew")

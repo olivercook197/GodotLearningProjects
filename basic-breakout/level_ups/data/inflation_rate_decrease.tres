@@ -5,8 +5,9 @@
 
 [resource]
 script = ExtResource("1_6sdga")
+id = 6
 option_name = "Inflation Rate Decrease"
 modifier_scene = ExtResource("1_mygd7")
-requirements_to_unlock = Array[int]([16])
+stat_requirements_to_unlock = Array[int]([16])
 requirement_minimum = 2.5
 metadata/_custom_type_script = "uid://d1rpkpv0hr805"

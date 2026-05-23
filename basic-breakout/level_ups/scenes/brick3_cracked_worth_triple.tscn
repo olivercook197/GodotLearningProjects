@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://draxhsipi5lc6"]
+
+[ext_resource type="Script" uid="uid://cdww2nlmi31e" path="res://level_ups/scripts/brick_3_cracked_worth_triple.gd" id="1_luytp"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_gkvhu"]
+[ext_resource type="Texture2D" uid="uid://bh3josrxdfw58" path="res://assets/sprites/level_up/brick3_cracked_worth_triple.png" id="3_7yk12"]
+
+[node name="Brick3CrackedWorthTriple" type="Control" unique_id=1533936891]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_luytp")
+description = "Cracked Angry Bricks are worth triple rather than double"
+id = 13
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_gkvhu")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_7yk12")

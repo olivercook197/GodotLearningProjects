@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://c852un5tyd0rg"]
+
+[ext_resource type="PackedScene" uid="uid://draxhsipi5lc6" path="res://level_ups/scenes/brick3_cracked_worth_triple.tscn" id="1_eli4o"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_f72we"]
+
+[resource]
+script = ExtResource("1_f72we")
+id = 13
+option_name = "Cracked Angry Brick worth triple"
+modifier_scene = ExtResource("1_eli4o")
+one_time = true
+levelup_requirements_to_unlock = Array[int]([4])
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

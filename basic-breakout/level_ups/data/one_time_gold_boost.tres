@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_pl787")
+id = 7
 option_name = "Gold Boost"
 modifier_scene = ExtResource("1_oapn8")
 metadata/_custom_type_script = "uid://d1rpkpv0hr805"

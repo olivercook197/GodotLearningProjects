@@ -20,6 +20,8 @@ config/icon="res://icon.svg"
 GlobalVariables="*uid://cnaaa0ryo2qbr"
 SaveLoad="*uid://b4u0sfpu1tlsi"
 LevelUpVariables="*uid://lembcl6m585l"
+MetaStats="*uid://cujq3254ujo5h"
+Signals="*uid://dooq5w01ypq8h"
 
 [display]
 

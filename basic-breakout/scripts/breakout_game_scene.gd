@@ -42,7 +42,7 @@ func _ready() -> void:
 	start_scene()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("debug_reset"):
 			GlobalVariables.set_variables()
 			LevelUpVariables.set_variables()
@@ -60,10 +60,11 @@ func _process(delta: float) -> void:
 		main_ball.stage_won = true
 	elif Input.is_action_just_pressed("gain_gold_button"):
 		GlobalVariables.gold += 50
-		gold_label.update_gold()
+		update_gold(50)
 	elif Input.is_action_just_pressed("gain_xp"):
-		GlobalVariables.xp += 50
+		GlobalVariables.xp += 150
 		xp_panel_container.update_xp(true)
+		
 
 func instantiate_boundary(rect):
 	var border = BOUNDARY.instantiate()
@@ -80,12 +81,19 @@ func instantiate_paddle(paddle_position):
 	paddle.add_to_group("paddle")
 	
 	
-func instantiate_ball():
+func instantiate_ball(spawn_slow_ball = false, spawn_main_ball = false, spawn_to_right = false):
 	var ball = BALL.instantiate()
-	ball.stage_started.connect(_stage_started)
 	add_child(ball)
 	ball.get_paddle()
-	main_ball = ball
+	if spawn_slow_ball:
+		ball.make_slow_ball()
+		ball.add_to_group("slow_ball")
+	if spawn_main_ball:
+		main_ball = ball
+		ball.stage_started.connect(_stage_started)
+		ball.add_to_group("main_ball")
+	if spawn_to_right:
+		ball.go_to_right = true
 	ball.add_to_group("ball")
 
 func instantiate_brick(pos: Vector2, sprite: int):
@@ -124,7 +132,7 @@ func _on_boundary_player_colliding():
 func _on_brick_hit(body):
 	if not body.is_in_group("bricks"):
 		return	# ignore non-brick collisions
-	gold_label.update_gold()
+	update_gold()
 	score_label.update_score()
 
 func _on_brick_destroyed(position: Vector2, powerup_spawn: bool, extra_xp: bool = false):
@@ -144,6 +152,10 @@ func _on_brick_destroyed(position: Vector2, powerup_spawn: bool, extra_xp: bool 
 		main_ball.stage_won = true
 		for xp in get_tree().get_nodes_in_group("xp"):
 			xp.go_to_paddle()
+			
+		for slow_ball in get_tree().get_nodes_in_group("slow_ball"):
+			await slow_ball.animate_destroy()
+			slow_ball.queue_free()
 
 func start_scene():
 	GlobalVariables.levels_gained = 0
@@ -164,7 +176,8 @@ func start_scene():
 	score = 0
 	brick_count = 0
 	score_label.update_score()
-	gold_label.update_gold()
+	update_gold()
+	GlobalVariables.ball_speed -= GlobalVariables.speed_decrease_on_stage_start
 
 	
 	var window_size = Vector2(DisplayServer.window_get_size())
@@ -179,12 +192,12 @@ func start_scene():
 
 	var rect2 = Rect2(
 	Vector2(-1280, 0),
-	Vector2(60, 1480)
+	Vector2(60, 1600)
 	)
 	
 	var rect3 = Rect2(
 	Vector2(1280, 0),
-	Vector2(60, 1480)
+	Vector2(60, 1600)
 	)
 	
 	instantiate_boundary(rect1)
@@ -193,7 +206,11 @@ func start_scene():
 	
 	instantiate_paddle(GlobalVariables.paddle_position)
 	
-	instantiate_ball()
+	instantiate_ball(false, true)
+	if LevelUpVariables.start_with_extra_slow_ball:
+		instantiate_ball(true)
+	if LevelUpVariables.start_with_second_slow_ball:
+		instantiate_ball(true, false, true)
 	for i in 10:
 		for j in 4:
 			var brick_position = Vector2(-4.5 * 248 + i * 248, -60 -j * 170)
@@ -213,22 +230,22 @@ func choose_brick_to_add(preferred_brick):
 	var scores = []
 	
 	for j in range(size):
-		var score = 0.0
+		var spawn_score = 0.0
 		
 		var bias = base_weights[j] / 80.0
 		
 		# Preferred node
 		if j == preferred_brick:
-			score += preferred_boost
+			spawn_score += preferred_boost
 		
 		# Only biased nodes can steal
 		if bias > 0:
 			var distance = abs(j - preferred_brick)
 			var decay = pow(0.1, distance)
 			
-			score += bias_power * bias * decay
+			spawn_score += bias_power * bias * decay
 		
-		scores.append(score)
+		scores.append(spawn_score)
 	
 	# Normalize and pick
 	var total = 0.0
@@ -249,31 +266,51 @@ func choose_brick_to_add(preferred_brick):
 	return preferred_brick
 
 func _on_world_border_body_entered(body: Node2D) -> void:
-	if GlobalVariables.remaining_lives != 0:
-		life_manager.remove_life()
-		for powerup in get_tree().get_nodes_in_group("powerup"):
-			powerup.queue_free()
-		for xp in get_tree().get_nodes_in_group("xp"):
-			xp.go_to_paddle()
-	
-	if GlobalVariables.remaining_lives == 0:
-		show_dark_background()
-		GlobalVariables.high_score_updated(GlobalVariables.current_score)
-		game_over_label.display_high_score()
-		game_over_panel.z_index = 1000
-		game_over_panel.visible = true
-		game_over.emit()
-		if GlobalVariables.high_score > SaveLoad.highest_record:
-			SaveLoad.highest_record = GlobalVariables.high_score
-		SaveLoad.save_score()
+	print(body)
+	if !body.slow_ball:
+		if GlobalVariables.remaining_lives != 0:
+			life_manager.remove_life()
+			
+			for slow_ball in get_tree().get_nodes_in_group("slow_ball"):
+				await slow_ball.animate_destroy()
+				slow_ball.queue_free()
+			for xp in get_tree().get_nodes_in_group("xp"):
+				xp.go_to_paddle()
 		
-	else:
-		main_ball.ball_reset()
 		stop_level_timers()
+		Signals.lives_lost.emit()
+		if GlobalVariables.remaining_lives <= 0:
+			for powerup in get_tree().get_nodes_in_group("powerup"):
+				powerup.queue_free()
+			show_dark_background()
+			GlobalVariables.high_score_updated(GlobalVariables.current_score)
+			game_over_label.display_high_score()
+			game_over_panel.z_index = 1000
+			game_over_panel.visible = true
+			game_over.emit()
+			if GlobalVariables.high_score > SaveLoad.highest_record:
+				SaveLoad.highest_record = GlobalVariables.high_score
+			SaveLoad.save_score()
+			Signals.game_over.emit()
+			for slow_ball in get_tree().get_nodes_in_group("slow_ball"):
+				await slow_ball.animate_destroy()
+				slow_ball.queue_free()
+			
+		
+		else:
+			main_ball.ball_reset()
+			if LevelUpVariables.start_with_extra_slow_ball:
+				instantiate_ball(true)
+			if LevelUpVariables.start_with_second_slow_ball:
+				instantiate_ball(true, false, true)
+	else:
+		if LevelUpVariables.slow_ball_bounces_off_bottom:
+			body.velocity.y = -body.velocity.y
+		else:
+			body.queue_free()
 
 func _on_world_border_area_entered(area: Area2D) -> void:
 	if area != Ball:
-		print(area.get_parent())
 		area.get_parent().queue_free()
 	
 
@@ -287,6 +324,7 @@ func _on_game_over_button_pressed() -> void:
 	LevelUpVariables.set_variables()
 	remove_panels_hitbox()
 	go_to_shop.emit()
+	Signals.games_played.emit()
 
 func _on_next_stage_button_pressed() -> void:
 	remove_panels_hitbox()
@@ -305,7 +343,7 @@ func _stage_started():
 	start_game_label.visible = false
 	if LevelUpVariables.destroy_random_brick:
 		var timer:Timer = TEN_SECOND_TIMER.instantiate()
-		timer.wait_time = 1
+		timer.wait_time = 10
 		timer.autostart = true
 		timer.one_shot = false
 		timer.timeout.connect(_destroy_random_brick)
@@ -323,34 +361,45 @@ func _destroy_random_brick():
 		brick_list.append(brick)
 	var destroyed_brick: Brick = brick_list.pick_random()
 	if destroyed_brick != null:
-		destroyed_brick.on_hit()
-		for ball:Ball in get_tree().get_nodes_in_group("ball"):
+		for ball:Ball in get_tree().get_nodes_in_group("main_ball"):
 			ball.hit_brick_logic(destroyed_brick)
-	print(brick_count)
+		destroyed_brick.on_hit()
 
 
 func _on_powerup_collected(powerup):
+	if LevelUpVariables.powerup_gives_xp_gold_score:
+		GlobalVariables.current_score += 5 * GlobalVariables.score_multiplier
+		GlobalVariables.gold += 5 * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier
+		GlobalVariables.xp += 5 * GlobalVariables.bonus_xp
+		update_gold(5 * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier)
+		xp_panel_container.update_xp(true)
+		score_label.update_score()
+		Signals.powerup_collected.emit()
+	
 	if powerup == 0:
-		
-		if GlobalVariables.remaining_lives < GlobalVariables.max_lives:
+		if GlobalVariables.remaining_lives < GlobalVariables.max_lives and GlobalVariables.remaining_lives != 0:
 			print("Extra Life")
 			GlobalVariables.remaining_lives += 1
 			for i in GlobalVariables.max_lives:
 				life_manager.add_lives_to_scene()
 	elif powerup == 1:
 		print("Free Money")
-		GlobalVariables.gold += 5 * GlobalVariables.stage
-		gold_label.update_gold()
+		GlobalVariables.gold += 5 + 5 * GlobalVariables.stage
+		update_gold(5 + 5 * GlobalVariables.stage)
 	elif powerup == 2:
 		var timer: Timer = TEN_SECOND_TIMER.instantiate()
+		if LevelUpVariables.double_powerup_timer:
+			timer.wait_time *= 2
 		timer.timeout.connect(_double_money_timer_timeout)
-		GlobalVariables.gold_multiplier += 1
+		GlobalVariables.local_gold_multiplier += 1
 		add_child(timer)
 		print("Double Money for a bit")
 	elif powerup == 3:
 		if paddle_timer == null or not is_instance_valid(paddle_timer):
 			paddle_timer = TEN_SECOND_TIMER.instantiate()
 			paddle_timer.wait_time = 20
+			if LevelUpVariables.double_powerup_timer:
+				paddle_timer.wait_time *= 2
 			paddle_timer.one_shot = true
 			paddle_timer.timeout.connect(_paddle_extension_timeout)
 			add_child(paddle_timer)
@@ -367,6 +416,8 @@ func _on_powerup_collected(powerup):
 		if xp_timer == null or not is_instance_valid(xp_timer):
 			xp_timer = TEN_SECOND_TIMER.instantiate()
 			xp_timer.wait_time = 20
+			if LevelUpVariables.double_powerup_timer:
+				xp_timer.wait_time *= 2
 			xp_timer.one_shot = true
 			xp_timer.timeout.connect(_xp_magnet_timeout)
 			add_child(xp_timer)
@@ -375,15 +426,16 @@ func _on_powerup_collected(powerup):
 		print("XP Magnet")
 
 func _on_xp_collected(xp_collected):
-	var actual_collected_xp: float = xp_collected * (1 + GlobalVariables.bonus_xp_percent) * (1 + GlobalVariables.current_score/50000.0)
+	var actual_collected_xp: float = xp_collected * (1 + GlobalVariables.bonus_xp_percent) * (1 + GlobalVariables.current_score/10000.0)
 	GlobalVariables.xp += actual_collected_xp
-	print(xp_collected)
-	print(actual_collected_xp)
+	#print(xp_collected)
+	#print(actual_collected_xp)
 	GlobalVariables.bonus_xp += actual_collected_xp - xp_collected
 	xp_panel_container.update_xp(true)
+	Signals.xp_gained.emit(actual_collected_xp)
 
 func _double_money_timer_timeout() -> void:
-	GlobalVariables.gold_multiplier -= 1
+	GlobalVariables.local_gold_multiplier -= 1
 
 func _paddle_extension_timeout() -> void:
 	for paddle in get_tree().get_nodes_in_group("paddle"):
@@ -397,9 +449,9 @@ func remove_panels_hitbox() -> void:
 			paddle.remove_panel_hitbox()
 
 
-func _on_level_up_panel_level_up_chosen(update_gold_panel: bool) -> void:
+func _on_level_up_panel_level_up_chosen(update_gold_panel: bool, gold_gained) -> void:
 	if update_gold_panel:
-		gold_label.update_gold()
+		update_gold(gold_gained)
 		
 	_on_next_stage_button_pressed()
 
@@ -417,3 +469,8 @@ func _on_level_up_panel_level_up_stopped_hovering() -> void:
 func _on_stats_panel_container_open_stats_menu() -> void:
 	var stats_menu = STATS_MENU.instantiate()
 	add_child(stats_menu)
+
+func update_gold(gold_gained = 0):
+	gold_label.update_gold()
+	if gold_gained != 0:
+		Signals.gold_gained.emit(gold_gained)

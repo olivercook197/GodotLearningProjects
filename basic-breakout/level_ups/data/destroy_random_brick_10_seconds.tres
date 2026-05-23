@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_315p5")
-option_name = "Destroy Random Brick Every 10 Seconds"
+option_name = "Hit Random Brick Every 10 Seconds"
 modifier_scene = ExtResource("1_gqfky")
+one_time = true
 metadata/_custom_type_script = "uid://d1rpkpv0hr805"

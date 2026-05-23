@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_r1ow2")
+id = 5
 option_name = "Increase Xp Gain"
 modifier_scene = ExtResource("1_vv3xv")
 metadata/_custom_type_script = "uid://d1rpkpv0hr805"

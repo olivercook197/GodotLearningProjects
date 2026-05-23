@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_0v5hh")
+id = 4
 option_name = "Increase Angry Brick Spawn Chance"
 modifier_scene = ExtResource("1_1wfec")
 metadata/_custom_type_script = "uid://d1rpkpv0hr805"

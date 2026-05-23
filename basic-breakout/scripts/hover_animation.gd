@@ -4,8 +4,8 @@ class_name HoverAnimator
 # check Button Path, Visual Path and Button Has Requirements in Inspector
 @export var hover_scale: float = 1.15
 @export var press_scale: float = 1.0
-@export var hover_color: Color = Color(1, 1, 1)
-@export var pressed_color: Color = Color(0.7, 0.7, 0.7)
+@export var hover_colour: Color = Color(1, 1, 1)
+@export var pressed_colour: Color = Color(0.7, 0.7, 0.7)
 @export var duration: float = 0.12
 @export var normal_texture: Texture2D
 @export var disabled_texture: Texture2D
@@ -14,12 +14,14 @@ class_name HoverAnimator
 @export var visual_path: NodePath	# set in Inspector
 
 @export var button_has_requirements_to_press: bool = false	# check this
+@export var stay_pressed: bool = false
 
 @onready var button: BaseButton = get_node_or_null(button_path)
 @onready var visual: Control = get_node_or_null(visual_path)
 
+
 var base_scale: Vector2
-var base_color: Color
+var base_colour: Color
 
 var tween: Tween
 var tween_rotation: Tween
@@ -39,7 +41,7 @@ func _ready():
 	assert(visual != null, "HoverAnimator: visual_path invalid")	# set in Inspector
 
 	base_scale = visual.scale
-	base_color = visual.modulate
+	base_colour = visual.modulate
 	visual.pivot_offset = button.size / 2
 
 	if visual is TextureRect and normal_texture:
@@ -82,7 +84,10 @@ func _on_button_up():
 	if not is_pressed:
 		return
 	
-	is_pressed = false
+	if stay_pressed and is_hovered:
+		pass
+	else:
+		is_pressed = false
 	update_visual()
 	
 	if is_hovered:
@@ -91,7 +96,7 @@ func _on_button_up():
 func reject_press():
 	is_pressed = false
 	reset_rotation()
-	animate(base_scale * hover_scale if is_hovered else base_scale, hover_color if is_hovered else base_color)
+	animate(base_scale * hover_scale if is_hovered else base_scale, hover_colour if is_hovered else base_colour)
 	animate_shake()
 
 func accept_press():
@@ -104,29 +109,32 @@ func accept_press():
 
 func update_visual():
 	if is_disabled:
-		animate(base_scale, base_color)
+		animate(base_scale, base_colour)
 		return
 	
 	reset_rotation()
 
 	if is_pressed:
-		if is_hovered:
-			animate(base_scale * press_scale, pressed_color)
+		if stay_pressed:
+			animate(base_scale, pressed_colour)
 		else:
-			animate(base_scale, pressed_color)
+			if is_hovered:
+				animate(base_scale * press_scale, pressed_colour)
+			else:
+				animate(base_scale, pressed_colour)
 	else:
 		if is_hovered:
-			animate(base_scale * hover_scale, hover_color)
+			animate(base_scale * hover_scale, hover_colour)
 		else:
-			animate(base_scale, base_color)
+			animate(base_scale, base_colour)
 
-func animate(target_scale: Vector2, target_color: Color):
+func animate(target_scale: Vector2, target_colour: Color):
 	if tween:
 		tween.kill()
 
 	tween = create_tween()
 	tween.tween_property(visual, "scale", target_scale, duration)
-	tween.parallel().tween_property(visual, "modulate", target_color, duration)
+	tween.parallel().tween_property(visual, "modulate", target_colour, duration)
 
 func animate_shake(max_rotation: float = 20, tween_duration: float = 0.4):
 	if tween_rotation:
@@ -172,4 +180,8 @@ func disable_button():
 	button.disabled = true
 	if visual is TextureRect and disabled_texture:
 		visual.texture = disabled_texture
+	update_visual()
+
+func free_button():
+	is_pressed = false
 	update_visual()

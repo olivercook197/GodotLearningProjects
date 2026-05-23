@@ -2,8 +2,10 @@ class_name LevelUpScene
 extends Control
 
 @export var description: String
+@export var id: int	# must be the same as the resource ID
 
 var update_gold_label: bool = false
+var gold_gained: int = 0
 
 signal level_up_chosen
 signal hovered
@@ -21,8 +23,9 @@ func on_ready() -> void:
 
 func _on_level_up_option_level_up_chosen() -> void:
 	apply_level_up()
+	LevelUpVariables.taken_level_ups[id] = true
 	
-	level_up_chosen.emit(update_gold_label)
+	level_up_chosen.emit(update_gold_label, gold_gained)
 
 func apply_level_up():
 	pass

@@ -196,14 +196,16 @@ visible = false
 
 [node name="Background" parent="." unique_id=1034735998 instance=ExtResource("20_aa4hd")]
 scale = Vector2(1.5, 1.5)
+animation = &"5"
 
 [connection signal="confirmed" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
 [connection signal="hovered" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_hovered"]
 [connection signal="stopped_hovering" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_stopped_hovering"]
 [connection signal="hovered" from="RerollUpgradeContainer" to="." method="_on_reroll_upgrade_container_hovered"]
 [connection signal="stopped_hovering" from="RerollUpgradeContainer" to="." method="_on_reroll_upgrade_container_stopped_hovering"]
+[connection signal="too_expensive" from="RerollUpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected_too_expensive"]
 [connection signal="confirmed" from="RerollUpgradeContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
-[connection signal="upgrade_clicked_too_expensive" from="RerollUpgradeContainer/MarginContainer/Control/UpgradeHandler" to="GoldPanelContainer" method="_on_upgrade_handler_upgrade_clicked_too_expensive"]
+[connection signal="upgrade_clicked_too_expensive" from="RerollUpgradeContainer/MarginContainer/Control/UpgradeHandler" to="RerollUpgradeContainer" method="_on_upgrade_handler_upgrade_clicked_too_expensive"]
 [connection signal="hovered" from="RerollUpgradeContainer/MarginContainer/Control/HoverGoldVisual" to="RerollUpgradeContainer" method="_on_hover_gold_visual_hovered"]
 [connection signal="stopped_hovering" from="RerollUpgradeContainer/MarginContainer/Control/HoverGoldVisual" to="RerollUpgradeContainer" method="_on_hover_gold_visual_stopped_hovering"]
 [connection signal="hovered" from="UpgradeContainer" to="." method="_on_hovered"]
