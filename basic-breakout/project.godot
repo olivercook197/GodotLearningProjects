@@ -22,6 +22,7 @@ SaveLoad="*uid://b4u0sfpu1tlsi"
 LevelUpVariables="*uid://lembcl6m585l"
 MetaStats="*uid://cujq3254ujo5h"
 Signals="*uid://dooq5w01ypq8h"
+GoToMenu="*uid://dkdj2ts6ntusd"
 
 [display]
 
@@ -72,6 +73,11 @@ smooth_movement={
 gain_xp={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":88,"key_label":0,"unicode":120,"location":0,"echo":false,"script":null)
+]
+}
+pause={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 

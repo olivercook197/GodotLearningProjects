@@ -10,6 +10,7 @@ const TEN_SECOND_TIMER = preload("uid://8ik8vqkn7hep")
 const DARKEN_BACKGROUND = preload("uid://cy4yhp5w1mhqn")
 const XP_CRYSTAL = preload("uid://bsa8wwffqb71y")
 const STATS_MENU = preload("uid://cvxqf1v5li07v")
+const ESC_MENU = preload("uid://m5qr1cv8opq7")
 
 @onready var world_border: Area2D = $WorldBorder
 @onready var game_over_panel: Panel = $CarryThrough/GameOver/Panel
@@ -27,6 +28,7 @@ const STATS_MENU = preload("uid://cvxqf1v5li07v")
 
 signal go_to_shop
 signal game_over
+signal go_to_menu
 
 var main_ball = BALL
 var score := 0
@@ -36,9 +38,11 @@ var paddle_timer: Timer = null
 var xp_timer: Timer = null
 var magnet_xp: bool = false
 
+var menu_open = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	GoToMenu.open_menu.connect(_open_esc_menu)
 	start_scene()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,7 +51,7 @@ func _process(_delta: float) -> void:
 			GlobalVariables.set_variables()
 			LevelUpVariables.set_variables()
 			remove_panels_hitbox()
-			go_to_shop.emit()
+			_go_to_shop()
 			
 	elif Input.is_action_just_pressed("clear_all_bricks"):
 		print("Clear")
@@ -284,10 +288,8 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 				powerup.queue_free()
 			show_dark_background()
 			GlobalVariables.high_score_updated(GlobalVariables.current_score)
-			game_over_label.display_high_score()
-			game_over_panel.z_index = 1000
-			game_over_panel.visible = true
-			game_over.emit()
+			end_of_the_game()
+
 			if GlobalVariables.high_score > SaveLoad.highest_record:
 				SaveLoad.highest_record = GlobalVariables.high_score
 			SaveLoad.save_score()
@@ -318,13 +320,19 @@ func show_dark_background():
 	var darken_background = DARKEN_BACKGROUND.instantiate()
 	darken_background.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(darken_background)
+	darken_background.add_to_group("dark_background")
 
-func _on_game_over_button_pressed() -> void:
+func end_of_the_game():
+	remove_panels_hitbox()
+	var esc_menu = ESC_MENU.instantiate()
+	add_child(esc_menu)
+	esc_menu.close.connect(_close_esc_menu)
+	esc_menu.go_to_menu.connect(_go_to_menu)
+	esc_menu.go_to_shop.connect(_go_to_shop)
+	esc_menu.game_over_panel()
 	GlobalVariables.set_variables()
 	LevelUpVariables.set_variables()
-	remove_panels_hitbox()
-	go_to_shop.emit()
-	Signals.games_played.emit()
+	menu_open = true
 
 func _on_next_stage_button_pressed() -> void:
 	remove_panels_hitbox()
@@ -337,7 +345,7 @@ func _on_next_stage_button_pressed() -> void:
 		
 	else:
 		GlobalVariables.levels_gained = 0
-		go_to_shop.emit()
+		_go_to_shop()
 
 func _stage_started():
 	start_game_label.visible = false
@@ -474,3 +482,32 @@ func update_gold(gold_gained = 0):
 	gold_label.update_gold()
 	if gold_gained != 0:
 		Signals.gold_gained.emit(gold_gained)
+
+func _open_esc_menu():
+	if !menu_open:
+		var esc_menu = ESC_MENU.instantiate()
+		add_child(esc_menu)
+		esc_menu.close.connect(_close_esc_menu)
+		esc_menu.go_to_menu.connect(_go_to_menu)
+		menu_open = true
+		show_dark_background()
+		get_tree().paused = true
+		
+
+func _close_esc_menu():
+	get_tree().paused = false
+	menu_open = false
+	for child in get_children():
+		if child in get_tree().get_nodes_in_group("dark_background"):
+			child.queue_free()
+
+func _go_to_menu():
+	MetaStats._game_over()
+	GlobalVariables.set_variables()
+	LevelUpVariables.set_variables()
+	go_to_menu.emit()
+
+func _go_to_shop(restart = false):
+	if restart:
+		Signals.games_played.emit()
+	go_to_shop.emit()

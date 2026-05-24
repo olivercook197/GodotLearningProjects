@@ -87,8 +87,17 @@ func _on_reroll():
 func _game_over():
 	add_stat_current_run(MOST_XP_GAINED, current_run_stats[XP_GAINED])
 	add_stat_current_run(HIGHEST_STAGE, GlobalVariables.stage)
-	
+	add_run_stats_to_main_stats()
 	reset_current_stats()
+	save_stats()
+
+func add_run_stats_to_main_stats():
+	for global_stat in lifetime_stats:
+		if global_stat == MOST_XP_GAINED or global_stat == HIGHEST_STAGE:
+			pass
+		else:
+			lifetime_stats[global_stat] += current_run_stats[global_stat]
+	pass
 
 func save_stats():
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)

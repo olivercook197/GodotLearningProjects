@@ -5,7 +5,7 @@ extends PanelContainer
 
 const STATS_PANEL = preload("uid://bi8usuqall7p8")
 
-var stats_to_display = {
+var stats_to_display_in_game = {
 	"Stage": {"label": "Stage", "value": GlobalVariables.stage, "percent": false},
 	
 	"Level": {"label": "Level", "value": GlobalVariables.xp_level, "percent": false},
@@ -46,6 +46,24 @@ var stats_to_display = {
 	"High Score": {"label": "High Score", "value": GlobalVariables.high_score, "percent": false}
 }
 
+
+var stats_to_display_all_time = {
+	"Games Played": {"label": "Games Played", "value": MetaStats.lifetime_stats[MetaStats.GAMES_PLAYED], "percent": false},
+	
+	"Gold Gained": {"label": "Gold Gained", "value": MetaStats.lifetime_stats[MetaStats.GOLD_EARNED], "percent": false},
+
+	"Bricks Destroyed": {"label": "Bricks Destroyed", "value": MetaStats.lifetime_stats[MetaStats.BRICKS_DESTROYED], "percent": false},
+	"Powerups Collected": {"label": "Powerups Collected", "value": MetaStats.lifetime_stats[MetaStats.POWERUPS_COLLECTED], "percent": false},
+	"XP Gained": {"label": "XP Gained", "value": MetaStats.lifetime_stats[MetaStats.XP_GAINED], "percent": false},
+
+	"Level Ups Taken": {"label": "Level Ups Taken", "value": MetaStats.lifetime_stats[MetaStats.LEVEL_UPS_TAKEN], "percent": false},
+	"Upgrades Taken": {"label": "Upgrades Taken", "value": MetaStats.lifetime_stats[MetaStats.UPGRADES_TAKEN], "percent": false},
+	"Lives Lost": {"label": "Lives Lost", "value": MetaStats.lifetime_stats[MetaStats.LIVES_LOST], "percent": false},
+
+	"Total Rerolls": {"label": "Total Rerolls", "value": MetaStats.lifetime_stats[MetaStats.REROLLS], "percent": false},
+}
+
+
 @onready var v_box_container: VBoxContainer = $MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer
 @onready var scroll_container: ScrollContainer = $MarginContainer/VBoxContainer/ScrollContainer
 
@@ -53,24 +71,40 @@ signal stat_menu_closed
 
 var tween: Tween
 
-func _ready() -> void:
+
+func display_in_game_stats():
 	add_extra_stats()
 	
-	for stat in stats_to_display:
-		if stats_to_display[stat].percent:
-			stats_to_display[stat].value = convert_num_to_percentage(stats_to_display[stat].value, stats_to_display[stat].get("alter_percent", false))
+	for stat in stats_to_display_in_game:
+		if stats_to_display_in_game[stat].percent:
+			stats_to_display_in_game[stat].value = convert_num_to_percentage(stats_to_display_in_game[stat].value, stats_to_display_in_game[stat].get("alter_percent", false))
+		else:
+			stats_to_display_in_game[stat].value = int(stats_to_display_in_game[stat].value)
 		var menu_item = STATS_PANEL.instantiate()
 		v_box_container.add_child(menu_item)
-		menu_item.update_data(stats_to_display[stat])
-	
+		menu_item.update_data(stats_to_display_in_game[stat])
+
+func display_all_time_stats():
+	for stat in stats_to_display_all_time:
+		if stats_to_display_all_time[stat].percent:
+			stats_to_display_all_time[stat].value = convert_num_to_percentage(stats_to_display_all_time[stat].value, stats_to_display_all_time[stat].get("alter_percent", false))
+		else:
+			stats_to_display_all_time[stat].value = int(stats_to_display_all_time[stat].value)
+		var menu_item = STATS_PANEL.instantiate()
+		v_box_container.add_child(menu_item)
+		menu_item.update_data(stats_to_display_all_time[stat])
+
+func open_panel(max_scale = Vector2(1, 1)):
 	if tween:
 		tween.kill()
 	pivot_offset = size / 2
 	scale = Vector2(0.001, 0.001)
 	tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(1, 1), 0.1)
+	tween.tween_property(self, "scale", max_scale, 0.1)
 	
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	await get_tree().create_timer(0.12).timeout
 	
 	get_tree().paused = true
 
@@ -99,5 +133,5 @@ func close_animation():
 
 func add_extra_stats():
 	if GlobalVariables.bonus_xp_percent > 0:
-		stats_to_display.set("Bonus Xp Gain", {"label": "Bonus Xp Gain", "value": GlobalVariables.bonus_xp_percent, "percent": true})
+		stats_to_display_in_game.set("Bonus Xp Gain", {"label": "Bonus Xp Gain", "value": GlobalVariables.bonus_xp_percent, "percent": true})
 	pass

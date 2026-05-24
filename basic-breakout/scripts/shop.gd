@@ -191,6 +191,8 @@ func _on_stats_panel_container_open_stats_menu() -> void:
 	var stats_menu = STATS_MENU.instantiate()
 	add_child(stats_menu)
 	stats_menu.stat_menu_closed.connect(_stat_menu_closed)
+	stats_menu.display_in_game_stats()
+	stats_menu.open_panel()
 	darken_background.visible = true
 
 

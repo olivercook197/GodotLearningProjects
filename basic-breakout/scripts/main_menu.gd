@@ -1,8 +1,11 @@
 extends Control
 
+const STATS_MENU = preload("uid://cvxqf1v5li07v")
+
 @onready var main_menu_button_start: Control = $MainMenuButton
 @onready var main_menu_button_info: Control = $MainMenuButton2
 @onready var main_menu_button_stats: Control = $MainMenuButton3
+@onready var texture_rect: TextureRect = $TextureRect
 
 @onready var info_panel: Control = $InfoPanel
 
@@ -11,7 +14,6 @@ signal go_to_shop
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	info_panel.visible = false
-	pass # Replace with function body.
 
 
 
@@ -22,3 +24,9 @@ func _on_main_menu_button_option_chosen(option) -> void:
 		Signals.games_played.emit()
 	if option == 1:
 		info_panel.open()
+	if option == 2:
+		var all_time_stats_menu = STATS_MENU.instantiate()
+		add_child(all_time_stats_menu)
+		all_time_stats_menu.display_all_time_stats()
+		all_time_stats_menu.open_panel(Vector2(0.7, 0.7))
+		

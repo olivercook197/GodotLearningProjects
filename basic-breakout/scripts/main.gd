@@ -36,3 +36,5 @@ func _switch_scene(path):
 		scene.go_to_shop.connect(go_to_shop)
 	if scene.has_signal("go_to_game"):
 		scene.go_to_game.connect(go_to_game)
+	if scene.has_signal("go_to_menu"):
+		scene.go_to_menu.connect(go_to_main_menu)
