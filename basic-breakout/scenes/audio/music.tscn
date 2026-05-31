@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dqd83ewglw4sm"]
+
+[ext_resource type="AudioStream" uid="uid://dopha02dw0wxs" path="res://assets/audio/music/Brick Onslaught Soundtrack.mp3" id="1_w5a1x"]
+[ext_resource type="Script" uid="uid://d2sec24437g1a" path="res://scripts/audio/music.gd" id="2_caima"]
+[ext_resource type="AudioStream" uid="uid://dom4t3k0ktgqs" path="res://assets/audio/music/Brick Onslaught Soundtrack Beginning.mp3" id="3_746et"]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" unique_id=643407156]
+process_mode = 3
+stream = ExtResource("1_w5a1x")
+bus = &"Music"
+parameters/looping = true
+script = ExtResource("2_caima")
+
+[node name="BeginningMusic" type="AudioStreamPlayer2D" parent="." unique_id=985724552]
+stream = ExtResource("3_746et")
+autoplay = true
+bus = &"Music"
+
+[connection signal="finished" from="BeginningMusic" to="." method="_on_beginning_music_finished"]

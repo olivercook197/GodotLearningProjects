@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dom4t3k0ktgqs"
+path="res://.godot/imported/Brick Onslaught Soundtrack Beginning.mp3-7c3e844361c65fe22369ea7a47a133c8.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Brick Onslaught Soundtrack Beginning.mp3"
+dest_files=["res://.godot/imported/Brick Onslaught Soundtrack Beginning.mp3-7c3e844361c65fe22369ea7a47a133c8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

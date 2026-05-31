@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://bvsnkrb2jgfjy" path="res://scenes/tooltip_container.tscn" id="9_agpv0"]
 [ext_resource type="PackedScene" uid="uid://cp1tk5ip3vxtn" path="res://scenes/stats_panel_container.tscn" id="10_0dtk1"]
 [ext_resource type="PackedScene" uid="uid://dlyhte50bodef" path="res://scenes/blurred_background.tscn" id="11_ftyf1"]
+[ext_resource type="PackedScene" uid="uid://r4bpeuxrc65i" path="res://scenes/audio/brick_sound_effects.tscn" id="12_kr1px"]
+[ext_resource type="PackedScene" uid="uid://p23ym147kr64" path="res://scenes/audio/xp_sound_effects.tscn" id="13_nlhlo"]
+[ext_resource type="Script" uid="uid://0hx1dr0wrnqm" path="res://scripts/stage_manager.gd" id="14_0480l"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o5qli"]
 
@@ -21,25 +24,6 @@ region_rect = Rect2(50.378357, 36.54079, 51.00493, 39.808727)
 
 [sub_resource type="Theme" id="Theme_0wfyh"]
 Panel/styles/panel = SubResource("StyleBoxTexture_bjuba")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqmqr"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="Theme" id="Theme_sugp2"]
-Panel/styles/panel = SubResource("StyleBoxFlat_kqmqr")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbgi4"]
-texture = ExtResource("2_bw6k5")
-region_rect = Rect2(50.378, 36.541, 51.005, 39.809)
 
 [node name="GameScene" type="Node2D" unique_id=1780324345]
 script = ExtResource("1_ycayy")
@@ -111,52 +95,6 @@ offset_top = -708.0
 offset_right = -160.0
 offset_bottom = -641.0
 
-[node name="StageWin" type="Node2D" parent="CarryThrough" unique_id=1168112625]
-
-[node name="PanelContainer" type="PanelContainer" parent="CarryThrough/StageWin" unique_id=1834629153]
-z_index = 500
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -472.0
-offset_top = -49.5
-offset_right = 472.0
-offset_bottom = 49.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = SubResource("Theme_sugp2")
-theme_override_styles/panel = SubResource("StyleBoxTexture_tbgi4")
-
-[node name="MarginContainer" type="MarginContainer" parent="CarryThrough/StageWin/PanelContainer" unique_id=48103511]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CarryThrough/StageWin/PanelContainer/MarginContainer" unique_id=1608512653]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="CarryThrough/StageWin/PanelContainer/MarginContainer/VBoxContainer" unique_id=1002654918]
-z_index = 100
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 72
-text = "Congratulations, level won!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="NextStageButton" type="Button" parent="CarryThrough/StageWin/PanelContainer/MarginContainer/VBoxContainer" unique_id=1704398346]
-z_index = 10
-layout_mode = 2
-theme_override_font_sizes/font_size = 72
-text = "Proceed"
-
 [node name="StartGameLabel" type="Label" parent="CarryThrough" unique_id=322705769]
 z_index = 100
 anchors_preset = 8
@@ -202,12 +140,22 @@ offset_bottom = -330.0
 [node name="BlurredBackground" parent="CarryThrough" unique_id=1034735998 instance=ExtResource("11_ftyf1")]
 scale = Vector2(1.5, 1.5)
 
+[node name="Audio" type="Node" parent="CarryThrough" unique_id=1295195184]
+
+[node name="BrickSoundEffects" parent="CarryThrough/Audio" unique_id=374442224 instance=ExtResource("12_kr1px")]
+
+[node name="XPSoundEffects" parent="CarryThrough/Audio" unique_id=978236768 instance=ExtResource("13_nlhlo")]
+
+[node name="Managers" type="Node" parent="CarryThrough" unique_id=1639911041]
+
+[node name="StageManager" type="Node" parent="CarryThrough/Managers" unique_id=1230170030]
+script = ExtResource("14_0480l")
+
 [node name="TenSecondTimer" parent="." unique_id=557367407 instance=ExtResource("7_hpu5y")]
 
 [connection signal="area_entered" from="CarryThrough/WorldBorder" to="." method="_on_world_border_area_entered"]
 [connection signal="body_entered" from="CarryThrough/WorldBorder" to="." method="_on_world_border_body_entered"]
 [connection signal="pressed" from="CarryThrough/GameOver/Panel/GameOverButton" to="." method="_on_game_over_button_pressed"]
-[connection signal="pressed" from="CarryThrough/StageWin/PanelContainer/MarginContainer/VBoxContainer/NextStageButton" to="." method="_on_next_stage_button_pressed"]
 [connection signal="level_up_chosen" from="CarryThrough/LevelUpPanel" to="." method="_on_level_up_panel_level_up_chosen"]
 [connection signal="level_up_hovered" from="CarryThrough/LevelUpPanel" to="." method="_on_level_up_panel_level_up_hovered"]
 [connection signal="level_up_stopped_hovering" from="CarryThrough/LevelUpPanel" to="." method="_on_level_up_panel_level_up_stopped_hovering"]

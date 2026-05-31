@@ -13,6 +13,8 @@ const EXTRA_LIFE_UPGRADE = preload("uid://bc6s4qovutd6t")
 const INTEREST_UPGRADE = preload("uid://byn70cyonf0ut")
 const NO_SPEED_INCREASE_ON_SCORE_UPGRADE = preload("uid://bxsrp82yfmq5e")
 const STATS_MENU = preload("uid://cvxqf1v5li07v")
+const DARKEN_BACKGROUND = preload("uid://cy4yhp5w1mhqn")
+const OPTIONS_MENU = preload("uid://cqnaxtof0tjio")
 
 
 
@@ -24,17 +26,18 @@ const STATS_MENU = preload("uid://cvxqf1v5li07v")
 @onready var score_panel_container: PanelContainer = $ScorePanelContainer
 @onready var next_stage_button: TextureButton = $NextStageContainer/MarginContainer/Control/NextStageButton
 @onready var reroll_upgrade_button: TextureButton = $RerollUpgradeContainer/MarginContainer/Control/RerollUpgradeButton
-@onready var gain_life_upgrade_container: PanelContainer = $UpgradeContainer
+@onready var gain_life_upgrade_container: Control = $UpgradeContainer
 @onready var reroll_hover_animator: HoverAnimator = $RerollUpgradeContainer/MarginContainer/Control/HoverAnimator
 @onready var tooltip: PanelContainer = $TooltipPanelContainer
-@onready var darken_background: Panel = $DarkenBackground
+@onready var darken_background: Control = $DarkenBackground
+@onready var options_menu: Control = $OptionsMenu
 
 var upgrade_data_path = "res://upgrades/data/"
 
-var upgrade_position := Vector2(-1050, -450)
+var upgrade_position := Vector2(-1225, -450)
 var rerolls = GlobalVariables.max_rerolls
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	print("Bonus xp gained by score: " + str(GlobalVariables.bonus_xp))
 	refresh_upgrades()
@@ -51,7 +54,6 @@ func _ready() -> void:
 
 func _on_upgrade_item_button_pressed() -> void:
 	upgrade_item_button.disabled = true
-	pass # Replace with function body.
 
 func _on_hover_animator_confirmed(button_clicked) -> void:
 	if button_clicked.name == next_stage_button.name:
@@ -76,7 +78,6 @@ func _on_hover_animator_confirmed(button_clicked) -> void:
 
 func _on_upgrade_container_upgrade_selected_too_expensive() -> void:
 	gold_panel_container.flash()
-	pass # Replace with function body.
 
 
 func _on_upgrade_container_upgrade_selected(data: UpgradeTemplate, gold_cost: int) -> void:
@@ -206,3 +207,28 @@ func _on_hover_animator_hovered() -> void:
 
 func _on_hover_animator_stopped_hovering() -> void:
 	gold_panel_container.update_gold()
+
+
+func _on_options_button_pressed() -> void:
+	var dark = DARKEN_BACKGROUND.instantiate()
+	add_child(dark)
+	dark.add_to_group("dark_background")
+	var option = OPTIONS_MENU.instantiate()
+	option.process_mode = Node.PROCESS_MODE_ALWAYS
+	option.process_mode = Node.PROCESS_MODE_ALWAYS
+	option.scale_override = Vector2(1.4, 1.4)
+	option.add_to_group("option_menu")
+	option.closed.connect(_on_options_menu_closed)
+	add_child(option)
+	get_tree().paused = true
+
+
+
+func _on_options_menu_closed() -> void:
+	get_tree().paused = false
+	for upgrade_panel in get_tree().get_nodes_in_group("upgrades"):
+		upgrade_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	for i in get_tree().get_nodes_in_group("dark_background"):
+		i.queue_free()
+	for i in get_tree().get_nodes_in_group("option_menu"):
+		i.queue_free()

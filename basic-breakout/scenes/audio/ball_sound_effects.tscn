@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://3mqcjkj8qpka"]
+
+[ext_resource type="Script" uid="uid://baj2mppdswqvt" path="res://scripts/audio/ball_sound_effects.gd" id="1_cwfil"]
+
+[node name="BallSoundEffects" type="AudioStreamPlayer2D" unique_id=708313574]
+script = ExtResource("1_cwfil")

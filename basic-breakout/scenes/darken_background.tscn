@@ -3,9 +3,17 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0aw08"]
 bg_color = Color(0.003921569, 0.003921569, 0.003921569, 0.25490198)
 
-[node name="DarkenBackground" type="Panel" unique_id=897837134]
+[node name="Control" type="Control" unique_id=376495498]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="DarkenBackground" type="Panel" parent="." unique_id=897837134]
 z_index = 499
 custom_minimum_size = Vector2(5000, 4000)
+layout_mode = 0
 offset_left = -2500.0
 offset_top = -2000.0
 offset_right = 2500.0

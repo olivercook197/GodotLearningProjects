@@ -4,6 +4,8 @@ extends Control
 @onready var brick_scroll_container: ScrollContainer = $PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer
 @onready var powerup_scroll_container: ScrollContainer = $PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer
 @onready var xp_scroll_container: ScrollContainer = $PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer
+@onready var open_close_animation: OpenCloseAnimation = $OpenCloseAnimation
+
 
 var tween: Tween
 var hovered
@@ -15,14 +17,7 @@ func _ready() -> void:
 	powerup_scroll_container.visible = false
 	xp_scroll_container.visible = false
 	
-	if tween:
-		tween.kill()
-	pivot_offset = size / 2
-	scale = Vector2(0.001, 0.001)
-	tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(1, 1), 0.1)
-	
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	open_close_animation.open()
 
 
 
@@ -64,4 +59,4 @@ func close_animation():
 	tween.tween_property(self, "scale", Vector2(0.001, 0.001), 0.1)
 
 func _on_hover_animator_confirmed(button) -> void:
-	close_animation()
+	open_close_animation.close()

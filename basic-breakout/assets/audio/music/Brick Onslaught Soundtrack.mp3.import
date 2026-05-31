@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dopha02dw0wxs"
+path="res://.godot/imported/Brick Onslaught Soundtrack.mp3-c8b2e6175a9b07997d8533e6b477a24b.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Brick Onslaught Soundtrack.mp3"
+dest_files=["res://.godot/imported/Brick Onslaught Soundtrack.mp3-c8b2e6175a9b07997d8533e6b477a24b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

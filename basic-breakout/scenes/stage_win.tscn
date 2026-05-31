@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cimjfypa0s4n4"]
+
+[ext_resource type="Script" uid="uid://cimpgwu71frgr" path="res://scripts/stage_win.gd" id="1_3rdsb"]
+[ext_resource type="Texture2D" uid="uid://dotul7ovdgy88" path="res://assets/gui/scalable_panel.png" id="1_a7jk3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqmqr"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_sugp2"]
+Panel/styles/panel = SubResource("StyleBoxFlat_kqmqr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbgi4"]
+texture = ExtResource("1_a7jk3")
+region_rect = Rect2(50.378, 36.541, 51.005, 39.809)
+
+[node name="StageWin" type="Node2D" unique_id=1719585696]
+script = ExtResource("1_3rdsb")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1444466114]
+z_index = 500
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -472.0
+offset_top = -49.5
+offset_right = 472.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_sugp2")
+theme_override_styles/panel = SubResource("StyleBoxTexture_tbgi4")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=394699286]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1483679095]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1443408127]
+z_index = 100
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 72
+text = "Congratulations, level won!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextStageButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1559162045]
+z_index = 10
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Proceed"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/NextStageButton" to="." method="_on_next_stage_button_pressed"]

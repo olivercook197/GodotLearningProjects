@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://cp1tk5ip3vxtn" path="res://scenes/stats_panel_container.tscn" id="18_yuijs"]
 [ext_resource type="PackedScene" uid="uid://dlyhte50bodef" path="res://scenes/blurred_background.tscn" id="20_aa4hd"]
 [ext_resource type="PackedScene" uid="uid://cy4yhp5w1mhqn" path="res://scenes/darken_background.tscn" id="21_68utx"]
+[ext_resource type="PackedScene" uid="uid://bwvur7ica41s6" path="res://scenes/options_button.tscn" id="21_ru2r1"]
 
 [node name="Shop" type="Node2D" unique_id=873135676]
 script = ExtResource("1_lx5au")
@@ -28,6 +29,7 @@ script = ExtResource("1_lx5au")
 zoom = Vector2(0.5, 0.5)
 
 [node name="GoldPanelContainer" parent="." unique_id=1896753921 instance=ExtResource("5_ajxib")]
+process_mode = 1
 offset_top = 414.0
 offset_bottom = 481.0
 gold_text_size = 72
@@ -176,9 +178,7 @@ script = ExtResource("7_ajxib")
 [node name="LifeManager" parent="." unique_id=568853142 instance=ExtResource("9_m4ofw")]
 
 [node name="UpgradeContainer" parent="." unique_id=1612555950 instance=ExtResource("10_1v8qu")]
-offset_left = -400.0
 offset_top = -676.0
-offset_right = 400.0
 offset_bottom = -233.0
 size_flags_stretch_ratio = 0.79
 data = ExtResource("11_44xle")
@@ -193,10 +193,18 @@ offset_bottom = 192.54895
 
 [node name="DarkenBackground" parent="." unique_id=897837134 instance=ExtResource("21_68utx")]
 visible = false
+mouse_default_cursor_shape = 5
 
 [node name="Background" parent="." unique_id=1034735998 instance=ExtResource("20_aa4hd")]
 scale = Vector2(1.5, 1.5)
 animation = &"5"
+
+[node name="OptionsButton" parent="." unique_id=1554728108 instance=ExtResource("21_ru2r1")]
+offset_left = 1135.0
+offset_top = -681.0
+offset_right = 1135.0
+offset_bottom = -681.0
+relative_size = 105.0
 
 [connection signal="confirmed" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
 [connection signal="hovered" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_hovered"]
@@ -213,3 +221,4 @@ animation = &"5"
 [connection signal="upgrade_selected" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected"]
 [connection signal="upgrade_selected_too_expensive" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected_too_expensive"]
 [connection signal="open_stats_menu" from="StatsPanelContainer" to="." method="_on_stats_panel_container_open_stats_menu"]
+[connection signal="pressed" from="OptionsButton" to="." method="_on_options_button_pressed"]

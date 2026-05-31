@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cbsmmpldx250o" path="res://assets/gui/yellow_panel_thick_border.png" id="2_pwmf2"]
 [ext_resource type="Texture2D" uid="uid://bt2pie0jsxymn" path="res://assets/gui/close_button.png" id="3_vhqjr"]
 [ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="4_i8lwy"]
+[ext_resource type="PackedScene" uid="uid://bwvur7ica41s6" path="res://scenes/options_button.tscn" id="6_vhqjr"]
+[ext_resource type="Script" uid="uid://cqxkwph4n37o8" path="res://scripts/open_close_animation.gd" id="7_i8lwy"]
 
 [sub_resource type="Theme" id="Theme_2bjkt"]
 
@@ -38,6 +40,7 @@ texture_margin_bottom = 5.0
 process_mode = 3
 z_index = 1000
 layout_mode = 3
+anchors_preset = 0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pwmf2")
@@ -71,19 +74,21 @@ theme_override_constants/separation = 90
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=546332410]
+custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
 theme_override_constants/separation = 12
+alignment = 1
 
 [node name="Title" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1741130370]
-custom_minimum_size = Vector2(1300, 120)
+custom_minimum_size = Vector2(1000, 120)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_kgyd2")
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Title" unique_id=295389908]
-custom_minimum_size = Vector2(1398, 120)
+custom_minimum_size = Vector2(1008, 120)
 layout_mode = 0
-offset_right = 1398.0
+offset_right = 1100.0
 offset_bottom = 120.0
 theme_override_font_sizes/font_size = 86
 text = "Paused"
@@ -93,34 +98,37 @@ vertical_alignment = 1
 [node name="CloseButton" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1791720519]
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton" unique_id=1359284719]
-layout_mode = 0
-offset_right = 60.0
-offset_bottom = 60.0
+[node name="HoverAnimator" type="Node" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton" unique_id=1005939132]
+script = ExtResource("4_i8lwy")
+hover_scale = 1.0
+press_scale = 0.8
+hover_colour = Color(0.83033526, 0.83033514, 0.83033514, 1)
+button_path = NodePath("../../VBoxContainer/TextureButton")
+visual_path = NodePath("../../VBoxContainer/TextureButton/TextureRect")
+metadata/_custom_type_script = "uid://b6qc7edybv8sl"
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton/TextureButton" unique_id=1661623421]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1451059422]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1359284719]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TextureButton" unique_id=1661623421]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -30.0
-offset_right = 30.0
-offset_bottom = 30.0
+offset_left = 100.0
+offset_right = 160.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_vhqjr")
 
-[node name="HoverAnimator" type="Node" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton" unique_id=1005939132]
-script = ExtResource("4_i8lwy")
-hover_scale = 1.0
-press_scale = 0.8
-hover_colour = Color(0.83033526, 0.83033514, 0.83033514, 1)
-button_path = NodePath("../TextureButton")
-visual_path = NodePath("../TextureButton/TextureRect")
-metadata/_custom_type_script = "uid://b6qc7edybv8sl"
+[node name="OptionsButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1554728108 instance=ExtResource("6_vhqjr")]
+layout_mode = 2
 
 [node name="VBoxGameOver" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1955094259]
 layout_mode = 2
@@ -254,7 +262,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "No"
 
+[node name="OpenCloseAnimation" type="Node" parent="." unique_id=1188433411 node_paths=PackedStringArray("target")]
+script = ExtResource("7_i8lwy")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cqxkwph4n37o8"
+
 [connection signal="confirmed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Button3" to="." method="_on_button_3_pressed"]

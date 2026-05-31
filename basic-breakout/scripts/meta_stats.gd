@@ -114,7 +114,6 @@ func load_stats():
 
 func add_stat_current_run(stat, number_added: float = 1.0):
 	current_run_stats[stat] += number_added
-	print(current_run_stats)
 
 func reset_current_stats():
 	current_run_stats = {

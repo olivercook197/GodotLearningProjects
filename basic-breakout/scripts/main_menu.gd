@@ -1,6 +1,7 @@
 extends Control
 
 const STATS_MENU = preload("uid://cvxqf1v5li07v")
+const OPTIONS_MENU = preload("uid://cqnaxtof0tjio")
 
 @onready var main_menu_button_start: Control = $MainMenuButton
 @onready var main_menu_button_info: Control = $MainMenuButton2
@@ -29,4 +30,10 @@ func _on_main_menu_button_option_chosen(option) -> void:
 		add_child(all_time_stats_menu)
 		all_time_stats_menu.display_all_time_stats()
 		all_time_stats_menu.open_panel(Vector2(0.7, 0.7))
-		
+	if option == 3:
+		get_tree().quit()
+
+
+func _on_options_button_pressed() -> void:
+	var options_menu = OPTIONS_MENU.instantiate()
+	add_child(options_menu)

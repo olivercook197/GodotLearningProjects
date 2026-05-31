@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c3p1fi422t85y"
+path="res://.godot/imported/Brick Hit5.mp3-6ba8e892e907323049f17f7763275732.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/effects/Brick Hit5.mp3"
+dest_files=["res://.godot/imported/Brick Hit5.mp3-6ba8e892e907323049f17f7763275732.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

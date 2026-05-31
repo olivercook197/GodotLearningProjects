@@ -15,6 +15,10 @@ run/main_scene="uid://d2h3aldgwd841"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://2vo7x6e1vev"
+
 [autoload]
 
 GlobalVariables="*uid://cnaaa0ryo2qbr"
@@ -23,6 +27,7 @@ LevelUpVariables="*uid://lembcl6m585l"
 MetaStats="*uid://cujq3254ujo5h"
 Signals="*uid://dooq5w01ypq8h"
 GoToMenu="*uid://dkdj2ts6ntusd"
+Music="*uid://dqd83ewglw4sm"
 
 [display]
 

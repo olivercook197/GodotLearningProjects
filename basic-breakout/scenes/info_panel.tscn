@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dy2s4mmgpcbkt" path="res://assets/sprites/tutorial/xp_magnet_powerup.png" id="18_bivfs"]
 [ext_resource type="Texture2D" uid="uid://cc55r5h463vsw" path="res://assets/sprites/tutorial/xp_panel.png" id="19_qb0sy"]
 [ext_resource type="Texture2D" uid="uid://c4telrwojb0gd" path="res://assets/sprites/tutorial/levelup_panel.png" id="20_cvrku"]
+[ext_resource type="Script" uid="uid://cqxkwph4n37o8" path="res://scripts/open_close_animation.gd" id="21_cvrku"]
 
 [sub_resource type="Theme" id="Theme_wrceg"]
 
@@ -605,6 +606,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "At the end of the stage, you will be presented with a selection of level ups. You can only choose 1."
 autowrap_mode = 3
+
+[node name="OpenCloseAnimation" type="Node" parent="." unique_id=686781089 node_paths=PackedStringArray("target")]
+script = ExtResource("21_cvrku")
+target = NodePath("..")
 
 [connection signal="confirmed" from="PanelContainer/VBoxContainer/HBoxContainer2/CloseButton/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
 [connection signal="button_pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/InfoPanelButton" to="." method="_on_info_panel_button_button_pressed"]

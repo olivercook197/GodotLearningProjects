@@ -1,15 +1,18 @@
-extends PanelContainer
+extends Control
 
 @export var data: UpgradeTemplate
 
-@onready var item_name_label: Label = $MarginContainer/VBoxContainer/UpgradeItemName
-@onready var gold_cost_label: Label = $MarginContainer/VBoxContainer/UpgradeItemGoldCost
-@onready var hover_gold_visual: Node = $MarginContainer/VBoxContainer/Control/HoverGoldVisual
+@onready var upgrade_item_name: Label = $UpgradeContainer/MarginContainer/VBoxContainer/UpgradeItemName
+@onready var upgrade_item_gold_cost: Label = $UpgradeContainer/MarginContainer/VBoxContainer/UpgradeItemGoldCost
 
-@onready var button: TextureButton = $MarginContainer/VBoxContainer/Control/UpgradeItemButton
-@onready var visual: TextureRect = button.get_child(0)
+@onready var hover_gold_visual: HoverGoldVisual = $UpgradeContainer/MarginContainer/VBoxContainer/Control/HoverGoldVisual
 
-@onready var upgrade_handler: UpgradeHandler = $MarginContainer/VBoxContainer/Control/UpgradeHandler
+@onready var button: TextureButton = $UpgradeContainer/MarginContainer/VBoxContainer/Control/UpgradeItemButton
+
+@onready var visual: TextureRect = $UpgradeContainer/MarginContainer/VBoxContainer/Control/UpgradeItemButton/TextureRect
+
+@onready var upgrade_handler: UpgradeHandler = $UpgradeContainer/MarginContainer/VBoxContainer/Control/UpgradeHandler
+
 
 var int_gold_cost: int = 0
 
@@ -29,16 +32,18 @@ func _ready() -> void:
 	initial_ui_setting()
 
 	upgrade_handler.upgrade_bought.connect(_on_upgrade_bought)
+	hover_gold_visual.hovered.connect(_on_hover_gold_visual_hovered)
+	hover_gold_visual.stopped_hovering.connect(_on_hover_gold_visual_stopped_hovering)
 
 # --------------------
 # UI setup
 # --------------------
 
 func initial_ui_setting():
-	item_name_label.text = data.upgrade_name
-	item_name_label.fit_text(item_name_label.text)
+	upgrade_item_name.text = data.upgrade_name
+	upgrade_item_name.fit_text(upgrade_item_name.text)
 
-	gold_cost_label.text = str(int_gold_cost)
+	upgrade_item_gold_cost.text = str(int_gold_cost)
 
 	if visual and data.textures.size() > 0:
 		visual.texture = data.textures[0]
@@ -59,8 +64,8 @@ func calculate_gold_costs():
 
 	# update UI display
 	if !button.disabled:
-		gold_cost_label.text = str(int_gold_cost)
-		gold_cost_label.check_gold_against_cost(int_gold_cost)
+		upgrade_item_gold_cost.text = str(int_gold_cost)
+		upgrade_item_gold_cost.check_gold_against_cost(int_gold_cost)
 
 # --------------------
 # Upgrade flow
@@ -74,14 +79,14 @@ func _on_upgrade_bought():
 func upgrade_bought_logic():
 	var paid_cost = int_gold_cost
 	upgrade_selected.emit(data, paid_cost)
-	gold_cost_label.check_gold_against_cost(int_gold_cost)
+	upgrade_item_gold_cost.check_gold_against_cost(int_gold_cost)
 	pass
 
 func upgrade_bought_ui_updates():
 	if data.attribute_changed != 8:
-		item_name_label.text = "Sold Out"
-		item_name_label.fit_text(item_name_label.text)
-		gold_cost_label.text = ""
+		upgrade_item_name.text = "Sold Out"
+		upgrade_item_name.fit_text(upgrade_item_name.text)
+		upgrade_item_gold_cost.text = ""
 
 
 func _on_upgrade_handler_upgrade_clicked_too_expensive() -> void:
@@ -91,9 +96,7 @@ func _on_upgrade_handler_upgrade_clicked_too_expensive() -> void:
 
 func _on_hover_gold_visual_hovered() -> void:
 	hovered.emit(int_gold_cost, data)
-	pass # Replace with function body.
 
 
 func _on_hover_gold_visual_stopped_hovering() -> void:
 	stopped_hovering.emit()
-	pass # Replace with function body.

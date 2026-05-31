@@ -9,7 +9,8 @@ extends Control
 enum OPTION {
 	START,
 	INFO,
-	STATS
+	STATS,
+	EXIT
 }
 
 @export var option: OPTION

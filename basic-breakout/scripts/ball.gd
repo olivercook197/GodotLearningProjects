@@ -1,6 +1,9 @@
 class_name Ball extends CharacterBody2D
 
+@onready var ball_sound_effects: AudioStreamPlayer2D = $Audio/BallSoundEffects
+
 signal hit_brick
+signal sound_played
 
 var in_motion = false
 var paddle: PlayerPaddle = null
@@ -15,6 +18,7 @@ var slow_ball_speed = 500
 var go_to_right = false
 
 signal stage_started
+
 
 
 # speed - print(sqrt(velocity.x ** 2 + velocity.y ** 2))
@@ -107,13 +111,20 @@ func _physics_process(delta: float) -> void:
 					velocity = Vector2(cos(angle), sin(angle)) * slow_ball_speed
 				else:
 					velocity = Vector2(cos(angle), sin(angle)) * max_speed
+				ball_sound_effects.play_wall_hit()
+				sound_played.emit()
 			position += collision.get_normal() * 1.0
 
 
-func get_paddle():
-	for sibling in get_parent().get_children():
-		if sibling is PlayerPaddle:
-			paddle = sibling
+func get_paddle(parent = false):
+	if parent:
+		for sibling in parent.get_children():
+			if sibling is PlayerPaddle:
+				paddle = sibling
+	else:
+		for sibling in get_parent().get_children():
+			if sibling is PlayerPaddle:
+				paddle = sibling
 
 func ball_reset():
 	in_motion = false

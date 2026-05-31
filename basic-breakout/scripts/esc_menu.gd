@@ -8,22 +8,26 @@ extends Control
 @onready var v_box_container: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer
 @onready var close_button: Panel = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton
 @onready var exit_game_confirmation_window: PanelContainer = $ExitGameConfirmationWindow
+@onready var open_close_animation: OpenCloseAnimation = $OpenCloseAnimation
 
 var game_over = false
+var confirmation_window_open = false
 
 signal close
 signal go_to_menu
 signal go_to_shop
+signal open_options
 
 func _ready() -> void:
 	confirmation_window.visible = false
 	exit_game_confirmation_window.visible = false
 	v_box_game_over.visible = false
+	open_close_animation.open()
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		if !game_over:
-			close_menu()
+			try_to_close_menu()
 
 func game_over_panel():
 	game_over = true
@@ -35,38 +39,47 @@ func game_over_panel():
 
 
 func _on_hover_animator_confirmed(button) -> void:
-	close_menu()
+	try_to_close_menu()
 
 
 func _on_button_pressed() -> void:
 	if game_over:
 		go_to_shop.emit(true)
 	else:
-		close_menu()
+		try_to_close_menu()
+
+func try_to_close_menu():
+	close.emit()
 
 func close_menu():
-	print("CLOSE")
-	close.emit()
+	await open_close_animation.close()
 	queue_free()
 
-
 func _on_button_2_pressed() -> void:
-	if !game_over:
-		confirmation_window.visible = true
-	else:
-		go_to_menu.emit()
+	if !confirmation_window_open:
+		if !game_over:
+			confirmation_window.visible = true
+			confirmation_window_open = true
+		else:
+			go_to_menu.emit()
 
 func _on_button_3_pressed() -> void:
-	exit_game_confirmation_window.visible = true
-	
+	if !confirmation_window_open:
+		exit_game_confirmation_window.visible = true
+		confirmation_window_open = true
+		if game_over:
+			$ExitGameConfirmationWindow/MarginContainer/VBoxContainer/Label.text = "Are you sure you want to exit the game?"
+		else:
+			$ExitGameConfirmationWindow/MarginContainer/VBoxContainer/Label.text = "Are you sure you want to exit the game? All progress will be lost."
 
 func _on_confirmation_yes_button_pressed() -> void:
+	get_tree().paused = false
 	go_to_menu.emit()
 
 
 func _on_confirmation_no_button_pressed() -> void:
 	confirmation_window.visible = false
-	pass # Replace with function body.
+	confirmation_window_open = false
 
 
 func _on_exit_game_confirmation_yes_button_pressed() -> void:
@@ -77,3 +90,8 @@ func _on_exit_game_confirmation_yes_button_pressed() -> void:
 
 func _on_exit_game_confirmation_no_button_pressed() -> void:
 	exit_game_confirmation_window.visible = false
+	confirmation_window_open = false
+
+
+func _on_options_button_pressed() -> void:
+	open_options.emit()

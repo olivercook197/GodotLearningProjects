@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c1k8tw4wwslig"
+path="res://.godot/imported/XP Collected Size.mp3-9bc8d79677c53d1d4a34d4ec484c335d.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/effects/XP Collected Size.mp3"
+dest_files=["res://.godot/imported/XP Collected Size.mp3-9bc8d79677c53d1d4a34d4ec484c335d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

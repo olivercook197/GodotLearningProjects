@@ -1,6 +1,7 @@
 class_name Brick extends StaticBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var brick_sound_effects: AudioStreamPlayer2D = $BrickSoundEffects
 
 signal hit
 signal destroyed
@@ -36,6 +37,5 @@ func on_hit():
 		else:
 			if randf() < GlobalVariables.powerup_chance:
 				powerup = true
-
 		destroyed.emit(self.position, powerup, extra_xp)
 		Signals.brick_destroyed.emit()
