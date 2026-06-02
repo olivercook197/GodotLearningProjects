@@ -12,6 +12,7 @@ extends Control
 
 var game_over = false
 var confirmation_window_open = false
+var options_opened = false
 
 signal close
 signal go_to_menu
@@ -87,11 +88,18 @@ func _on_exit_game_confirmation_yes_button_pressed() -> void:
 	get_tree().quit()
 
 
-
 func _on_exit_game_confirmation_no_button_pressed() -> void:
 	exit_game_confirmation_window.visible = false
 	confirmation_window_open = false
 
 
 func _on_options_button_pressed() -> void:
-	open_options.emit()
+	print("Esc menu options being opened from: ", self)
+	if !options_opened:
+		open_options.emit()
+		options_opened = true
+		pass
+
+func options_closed() -> void:
+	print("Closing options on: ", self)
+	options_opened = false

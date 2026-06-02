@@ -98,6 +98,7 @@ func _physics_process(delta: float) -> void:
 					velocity.y = -cos(angle) * max_speed
 					velocity.x += collider.velocity.x * 0.3
 					velocity = velocity.normalized() * max_speed
+				ball_sound_effects.play_paddle_hit()
 			else:
 				velocity = velocity.bounce(collision.get_normal())
 				var angle = atan2(velocity.y, velocity.x)

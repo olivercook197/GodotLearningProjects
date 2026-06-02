@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dlyhte50bodef" path="res://scenes/blurred_background.tscn" id="11_ftyf1"]
 [ext_resource type="PackedScene" uid="uid://r4bpeuxrc65i" path="res://scenes/audio/brick_sound_effects.tscn" id="12_kr1px"]
 [ext_resource type="PackedScene" uid="uid://p23ym147kr64" path="res://scenes/audio/xp_sound_effects.tscn" id="13_nlhlo"]
+[ext_resource type="PackedScene" uid="uid://dg2l73btgdotf" path="res://scenes/audio/powerup_sound_effects.tscn" id="14_3p06v"]
 [ext_resource type="Script" uid="uid://0hx1dr0wrnqm" path="res://scripts/stage_manager.gd" id="14_0480l"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o5qli"]
@@ -145,6 +146,8 @@ scale = Vector2(1.5, 1.5)
 [node name="BrickSoundEffects" parent="CarryThrough/Audio" unique_id=374442224 instance=ExtResource("12_kr1px")]
 
 [node name="XPSoundEffects" parent="CarryThrough/Audio" unique_id=978236768 instance=ExtResource("13_nlhlo")]
+
+[node name="PowerupSoundEffects" parent="CarryThrough/Audio" unique_id=615118438 instance=ExtResource("14_3p06v")]
 
 [node name="Managers" type="Node" parent="CarryThrough" unique_id=1639911041]
 

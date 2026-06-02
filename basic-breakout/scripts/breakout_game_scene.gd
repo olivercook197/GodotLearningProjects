@@ -30,6 +30,7 @@ const Scenes = {
 @onready var stats_panel_container: PanelContainer = $CarryThrough/StatsPanelContainer
 @onready var brick_sound_effects: AudioStreamPlayer2D = $CarryThrough/Audio/BrickSoundEffects
 @onready var xp_sound_effects: AudioStreamPlayer2D = $CarryThrough/Audio/XPSoundEffects
+@onready var powerup_sound_effects: AudioStreamPlayer2D = $CarryThrough/Audio/PowerupSoundEffects
 @onready var audio: Node = $CarryThrough/Audio
 @onready var options_menu: Control = $CarryThrough/OptionsMenu
 @onready var stage_manager: Node = $CarryThrough/Managers/StageManager
@@ -54,6 +55,7 @@ var xp_timer: Timer = null
 var magnet_xp: bool = false
 
 var menu_open = false
+var current_esc_menu: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -207,13 +209,13 @@ func make_mouse_ignore(node: Node):
 
 func end_of_the_game():
 	remove_panels_hitbox()
-	create_esc_menu()
 	var esc_menu = spawn(Scenes.esc_menu)
 
 	esc_menu.go_to_shop.connect(_go_to_shop)
 	esc_menu.game_over_panel()
 	esc_menu.open_options.connect(_open_options)
 	esc_menu.go_to_menu.connect(_go_to_menu)
+	current_esc_menu = esc_menu
 	GlobalVariables.set_variables()
 	LevelUpVariables.set_variables()
 	menu_open = true
@@ -239,6 +241,8 @@ func _stage_started():
 
 
 func _on_powerup_collected(powerup):
+	balance_sounds()
+	powerup_sound_effects.play_gain_powerup()
 	if LevelUpVariables.powerup_gives_xp_gold_score:
 		GlobalVariables.current_score += 5 * GlobalVariables.score_multiplier
 		GlobalVariables.gold += 5 * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier
@@ -318,7 +322,6 @@ func update_gold(gold_gained = 0):
 func _open_esc_menu():
 	if !menu_open:
 		var esc_menu = create_esc_menu()
-		esc_menu.add_to_group("esc_menu")
 		menu_open = true
 		show_dark_background()
 		get_tree().paused = true
@@ -349,7 +352,7 @@ func _go_to_shop(restart = false):
 
 func balance_sounds():
 	for child in audio.get_children():
-		if child is AudioStreamPlayer2D:
+		if child is AudioStreamPlayer2D and not child.is_in_group("keep_volume"):
 			for sound in child.get_children():
 				create_tween().tween_property(
 					sound,
@@ -359,16 +362,20 @@ func balance_sounds():
 			)
 
 func _open_options():
-	var options_menu = Scenes.options_menu.instantiate()
-	options_menu.closed.connect(_options_menu_closed)
-	options_menu.add_to_group("options_menu")
-	options_menu.add_to_group("pause_locked")
-	add_child(options_menu)
-	options_menu.process_mode = 3
+	if current_esc_menu:
+		if !current_esc_menu.options_opened:
+			var options_menu = Scenes.options_menu.instantiate()
+			options_menu.closed.connect(_options_menu_closed)
+			options_menu.add_to_group("options_menu")
+			options_menu.add_to_group("pause_locked")
+			add_child(options_menu)
+			options_menu.process_mode = 3
 
 func _options_menu_closed():
 	for options_menu in get_group("options_menu"):
 		options_menu.queue_free()
+	if current_esc_menu:
+		current_esc_menu.options_closed()
 
 func spawn(scene: PackedScene, pos := Vector2.ZERO) -> Node:
 	var node = scene.instantiate()
@@ -405,7 +412,9 @@ func create_timer(duration: float, callback: Callable, powerup := false, one_sho
 
 func create_esc_menu() -> Node:
 	var menu = spawn(Scenes.esc_menu)
+	current_esc_menu = menu
 	menu.close.connect(_close_esc_menu)
 	menu.go_to_menu.connect(_go_to_menu)
 	menu.open_options.connect(_open_options)
+	menu.add_to_group("esc_menu")
 	return menu

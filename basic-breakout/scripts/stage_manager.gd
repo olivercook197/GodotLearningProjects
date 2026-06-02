@@ -156,6 +156,7 @@ func reset_main_ball():
 func stage_started_func():
 	if LevelUpVariables.destroy_random_brick:
 		var timer = create_timer_no_powerup(10, _destroy_random_brick)
+		timer.one_shot = false
 		timer.add_to_group("level_timer")
 
 func stop_level_timers():
