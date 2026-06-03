@@ -1,3 +1,4 @@
+class_name XP
 extends AnimatedSprite2D
 
 var velocity: Vector2 = Vector2(0, 250)

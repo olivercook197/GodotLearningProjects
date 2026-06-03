@@ -7,7 +7,9 @@ const Scenes = {
 	"brick": preload("uid://yuqauunfvg2t"),
 	"lives": preload("uid://v36pc1cur2mv"),
 	"stage_win": preload("uid://cimjfypa0s4n4"),
-	"ten_second_timer": preload("uid://8ik8vqkn7hep")
+	"ten_second_timer": preload("uid://8ik8vqkn7hep"),
+	"laser": preload("res://scenes/end_game_laser.tscn")
+	
 }
 
 signal stage_started
@@ -16,6 +18,8 @@ signal next_stage_requested
 
 var brick_count := 0
 var main_ball: Ball
+
+var end_game := false
 
 var game_scene: Node
 
@@ -196,6 +200,16 @@ func brick_destroyed():
 		for slow_ball in get_group("slow_ball"):
 			await slow_ball.animate_destroy()
 			slow_ball.queue_free()
+	if brick_count < 35 and !end_game:
+		instantiate_laser(Vector2(-1228, 120))
+		end_game = true
+		print("LESS THAN 5")
+
+func instantiate_laser(pos: Vector2):
+	var laser = spawn(Scenes.laser, pos)
+	laser.max_x = 2456
+	laser.add_to_group("invincible")
+	game_scene.add_child(laser)
 
 func get_main_ball() -> Ball:
 	return main_ball

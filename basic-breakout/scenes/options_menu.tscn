@@ -678,7 +678,6 @@ script = ExtResource("4_k61yy")
 press_scale = 0.8
 button_path = NodePath("../TextureButton")
 visual_path = NodePath("../TextureButton/TextureRect")
-button_has_requirements_to_press = true
 metadata/_custom_type_script = "uid://b6qc7edybv8sl"
 
 [node name="OpenCloseAnimationMainPanel" type="Node" parent="." unique_id=925538441 node_paths=PackedStringArray("target")]

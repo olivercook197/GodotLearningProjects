@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://p23ym147kr64" path="res://scenes/audio/xp_sound_effects.tscn" id="13_nlhlo"]
 [ext_resource type="PackedScene" uid="uid://dg2l73btgdotf" path="res://scenes/audio/powerup_sound_effects.tscn" id="14_3p06v"]
 [ext_resource type="Script" uid="uid://0hx1dr0wrnqm" path="res://scripts/stage_manager.gd" id="14_0480l"]
+[ext_resource type="Script" uid="uid://cxenhw7nqnqfg" path="res://scripts/xp_manager.gd" id="16_8g1d3"]
+[ext_resource type="Script" uid="uid://capwyo6ml8doh" path="res://scripts/powerup_manager.gd" id="17_o5tg7"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o5qli"]
 
@@ -153,6 +155,12 @@ scale = Vector2(1.5, 1.5)
 
 [node name="StageManager" type="Node" parent="CarryThrough/Managers" unique_id=1230170030]
 script = ExtResource("14_0480l")
+
+[node name="XPManager" type="Node" parent="CarryThrough/Managers" unique_id=1127152863]
+script = ExtResource("16_8g1d3")
+
+[node name="PowerupManager" type="Node" parent="CarryThrough/Managers" unique_id=1686196204]
+script = ExtResource("17_o5tg7")
 
 [node name="TenSecondTimer" parent="." unique_id=557367407 instance=ExtResource("7_hpu5y")]
 

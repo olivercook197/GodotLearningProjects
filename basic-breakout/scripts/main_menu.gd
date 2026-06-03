@@ -16,6 +16,12 @@ signal go_to_shop
 func _ready() -> void:
 	info_panel.visible = false
 
+func _input(event):
+	if event.is_action_pressed("pause"):
+		if info_panel.visible:
+			info_panel._on_hover_animator_confirmed(null)
+		for stats_menu in get_tree().get_nodes_in_group("stats_menu"):
+			stats_menu._on_hover_animator_confirmed(null)
 
 
 func _on_main_menu_button_option_chosen(option) -> void:
@@ -23,14 +29,17 @@ func _on_main_menu_button_option_chosen(option) -> void:
 	if option == 0:
 		go_to_shop.emit()
 		Signals.games_played.emit()
-	if option == 1:
+	elif option == 1:
 		info_panel.open()
-	if option == 2:
+	elif option == 2:
 		var all_time_stats_menu = STATS_MENU.instantiate()
 		add_child(all_time_stats_menu)
 		all_time_stats_menu.display_all_time_stats()
-		all_time_stats_menu.open_panel(Vector2(0.7, 0.7))
-	if option == 3:
+		all_time_stats_menu.open_panel(Vector2(0.7, 0.7), false)
+		all_time_stats_menu.add_to_group("stats_menu")
+		get_tree().paused = false
+		
+	elif option == 3:
 		get_tree().quit()
 
 

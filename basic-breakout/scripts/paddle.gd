@@ -64,6 +64,12 @@ func move_panels_to_edge(paddle_size):
 func enable_side_panels():
 	is_flashing = false
 	
+	paddle_left_side_panel.visible = true
+	paddle_right_side_panel.visible = true
+	
+	paddle_left_side_panel.modulate.a = 1.0
+	paddle_right_side_panel.modulate.a = 1.0
+	
 	if has_panel_hitbox:
 		return
 	
@@ -75,11 +81,6 @@ func enable_side_panels():
 	collision_main.shape.size.x = new_width
 	has_panel_hitbox = true
 	
-	paddle_left_side_panel.visible = true
-	paddle_right_side_panel.visible = true
-	
-	paddle_left_side_panel.modulate.a = 1.0
-	paddle_right_side_panel.modulate.a = 1.0
 
 	
 func disable_side_panels():
@@ -111,6 +112,8 @@ func flash_then_disable():
 		
 		elapsed += interval
 	
+	paddle_left_side_panel.modulate.a = 1
+	paddle_right_side_panel.modulate.a = 1
 	# ensure visible before final removal
 	paddle_left_side_panel.visible = true
 	paddle_right_side_panel.visible = true

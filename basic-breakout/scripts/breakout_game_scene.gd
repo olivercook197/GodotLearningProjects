@@ -1,17 +1,11 @@
 extends Node2D
 const Scenes = {
-	"boundary": preload("uid://d772en1051bk"),
-	"paddle": preload("uid://tbgughlh81ae"),
-	"ball": preload("uid://cuaeu3do68vtt"),
-	"brick": preload("uid://yuqauunfvg2t"),
-	"lives": preload("uid://v36pc1cur2mv"),
+	"stage_win": preload("uid://cimjfypa0s4n4"),
 	"powerup": preload("uid://cntm4nhm84n3n"),
 	"ten_second_timer": preload("uid://8ik8vqkn7hep"),
 	"darken_background": preload("uid://cy4yhp5w1mhqn"),
-	"xp_crystal": preload("uid://bsa8wwffqb71y"),
 	"stats_menu": preload("uid://cvxqf1v5li07v"),
 	"esc_menu": preload("uid://m5qr1cv8opq7"),
-	"stage_win": preload("uid://cimjfypa0s4n4"),
 	"options_menu": preload("uid://cqnaxtof0tjio")
 }
 
@@ -34,6 +28,10 @@ const Scenes = {
 @onready var audio: Node = $CarryThrough/Audio
 @onready var options_menu: Control = $CarryThrough/OptionsMenu
 @onready var stage_manager: Node = $CarryThrough/Managers/StageManager
+@onready var xp_manager: Node = $CarryThrough/Managers/XPManager
+@onready var powerup_manager: Node = $CarryThrough/Managers/PowerupManager
+
+
 
 enum PowerupType {
 	EXTRA_LIFE,
@@ -50,16 +48,14 @@ signal go_to_menu
 var score := 0
 var brick_count := 0
 
-var paddle_timer: Timer = null
-var xp_timer: Timer = null
-var magnet_xp: bool = false
-
 var menu_open = false
 var current_esc_menu: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	stage_manager.game_scene = self
+	xp_manager.game_scene = self
+	powerup_manager.game_scene = self
 	GoToMenu.open_menu.connect(_open_esc_menu)
 	start_scene()
 
@@ -85,17 +81,10 @@ func _input(event):
 		xp_panel_container.update_xp(true)
 
 
-func instantiate_powerup(pos: Vector2) -> void:
-	var powerup = spawn(Scenes.powerup, pos)
-	powerup.powerup_collected.connect(_on_powerup_collected)
-	powerup.add_to_group("powerup")
-
-func instantiate_xp(pos: Vector2) -> void:
-	var xp = spawn(Scenes.xp_crystal, pos + Vector2(randi_range(-35, 35), randi_range(-15, 15)))
-	xp.xp_collected.connect(_on_xp_collected)
-	xp.add_to_group("xp")
-	if magnet_xp:
-		xp.go_to_paddle()
+#func instantiate_powerup(pos: Vector2) -> void:
+	#var powerup = spawn(Scenes.powerup, pos)
+	#powerup.powerup_collected.connect(_on_powerup_collected)
+	#powerup.add_to_group("powerup")
 
 func _on_boundary_player_colliding():
 	$Paddle._player_colliding()
@@ -113,20 +102,19 @@ func _on_brick_destroyed(position: Vector2, powerup_spawn: bool, extra_xp: bool 
 	balance_sounds()
 
 	if extra_xp:
-		instantiate_xp(position + Vector2(30, 0))
-		instantiate_xp(position + Vector2(-30, 0))
+		xp_manager.instantiate_xp(position + Vector2(30, 0))
+		xp_manager.instantiate_xp(position + Vector2(-30, 0))
 	else:
-		instantiate_xp(position)
+		xp_manager.instantiate_xp(position)
 	if powerup_spawn:
-		instantiate_powerup(position)
+		powerup_manager.instantiate_powerup(position)
 	
 	stage_manager.brick_destroyed()
 
 func start_scene():
 	GlobalVariables.levels_gained = 0
-	
+	set_start_text()
 	start_game_label.visible = true
-	start_game_label.text = str("Stage " + str(GlobalVariables.stage) + ": Press Space to start")
 	game_over_panel.visible = false
 	level_up_panel.visible = false
 	stats_panel_container.visible = false
@@ -191,6 +179,7 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 
 func _on_world_border_area_entered(area: Area2D) -> void:
 	#if area != Ball:
+	if !area.get_parent() in get_group("invincible"):
 		area.get_parent().queue_free()
 
 func show_dark_background():
@@ -240,59 +229,50 @@ func _stage_started():
 	stage_manager.stage_started_func()
 
 
-func _on_powerup_collected(powerup):
-	balance_sounds()
-	powerup_sound_effects.play_gain_powerup()
-	if LevelUpVariables.powerup_gives_xp_gold_score:
-		GlobalVariables.current_score += 5 * GlobalVariables.score_multiplier
-		GlobalVariables.gold += 5 * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier
-		GlobalVariables.xp += 5 * GlobalVariables.bonus_xp
-		update_gold(5 * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier)
-		xp_panel_container.update_xp(true)
-		score_label.update_score()
-		Signals.powerup_collected.emit()
-	match powerup:
-		PowerupType.EXTRA_LIFE:
-			if GlobalVariables.remaining_lives < GlobalVariables.max_lives and GlobalVariables.remaining_lives != 0:
-				GlobalVariables.remaining_lives += 1
-				for i in GlobalVariables.max_lives:
-					life_manager.add_lives_to_scene()
-		PowerupType.MONEY:
-			GlobalVariables.gold += 5 + 5 * GlobalVariables.stage
-			update_gold(5 + 5 * GlobalVariables.stage)
-		PowerupType.DOUBLE_MONEY:
-			create_timer(10, _double_money_timer_timeout, true)
-			GlobalVariables.local_gold_multiplier += 1
-		PowerupType.LONG_PADDLE:
-			if paddle_timer == null or not is_instance_valid(paddle_timer):
-				paddle_timer = create_timer(20, _paddle_extension_timeout)
-			for paddle in get_group("paddle"):
-				paddle.enable_side_panels()
-		PowerupType.XP_MAGNET:
-			for xp in get_group("xp"):
-				xp.go_to_paddle()
-			magnet_xp = true
-			if xp_timer == null or not is_instance_valid(xp_timer):
-				xp_timer = create_timer(20, _xp_magnet_timeout, true)
+#func _on__on_powerup_collected_collected(powerup):
+	#balance_sounds()
+	#powerup_sound_effects.play_gain_powerup()
+	#if LevelUpVariables.powerup_gives_xp_gold_score:
+		#GlobalVariables.current_score += 5 * GlobalVariables.score_multiplier
+		#GlobalVariables.gold += 5 * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier
+		#GlobalVariables.xp += 5 * GlobalVariables.bonus_xp
+		#update_gold(5 * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier)
+		#xp_panel_container.update_xp(true)
+		#score_label.update_score()
+	#Signals.powerup_collected.emit()
+	#match powerup:
+		#PowerupType.EXTRA_LIFE:
+			#if GlobalVariables.remaining_lives < GlobalVariables.max_lives and GlobalVariables.remaining_lives != 0:
+				#GlobalVariables.remaining_lives += 1
+				#for i in GlobalVariables.max_lives:
+					#life_manager.add_lives_to_scene()
+		#PowerupType.MONEY:
+			#GlobalVariables.gold += 5 + 5 * GlobalVariables.stage
+			#update_gold(5 + 5 * GlobalVariables.stage)
+		#PowerupType.DOUBLE_MONEY:
+			#create_timer(10, _double_money_timer_timeout, true)
+			#GlobalVariables.local_gold_multiplier += 1
+		#PowerupType.LONG_PADDLE:
+			#if paddle_timer == null or not is_instance_valid(paddle_timer):
+				#paddle_timer = create_timer(20, _paddle_extension_timeout)
+			#for paddle in get_group("paddle"):
+				#paddle.enable_side_panels()
+		#PowerupType.XP_MAGNET:
+			#for xp in get_group("xp"):
+				#xp.go_to_paddle()
+			#magnet_xp = true
+			#if xp_timer == null or not is_instance_valid(xp_timer):
+				#xp_timer = create_timer(20, _xp_magnet_timeout, true)
 
-func _on_xp_collected(xp_collected):
-	var actual_collected_xp: float = xp_collected * (1 + GlobalVariables.bonus_xp_percent) * (1 + GlobalVariables.current_score/10000.0)
-	GlobalVariables.xp += actual_collected_xp
-	GlobalVariables.bonus_xp += actual_collected_xp - xp_collected
-	xp_panel_container.update_xp(true)
-	Signals.xp_gained.emit(actual_collected_xp)
-	xp_sound_effects.play_xp_collected(xp_collected)
-	balance_sounds()
-
-func _double_money_timer_timeout() -> void:
-	GlobalVariables.local_gold_multiplier -= 1
-
-func _paddle_extension_timeout() -> void:
-	for paddle in get_group("paddle"):
-			paddle.disable_side_panels()
-
-func _xp_magnet_timeout() -> void:
-	magnet_xp = false
+#func _double_money_timer_timeout() -> void:
+	#GlobalVariables.local_gold_multiplier -= 1
+#
+#func _paddle_extension_timeout() -> void:
+	#for paddle in get_group("paddle"):
+			#paddle.disable_side_panels()
+#
+#func _xp_magnet_timeout() -> void:
+	#magnet_xp = false
 
 func remove_panels_hitbox() -> void:
 	for paddle in get_group("paddle"):
@@ -338,6 +318,7 @@ func _close_esc_menu():
 		for child in get_children():
 			if child in get_group("dark_background"):
 				child.queue_free()
+		set_start_text()
 
 func _go_to_menu():
 	MetaStats._game_over()
@@ -418,3 +399,7 @@ func create_esc_menu() -> Node:
 	menu.open_options.connect(_open_options)
 	menu.add_to_group("esc_menu")
 	return menu
+
+func set_start_text():
+	var action_events = InputMap.action_get_events("start_game")
+	start_game_label.text = str("Stage " + str(GlobalVariables.stage) + ": Press " + OS.get_keycode_string(action_events[0].physical_keycode) + " to start")

@@ -94,7 +94,7 @@ func display_all_time_stats():
 		v_box_container.add_child(menu_item)
 		menu_item.update_data(stats_to_display_all_time[stat])
 
-func open_panel(max_scale = Vector2(1, 1)):
+func open_panel(max_scale = Vector2(1, 1), pause = true):
 	if tween:
 		tween.kill()
 	pivot_offset = size / 2
@@ -106,7 +106,8 @@ func open_panel(max_scale = Vector2(1, 1)):
 	
 	await get_tree().create_timer(0.12).timeout
 	
-	get_tree().paused = true
+	if pause:
+		get_tree().paused = true
 
 func convert_num_to_percentage(value: float, alter_percent: bool = false):
 	if alter_percent:
