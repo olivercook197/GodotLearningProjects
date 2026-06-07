@@ -4,6 +4,7 @@ extends Control
 @onready var brick_scroll_container: ScrollContainer = $PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer
 @onready var powerup_scroll_container: ScrollContainer = $PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer
 @onready var xp_scroll_container: ScrollContainer = $PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer
+@onready var laser_scroll_container: ScrollContainer = $PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer
 @onready var open_close_animation: OpenCloseAnimation = $OpenCloseAnimation
 
 
@@ -16,6 +17,7 @@ func _ready() -> void:
 	brick_scroll_container.visible = false
 	powerup_scroll_container.visible = false
 	xp_scroll_container.visible = false
+	laser_scroll_container.visible = false
 	
 	open_close_animation.open()
 
@@ -28,6 +30,7 @@ func _on_info_panel_button_button_pressed(info_button_pressed, option) -> void:
 	brick_scroll_container.visible = false
 	powerup_scroll_container.visible = false
 	xp_scroll_container.visible = false
+	laser_scroll_container.visible = false
 	if option == 0:
 		brick_scroll_container.set_deferred("scroll_vertical", 0)
 		brick_scroll_container.visible = true
@@ -37,6 +40,9 @@ func _on_info_panel_button_button_pressed(info_button_pressed, option) -> void:
 	elif option == 2:
 		xp_scroll_container.set_deferred("scroll_vertical", 0)
 		xp_scroll_container.visible = true
+	elif option == 3:
+		laser_scroll_container.set_deferred("scroll_vertical", 0)
+		laser_scroll_container.visible = true
 		
 
 func open():

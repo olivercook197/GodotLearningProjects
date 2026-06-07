@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cvg3jydpl18mw"]
+[gd_scene format=3 uid="uid://bs25wu2hxhuuj"]
 
 [ext_resource type="Script" uid="uid://ce45x1ewd7qmh" path="res://scripts/breakout_game_scene.gd" id="1_ycayy"]
 [ext_resource type="Texture2D" uid="uid://dotul7ovdgy88" path="res://assets/gui/scalable_panel.png" id="2_bw6k5"]

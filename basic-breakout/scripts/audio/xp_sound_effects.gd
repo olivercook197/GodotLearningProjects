@@ -12,7 +12,6 @@ var xp_colected_value_sounds = [
 
 func play_xp_collected(xp_value):
 	var player = AudioStreamPlayer.new()
-	print("Playing")
 	add_child(player)
 	player.bus = "Sound Effects"
 	player.stream = xp_colected_sounds.pick_random()

@@ -146,7 +146,12 @@ func hit_brick_logic(collider):
 
 
 func change_speed(collider):
-	var frame = collider.animated_sprite_2d.frame
+	var frame
+	if collider.brick_type == null:
+		frame = collider.animated_sprite_2d.frame
+	else:
+		frame = collider.brick_type
+	
 	var added_gold
 	if frame != 4:
 		added_gold = GlobalVariables.brick_gold_value[frame] * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier

@@ -3,7 +3,8 @@ extends Panel
 enum MENU_OPTION {
 	BRICKS,
 	POWERUPS,
-	XP
+	XP,
+	LASER
 }
 
 @export var option: MENU_OPTION
@@ -20,6 +21,8 @@ func _ready() -> void:
 		label.text = "Powerups"
 	if option == 2:
 		label.text = "XP"
+	if option == 3:
+		label.text = "Laser"
 	
 
 

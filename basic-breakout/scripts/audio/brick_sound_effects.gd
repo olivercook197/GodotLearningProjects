@@ -13,7 +13,6 @@ var brick_destroyed_sounds = [
 
 func play_brick_destroyed():
 	var player = AudioStreamPlayer.new()
-	print("Playing")
 	add_child(player)
 	player.bus = "Sound Effects"
 	player.stream = brick_destroyed_sounds.pick_random()

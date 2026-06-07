@@ -44,6 +44,8 @@ const initial_extra_powerup_chance = 2
 var extra_powerup_chance
 const initial_brick_change_chance = [float(0.0), float(0.0), float(0.0), float(0.0)]
 var brick_change_chance
+const initial_laser_threshold = 37
+var laser_threshold
 
 # unique brick stats
 var increase_score_multiplier_chance: float
@@ -123,6 +125,8 @@ func set_variables():
 	brick_gold_value = initial_brick_gold_value.duplicate()
 	brick_score_value = initial_brick_score_speed_value.duplicate()
 	brick_speed_value = initial_brick_score_speed_value.duplicate()
+	
+	laser_threshold = initial_laser_threshold
 	
 	ball_speed = initial_ball_speed
 	paddle_position = initial_paddle_position

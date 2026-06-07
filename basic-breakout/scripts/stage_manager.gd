@@ -200,14 +200,14 @@ func brick_destroyed():
 		for slow_ball in get_group("slow_ball"):
 			await slow_ball.animate_destroy()
 			slow_ball.queue_free()
-	if brick_count < 35 and !end_game:
+	if brick_count < GlobalVariables.laser_threshold and !end_game:
 		instantiate_laser(Vector2(-1228, 120))
 		end_game = true
-		print("LESS THAN 5")
+		
 
 func instantiate_laser(pos: Vector2):
 	var laser = spawn(Scenes.laser, pos)
-	laser.max_x = 2456
+	laser.max_x = 2452
 	laser.add_to_group("invincible")
 	game_scene.add_child(laser)
 

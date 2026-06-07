@@ -5,7 +5,6 @@ var gain_powerup_sounds = [
 
 func play_gain_powerup():
 	var player = AudioStreamPlayer.new()
-	print("Playing")
 	add_child(player)
 	player.add_to_group("keep_volume")
 	player.bus = "Sound Effects"

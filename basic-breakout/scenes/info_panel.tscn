@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dy2s4mmgpcbkt" path="res://assets/sprites/tutorial/xp_magnet_powerup.png" id="18_bivfs"]
 [ext_resource type="Texture2D" uid="uid://cc55r5h463vsw" path="res://assets/sprites/tutorial/xp_panel.png" id="19_qb0sy"]
 [ext_resource type="Texture2D" uid="uid://c4telrwojb0gd" path="res://assets/sprites/tutorial/levelup_panel.png" id="20_cvrku"]
+[ext_resource type="Texture2D" uid="uid://culhenee035a7" path="res://assets/sprites/tutorial/end_game_laser_static.png" id="21_bivfs"]
 [ext_resource type="Script" uid="uid://cqxkwph4n37o8" path="res://scripts/open_close_animation.gd" id="21_cvrku"]
 
 [sub_resource type="Theme" id="Theme_wrceg"]
@@ -269,6 +270,10 @@ option = 1
 [node name="InfoPanelButton3" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=49138123 instance=ExtResource("2_mxpga")]
 layout_mode = 2
 option = 2
+
+[node name="InfoPanelButton4" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=199252166 instance=ExtResource("2_mxpga")]
+layout_mode = 2
+option = 3
 
 [node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1175575924]
 custom_minimum_size = Vector2(930, 710)
@@ -523,6 +528,7 @@ text = "Causes all XP to be attracted to the paddle for 30 seconds."
 autowrap_mode = 3
 
 [node name="XPScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2" unique_id=388445892]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_phkm4")
@@ -607,6 +613,43 @@ theme_override_font_sizes/font_size = 40
 text = "At the end of the stage, you will be presented with a selection of level ups. You can only choose 1."
 autowrap_mode = 3
 
+[node name="LaserScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2" unique_id=272842441]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_phkm4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer" unique_id=1699405211]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer" unique_id=1874398278]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer/HBoxContainer" unique_id=1611457362]
+layout_mode = 2
+texture = ExtResource("21_bivfs")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer/HBoxContainer" unique_id=960413049]
+custom_minimum_size = Vector2(400, 280)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Laser"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer" unique_id=2027465376]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "When there are only 5 bricks remaining, the laser is activated. It moves across the screen, destroying all bricks it touches."
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer" unique_id=1152093867]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
 [node name="OpenCloseAnimation" type="Node" parent="." unique_id=686781089 node_paths=PackedStringArray("target")]
 script = ExtResource("21_cvrku")
 target = NodePath("..")
@@ -615,3 +658,4 @@ target = NodePath("..")
 [connection signal="button_pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/InfoPanelButton" to="." method="_on_info_panel_button_button_pressed"]
 [connection signal="button_pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/InfoPanelButton2" to="." method="_on_info_panel_button_button_pressed"]
 [connection signal="button_pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/InfoPanelButton3" to="." method="_on_info_panel_button_button_pressed"]
+[connection signal="button_pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/InfoPanelButton4" to="." method="_on_info_panel_button_button_pressed"]

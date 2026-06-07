@@ -229,50 +229,6 @@ func _stage_started():
 	stage_manager.stage_started_func()
 
 
-#func _on__on_powerup_collected_collected(powerup):
-	#balance_sounds()
-	#powerup_sound_effects.play_gain_powerup()
-	#if LevelUpVariables.powerup_gives_xp_gold_score:
-		#GlobalVariables.current_score += 5 * GlobalVariables.score_multiplier
-		#GlobalVariables.gold += 5 * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier
-		#GlobalVariables.xp += 5 * GlobalVariables.bonus_xp
-		#update_gold(5 * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier)
-		#xp_panel_container.update_xp(true)
-		#score_label.update_score()
-	#Signals.powerup_collected.emit()
-	#match powerup:
-		#PowerupType.EXTRA_LIFE:
-			#if GlobalVariables.remaining_lives < GlobalVariables.max_lives and GlobalVariables.remaining_lives != 0:
-				#GlobalVariables.remaining_lives += 1
-				#for i in GlobalVariables.max_lives:
-					#life_manager.add_lives_to_scene()
-		#PowerupType.MONEY:
-			#GlobalVariables.gold += 5 + 5 * GlobalVariables.stage
-			#update_gold(5 + 5 * GlobalVariables.stage)
-		#PowerupType.DOUBLE_MONEY:
-			#create_timer(10, _double_money_timer_timeout, true)
-			#GlobalVariables.local_gold_multiplier += 1
-		#PowerupType.LONG_PADDLE:
-			#if paddle_timer == null or not is_instance_valid(paddle_timer):
-				#paddle_timer = create_timer(20, _paddle_extension_timeout)
-			#for paddle in get_group("paddle"):
-				#paddle.enable_side_panels()
-		#PowerupType.XP_MAGNET:
-			#for xp in get_group("xp"):
-				#xp.go_to_paddle()
-			#magnet_xp = true
-			#if xp_timer == null or not is_instance_valid(xp_timer):
-				#xp_timer = create_timer(20, _xp_magnet_timeout, true)
-
-#func _double_money_timer_timeout() -> void:
-	#GlobalVariables.local_gold_multiplier -= 1
-#
-#func _paddle_extension_timeout() -> void:
-	#for paddle in get_group("paddle"):
-			#paddle.disable_side_panels()
-#
-#func _xp_magnet_timeout() -> void:
-	#magnet_xp = false
 
 func remove_panels_hitbox() -> void:
 	for paddle in get_group("paddle"):
