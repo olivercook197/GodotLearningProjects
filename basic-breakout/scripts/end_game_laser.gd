@@ -54,7 +54,7 @@ func start_animation():
 
 func _process(delta: float) -> void:
 	if stopping:
-		color_rect.size.y -= 1500 * delta
+		color_rect.size.y -= 1450 * delta
 		
 		if color_rect.size.y <= 1:
 			queue_free()
@@ -75,7 +75,7 @@ func _process(delta: float) -> void:
 			if collider.script == Brick:
 				collider.play_destruction_animation()
 				target_y = collider.position.y + 800
-		elif lowest != null:
+		elif lowest != null and lowest.position.y + 800 > position.y:
 			position.y = lowest.position.y + 800
 			target_y = lowest.position.y + 800
 	else:
@@ -85,7 +85,7 @@ func _process(delta: float) -> void:
 	position.y = move_toward(
 	position.y,
 	target_y,
-	1000 * delta
+	0.1 * delta
 	)
 	
 	if max_x + initial_x <= position.x and !stopping: 

@@ -614,6 +614,7 @@ text = "At the end of the stage, you will be presented with a selection of level
 autowrap_mode = 3
 
 [node name="LaserScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2" unique_id=272842441]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_phkm4")
@@ -643,7 +644,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "When there are only 5 bricks remaining, the laser is activated. It moves across the screen, destroying all bricks it touches."
+text = "When there are only 8 bricks remaining, the laser is activated. It moves across the screen, destroying all bricks it touches."
 autowrap_mode = 3
 
 [node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer" unique_id=1152093867]

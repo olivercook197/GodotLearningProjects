@@ -2,7 +2,7 @@ extends Node2D
 
 var current_scene
 
-const BREAKOUT_GAME_SCENE = preload("uid://cvg3jydpl18mw")
+const BREAKOUT_GAME_SCENE = preload("uid://bs25wu2hxhuuj")
 const SHOP = preload("uid://cykrxgq8alrd2")
 const MAIN_MENU = preload("uid://doq7cnqqniepq")
 

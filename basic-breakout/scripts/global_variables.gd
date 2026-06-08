@@ -44,7 +44,7 @@ const initial_extra_powerup_chance = 2
 var extra_powerup_chance
 const initial_brick_change_chance = [float(0.0), float(0.0), float(0.0), float(0.0)]
 var brick_change_chance
-const initial_laser_threshold = 37
+const initial_laser_threshold = 8
 var laser_threshold
 
 # unique brick stats
