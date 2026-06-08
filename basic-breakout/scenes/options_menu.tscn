@@ -367,7 +367,6 @@ press_scale = 0.8
 hover_colour = Color(0.83033526, 0.83033514, 0.83033514, 1)
 button_path = NodePath("../TextureButton")
 visual_path = NodePath("../TextureButton/TextureRect")
-button_has_requirements_to_press = true
 metadata/_custom_type_script = "uid://b6qc7edybv8sl"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ControlsPanelContainer/MarginContainer/VBoxContainer" unique_id=2007318086]
@@ -400,30 +399,30 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="ChangeKeybind" type="Control" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer" unique_id=1501224426 groups=["hotkey_button"]]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("7_7txom")
 action_name = "move_left"
 
 [node name="TextureButton" type="TextureButton" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind" unique_id=1361783675]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
-offset_right = 120.0
-offset_bottom = 120.0
+offset_right = 180.0
+offset_bottom = 110.0
 
 [node name="TextureRect" type="TextureRect" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind/TextureButton" unique_id=1422454882]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 180.0
+offset_bottom = 110.0
 texture = ExtResource("6_dhn0l")
 
 [node name="Label" type="Label" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind/TextureButton" unique_id=1379177824]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(120, 110)
 layout_mode = 0
 offset_right = 180.0
-offset_bottom = 120.0
+offset_bottom = 110.0
 theme_override_font_sizes/font_size = 54
 text = "A"
 horizontal_alignment = 1
@@ -437,7 +436,7 @@ visual_path = NodePath("../TextureButton/TextureRect")
 metadata/_custom_type_script = "uid://b6qc7edybv8sl"
 
 [node name="ChangeKeybind2" type="Control" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer" unique_id=126613292 groups=["hotkey_button"]]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("7_7txom")
@@ -445,23 +444,23 @@ action_name = "move_left"
 use_second_keybind = true
 
 [node name="TextureButton" type="TextureButton" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind2" unique_id=671794314]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
-offset_right = 120.0
-offset_bottom = 120.0
+offset_right = 180.0
+offset_bottom = 110.0
 
 [node name="TextureRect" type="TextureRect" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind2/TextureButton" unique_id=1503100629]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("6_dhn0l")
 
 [node name="Label" type="Label" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind2/TextureButton" unique_id=477640168]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(120, 110)
 layout_mode = 0
 offset_right = 180.0
-offset_bottom = 120.0
+offset_bottom = 110.0
 theme_override_font_sizes/font_size = 54
 text = "A"
 horizontal_alignment = 1
@@ -478,30 +477,30 @@ metadata/_custom_type_script = "uid://b6qc7edybv8sl"
 layout_mode = 2
 
 [node name="ChangeKeybind" type="Control" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2" unique_id=1817211070 groups=["hotkey_button"]]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("7_7txom")
 action_name = "move_right"
 
 [node name="TextureButton" type="TextureButton" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind" unique_id=1627199605]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
-offset_right = 120.0
-offset_bottom = 120.0
+offset_right = 180.0
+offset_bottom = 110.0
 
 [node name="TextureRect" type="TextureRect" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind/TextureButton" unique_id=1443616644]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("6_dhn0l")
 
 [node name="Label" type="Label" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind/TextureButton" unique_id=1928331453]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(120, 110)
 layout_mode = 0
 offset_right = 180.0
-offset_bottom = 120.0
+offset_bottom = 110.0
 theme_override_font_sizes/font_size = 54
 text = "A"
 horizontal_alignment = 1
@@ -515,7 +514,7 @@ visual_path = NodePath("../TextureButton/TextureRect")
 metadata/_custom_type_script = "uid://b6qc7edybv8sl"
 
 [node name="ChangeKeybind2" type="Control" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2" unique_id=2027121473 groups=["hotkey_button"]]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("7_7txom")
@@ -523,29 +522,93 @@ action_name = "move_right"
 use_second_keybind = true
 
 [node name="TextureButton" type="TextureButton" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind2" unique_id=766103515]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
-offset_right = 120.0
-offset_bottom = 120.0
+offset_right = 180.0
+offset_bottom = 110.0
 
 [node name="TextureRect" type="TextureRect" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind2/TextureButton" unique_id=1730320291]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("6_dhn0l")
 
 [node name="Label" type="Label" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind2/TextureButton" unique_id=820926646]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(120, 110)
 layout_mode = 0
 offset_right = 180.0
-offset_bottom = 120.0
+offset_bottom = 110.0
 theme_override_font_sizes/font_size = 54
 text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HoverAnimator" type="Node" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind2" unique_id=305913030]
+script = ExtResource("4_k61yy")
+press_scale = 0.8
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../TextureButton/TextureRect")
+metadata/_custom_type_script = "uid://b6qc7edybv8sl"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1002547767]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6" unique_id=1129163685]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Precision Control (Hold)"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6" unique_id=255186]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer" unique_id=1666753088]
+custom_minimum_size = Vector2(382, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="ChangeKeybind" type="Control" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer/HBoxContainer2" unique_id=1408848518 groups=["hotkey_button"]]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("7_7txom")
+action_name = "smooth_movement"
+
+[node name="TextureButton" type="TextureButton" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer/HBoxContainer2/ChangeKeybind" unique_id=167687571]
+custom_minimum_size = Vector2(180, 110)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -60.0
+offset_right = 90.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer/HBoxContainer2/ChangeKeybind/TextureButton" unique_id=2030042443]
+custom_minimum_size = Vector2(180, 110)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_dhn0l")
+
+[node name="Label" type="Label" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer/HBoxContainer2/ChangeKeybind/TextureButton" unique_id=1814548239]
+custom_minimum_size = Vector2(120, 110)
+layout_mode = 0
+offset_right = 180.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 54
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverAnimator" type="Node" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer/HBoxContainer2/ChangeKeybind" unique_id=1954898503]
 script = ExtResource("4_k61yy")
 press_scale = 0.8
 button_path = NodePath("../TextureButton")
@@ -571,14 +634,14 @@ layout_mode = 2
 alignment = 1
 
 [node name="ChangeKeybind" type="Control" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2" unique_id=22026298 groups=["hotkey_button"]]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("7_7txom")
 action_name = "start_game"
 
 [node name="TextureButton" type="TextureButton" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/ChangeKeybind" unique_id=1814375643]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -588,22 +651,22 @@ anchor_bottom = 0.5
 offset_left = -90.0
 offset_top = -60.0
 offset_right = 90.0
-offset_bottom = 60.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/ChangeKeybind/TextureButton" unique_id=585740288]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("6_dhn0l")
 
 [node name="Label" type="Label" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/ChangeKeybind/TextureButton" unique_id=963233859]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(120, 110)
 layout_mode = 0
 offset_right = 180.0
-offset_bottom = 120.0
+offset_bottom = 110.0
 theme_override_font_sizes/font_size = 54
 text = "A"
 horizontal_alignment = 1
@@ -635,14 +698,14 @@ layout_mode = 2
 alignment = 1
 
 [node name="ChangeKeybind" type="Control" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/VBoxContainer/HBoxContainer2" unique_id=1509729947 groups=["hotkey_button"]]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("7_7txom")
 action_name = "pause"
 
 [node name="TextureButton" type="TextureButton" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/VBoxContainer/HBoxContainer2/ChangeKeybind" unique_id=1968086203]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -652,22 +715,22 @@ anchor_bottom = 0.5
 offset_left = -90.0
 offset_top = -60.0
 offset_right = 90.0
-offset_bottom = 60.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/VBoxContainer/HBoxContainer2/ChangeKeybind/TextureButton" unique_id=767026350]
-custom_minimum_size = Vector2(180, 120)
+custom_minimum_size = Vector2(180, 110)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("6_dhn0l")
 
 [node name="Label" type="Label" parent="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/VBoxContainer/HBoxContainer2/ChangeKeybind/TextureButton" unique_id=140192619]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(120, 110)
 layout_mode = 0
 offset_right = 180.0
-offset_bottom = 120.0
+offset_bottom = 110.0
 theme_override_font_sizes/font_size = 54
 text = "A"
 horizontal_alignment = 1
@@ -701,7 +764,7 @@ metadata/_custom_type_script = "uid://cqxkwph4n37o8"
 [connection signal="button_up" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ControlsButton/TextureButton" to="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ControlsButton" method="_on_texture_button_button_up"]
 [connection signal="mouse_entered" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ControlsButton/TextureButton" to="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ControlsButton" method="_on_texture_button_mouse_entered"]
 [connection signal="mouse_exited" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ControlsButton/TextureButton" to="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ControlsButton" method="_on_texture_button_mouse_exited"]
-[connection signal="pressed" from="ControlsPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton/CloseButtonHoverAnimator" to="." method="_on_close_button_hover_animator_pressed"]
+[connection signal="confirmed" from="ControlsPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton/CloseButtonHoverAnimator" to="." method="_on_close_button_hover_animator_confirmed"]
 [connection signal="changing_controls" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind" to="." method="_on_change_keybind_changing_controls"]
 [connection signal="not_changing_controls" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind" to="." method="_on_change_keybind_not_changing_controls"]
 [connection signal="confirmed" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind/HoverAnimator" to="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/ChangeKeybind" method="_on_hover_animator_pressed"]
@@ -714,6 +777,8 @@ metadata/_custom_type_script = "uid://cqxkwph4n37o8"
 [connection signal="changing_controls" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind2" to="." method="_on_change_keybind_changing_controls"]
 [connection signal="not_changing_controls" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind2" to="." method="_on_change_keybind_not_changing_controls"]
 [connection signal="confirmed" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind2/HoverAnimator" to="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/ChangeKeybind2" method="_on_hover_animator_pressed"]
+[connection signal="confirmed" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer/HBoxContainer2/ChangeKeybind/HoverAnimator" to="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer/HBoxContainer2/ChangeKeybind" method="_on_hover_animator_pressed"]
+[connection signal="pressed" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer/HBoxContainer2/ChangeKeybind/HoverAnimator" to="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer6/VBoxContainer/HBoxContainer2/ChangeKeybind" method="_on_hover_animator_pressed"]
 [connection signal="changing_controls" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/ChangeKeybind" to="." method="_on_change_keybind_changing_controls"]
 [connection signal="not_changing_controls" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/ChangeKeybind" to="." method="_on_change_keybind_not_changing_controls"]
 [connection signal="confirmed" from="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/ChangeKeybind/HoverAnimator" to="ControlsPanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer2/ChangeKeybind" method="_on_hover_animator_pressed"]

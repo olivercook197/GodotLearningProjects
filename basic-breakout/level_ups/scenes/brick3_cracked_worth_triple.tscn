@@ -8,7 +8,7 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_luytp")
-description = "Cracked Angry Bricks are worth triple rather than double"
+description = "Cracked Angry Bricks are worth triple Gold and Score rather than double"
 id = 13
 metadata/_custom_type_script = "uid://b12k8s4ltppra"
 

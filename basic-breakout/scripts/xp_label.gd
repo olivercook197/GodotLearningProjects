@@ -15,7 +15,7 @@ func update_xp(animate: bool = false):
 	if GlobalVariables.xp >= GlobalVariables.xp_level_cap:
 		GlobalVariables.xp_level += 1
 		GlobalVariables.xp -= GlobalVariables.xp_level_cap
-		GlobalVariables.xp_level_cap += (GlobalVariables.xp_level - 1) * 25
+		GlobalVariables.xp_level_cap += 25
 		GlobalVariables.levels_gained += 1
 	text = ("XP: " + str(int(GlobalVariables.xp)) + "/" + str(GlobalVariables.xp_level_cap))
 	if animate:

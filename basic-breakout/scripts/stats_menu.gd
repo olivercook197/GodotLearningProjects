@@ -39,6 +39,8 @@ var stats_to_display_in_game = {
 	"Inflation multiplier per purchase": {"label": "Inflation increase per purchase", "value": GlobalVariables.inflation_rate, "percent": true},
 	"Interest per 10 gold": {"label": "Interest per 10 gold", "value": GlobalVariables.interest, "percent": false},
 	
+	"Score multiplier": {"label": "Score multiplier", "value": GlobalVariables.score_multiplier, "percent": true},
+	
 	"Max Rerolls": {"label": "Max Rerolls", "value": GlobalVariables.max_rerolls, "percent": false},
 	
 	"Current Score": {"label": "Current Score", "value": GlobalVariables.current_score, "percent": false},
@@ -118,8 +120,7 @@ func convert_num_to_percentage(value: float, alter_percent: bool = false):
 
 func _on_hover_animator_confirmed(button) -> void:
 	close_animation()
-	stat_menu_closed.emit()
-	get_tree().paused = false
+	
 
 func close_animation():
 	if tween:
@@ -129,10 +130,15 @@ func close_animation():
 	tween.tween_property(self, "scale", Vector2(0.001, 0.001), 0.1)
 	
 	await tween.finished
-	
+	stat_menu_closed.emit()
+	get_tree().paused = false
 	queue_free()
 
 func add_extra_stats():
 	if GlobalVariables.bonus_xp_percent > 0:
 		stats_to_display_in_game.set("Bonus Xp Gain", {"label": "Bonus Xp Gain", "value": GlobalVariables.bonus_xp_percent, "percent": true})
 	pass
+
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_pressed("pause"):
+		close_animation()

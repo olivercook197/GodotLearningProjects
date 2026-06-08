@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://btlebm171nq1n"]
+
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_5h58s"]
+[ext_resource type="PackedScene" uid="uid://cx3qscl0cblk5" path="res://level_ups/scenes/decrease_ball_speed_on_life_lost.tscn" id="1_d7oky"]
+
+[resource]
+script = ExtResource("1_5h58s")
+id = 19
+option_name = "Decrease Ball Speed on Life Loss"
+modifier_scene = ExtResource("1_d7oky")
+stat_requirements_to_unlock = Array[int]([6])
+requirement_minimum = 1000.0
+one_time = true
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

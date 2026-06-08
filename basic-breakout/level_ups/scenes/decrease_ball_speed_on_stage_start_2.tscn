@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bqo07dpgmhju6"]
+
+[ext_resource type="Script" uid="uid://bw2f67wmtv84f" path="res://level_ups/scripts/decrease_ball_speed_on_stage_start_2.gd" id="1_ntoaf"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_oms42"]
+[ext_resource type="Texture2D" uid="uid://d4g7b72lh5rn" path="res://assets/sprites/level_up/decrease_ball_speed_on_stage_start_2.png" id="3_oms42"]
+
+[node name="DecreaseBallSpeedOnStageStart2" type="Control" unique_id=1492687506]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ntoaf")
+description = "Decrease the Ball Speed by an additional 75 at the start of each stage"
+id = 18
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_oms42")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -185.0
+offset_right = 145.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_oms42")

@@ -23,7 +23,7 @@ var brick_gold_value
 const initial_brick_score_speed_value = [1, 2, 5, 10]
 var brick_score_value
 var brick_speed_value
-const initial_ball_speed = 800	#decreases by speed_decrease_on_stage_start on first stage, so real initial speed is lower
+const initial_ball_speed = 750	#decreases by speed_decrease_on_stage_start on first stage, so real initial speed is lower
 var ball_speed
 const initial_paddle_position = Vector2(0, 460)
 var paddle_position
@@ -36,7 +36,7 @@ const initial_interest = 0
 var interest
 const initial_score_without_speed = 0
 var score_without_speed
-const initial_speed_decrease_on_stage_start = 100
+const initial_speed_decrease_on_stage_start = 50
 var speed_decrease_on_stage_start
 const initial_powerup_chance = 0.05
 var powerup_chance

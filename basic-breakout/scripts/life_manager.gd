@@ -23,6 +23,8 @@ func instantiate_lives(pos: Vector2):
 
 func remove_life():
 	var finalised_life_lost = false
+	if LevelUpVariables.decrease_ball_speed_on_life_lost:
+		GlobalVariables.ball_speed -= 50
 	for life in list_of_lives:
 		if life.frame == 0:
 			life.frame = 1

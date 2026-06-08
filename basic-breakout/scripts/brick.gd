@@ -106,13 +106,16 @@ func play_destruction_animation():
 		animated_sprite_2d_2.play()
 		animated_sprite_2d.play()
 		
-		on_hit(false, frame)
-		if frame == 3:
-			on_hit(false, frame + 1)
+		
 		await animated_sprite_2d.animation_finished
 		get_tree().get_nodes_in_group("main_ball")[0].hit_brick_logic(self)
 		if brick_type == 3:
 			brick_type = 4
 			get_tree().get_nodes_in_group("main_ball")[0].hit_brick_logic(self)
+		
+		on_hit(false, frame)
+		if frame == 3:
+			on_hit(false, frame + 1)
+		
 		queue_free()
 		

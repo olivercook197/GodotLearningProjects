@@ -388,7 +388,7 @@ text = "Angry Brick"
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Angry bricks add 10 score and 1 gold when hit. They also increase the speed of the ball by 10. When hit, they turn into a Cracked Brick, which when hit increases score, gold and speed by double the Angry Brick."
+text = "Angry bricks add 10 score and 1 gold when hit. They also increase the speed of the ball by 10. When hit, they turn into a Cracked Brick, which when hit increases score and gold by double that of the Angry Brick."
 autowrap_mode = 3
 
 [node name="PowerupScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2" unique_id=1272924671]

@@ -17,7 +17,7 @@ const Scenes = {
 @onready var carry_through: Node2D = $CarryThrough
 @onready var gold_label: Label = $CarryThrough/GoldPanelContainer/GoldLabel
 @onready var start_game_label: Label = $CarryThrough/StartGameLabel
-@onready var life_manager: Node = $CarryThrough/LifeManager
+@onready var life_manager: Node = $CarryThrough/Managers/LifeManager
 @onready var xp_panel_container: PanelContainer = $CarryThrough/XPPanelContainer
 @onready var level_up_panel: Panel = $CarryThrough/LevelUpPanel
 @onready var tooltip_panel_container: PanelContainer = $CarryThrough/TooltipPanelContainer
@@ -48,6 +48,7 @@ signal go_to_menu
 var score := 0
 var brick_count := 0
 
+var stats_menu
 var menu_open = false
 var current_esc_menu: Node
 
@@ -155,6 +156,8 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 		if GlobalVariables.remaining_lives <= 0:
 			for powerup in get_group("powerup"):
 				powerup.queue_free()
+			for laser in get_group("invincible"):
+				laser.stopping = true
 			show_dark_background()
 			GlobalVariables.high_score_updated(GlobalVariables.current_score)
 			end_of_the_game()
@@ -178,7 +181,6 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 			body.queue_free()
 
 func _on_world_border_area_entered(area: Area2D) -> void:
-	#if area != Ball:
 	if !area.get_parent() in get_group("invincible"):
 		area.get_parent().queue_free()
 
@@ -205,8 +207,6 @@ func end_of_the_game():
 	esc_menu.open_options.connect(_open_options)
 	esc_menu.go_to_menu.connect(_go_to_menu)
 	current_esc_menu = esc_menu
-	GlobalVariables.set_variables()
-	LevelUpVariables.set_variables()
 	menu_open = true
 
 func _on_next_stage_button_pressed() -> void:
@@ -247,7 +247,7 @@ func _on_level_up_panel_level_up_stopped_hovering() -> void:
 	tooltip_panel_container.visible = false
 
 func _on_stats_panel_container_open_stats_menu() -> void:
-	var stats_menu = spawn(Scenes.stats_menu)
+	stats_menu = spawn(Scenes.stats_menu, Vector2(-750, -625))
 	stats_menu.display_in_game_stats()
 
 func update_gold(gold_gained = 0):
@@ -256,7 +256,7 @@ func update_gold(gold_gained = 0):
 		Signals.gold_gained.emit(gold_gained)
 
 func _open_esc_menu():
-	if !menu_open:
+	if !menu_open and !stats_menu:
 		var esc_menu = create_esc_menu()
 		menu_open = true
 		show_dark_background()

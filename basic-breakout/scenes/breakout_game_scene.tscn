@@ -115,8 +115,6 @@ theme_override_font_sizes/font_size = 60
 text = "Press Space to start"
 horizontal_alignment = 1
 
-[node name="LifeManager" parent="CarryThrough" unique_id=568853142 instance=ExtResource("6_bjuba")]
-
 [node name="XPPanelContainer" parent="CarryThrough" unique_id=2067107312 instance=ExtResource("7_uv4by")]
 z_index = 5
 offset_left = 159.0
@@ -161,6 +159,8 @@ script = ExtResource("16_8g1d3")
 
 [node name="PowerupManager" type="Node" parent="CarryThrough/Managers" unique_id=1686196204]
 script = ExtResource("17_o5tg7")
+
+[node name="LifeManager" parent="CarryThrough/Managers" unique_id=568853142 instance=ExtResource("6_bjuba")]
 
 [node name="TenSecondTimer" parent="." unique_id=557367407 instance=ExtResource("7_hpu5y")]
 

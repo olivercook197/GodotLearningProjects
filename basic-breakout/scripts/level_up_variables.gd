@@ -9,13 +9,15 @@ var slow_ball_bounces_off_bottom = false
 var brick3_cracked_multiplier = 2
 var brick0_increases_gold_multiplier = false
 var powerup_gives_xp_gold_score = false
+var decrease_ball_speed_on_life_lost = false
 
 enum RequirementsLevelUpLevels {
 	START_WITH_EXTRA_SLOW_BALL,
 	INCREASE_BRICK0_SPAWN,
 	INCREASE_BRICK1_SPAWN,
 	INCREASE_BRICK2_SPAWN,
-	INCREASE_BRICK3_SPAWN
+	INCREASE_BRICK3_SPAWN,
+	DECREASE_BALL_SPEED_ON_STAGE_START
 }
 
 var level_up_id_list = {

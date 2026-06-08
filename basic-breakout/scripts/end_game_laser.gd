@@ -48,6 +48,7 @@ func start_animation():
 	await get_tree().create_timer(0.3).timeout
 	end_game_laser_4.play()
 	await get_tree().create_timer(0.3).timeout
+	sprite_2d_top.visible = true
 	moving = true
 	
 

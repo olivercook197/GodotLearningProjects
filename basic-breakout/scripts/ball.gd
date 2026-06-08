@@ -162,7 +162,7 @@ func change_speed(collider):
 		added_gold = LevelUpVariables.brick3_cracked_multiplier * GlobalVariables.brick_gold_value[frame - 1] * GlobalVariables.global_gold_multiplier * GlobalVariables.local_gold_multiplier
 		GlobalVariables.gold += added_gold
 		Signals.gold_gained.emit(added_gold)
-		return [GlobalVariables.brick_score_value[frame - 1] * LevelUpVariables.brick3_cracked_multiplier, GlobalVariables.brick_speed_value[frame - 1] * LevelUpVariables.brick3_cracked_multiplier]
+		return [GlobalVariables.brick_score_value[frame - 1] * LevelUpVariables.brick3_cracked_multiplier, GlobalVariables.brick_speed_value[frame - 1]]
 
 
 func make_slow_ball():

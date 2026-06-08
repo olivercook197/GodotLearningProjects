@@ -63,5 +63,7 @@ func get_levelup_option(levelup: LevelUpVariables.RequirementsLevelUpLevels):
 			return LevelUpVariables.level_up_id_list["increase_brick2_spawn"]
 		LevelUpVariables.RequirementsLevelUpLevels.INCREASE_BRICK3_SPAWN:
 			return LevelUpVariables.level_up_id_list["increase_brick3_spawn"]
+		LevelUpVariables.RequirementsLevelUpLevels.DECREASE_BALL_SPEED_ON_STAGE_START:
+			return LevelUpVariables.level_up_id_list["decrease_ball_speed_on_stage_start"]
 		_:
 			return null

@@ -45,6 +45,8 @@ func _on_hover_animator_confirmed(button) -> void:
 
 func _on_button_pressed() -> void:
 	if game_over:
+		GlobalVariables.set_variables()
+		LevelUpVariables.set_variables()
 		go_to_shop.emit(true)
 	else:
 		try_to_close_menu()

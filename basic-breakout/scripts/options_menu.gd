@@ -51,17 +51,15 @@ func _on_controls_button_option_chosen(option) -> void:
 	control_menu_open = true
 
 
-
-func _on_close_button_hover_animator_pressed() -> void:
-	if not choosing_keybind:
-		await open_close_animation_controls_panel.close()
-		controls_panel_container.visible = false
-		
-
-
 func _on_change_keybind_changing_controls() -> void:
 	choosing_keybind = true
 
 
 func _on_change_keybind_not_changing_controls() -> void:
 	choosing_keybind = false
+
+
+func _on_close_button_hover_animator_confirmed(button) -> void:
+	if not choosing_keybind:
+		await open_close_animation_controls_panel.close()
+		controls_panel_container.visible = false
