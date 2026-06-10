@@ -21,6 +21,9 @@
 [ext_resource type="PackedScene" uid="uid://dlyhte50bodef" path="res://scenes/blurred_background.tscn" id="20_aa4hd"]
 [ext_resource type="PackedScene" uid="uid://cy4yhp5w1mhqn" path="res://scenes/darken_background.tscn" id="21_68utx"]
 [ext_resource type="PackedScene" uid="uid://bwvur7ica41s6" path="res://scenes/options_button.tscn" id="21_ru2r1"]
+[ext_resource type="Script" uid="uid://b1c55a37rings" path="res://scenes/audio.gd" id="22_lxs01"]
+[ext_resource type="PackedScene" uid="uid://dws8eb6qk8evi" path="res://scenes/audio/gui_sound_effects.tscn" id="22_ru2r1"]
+[ext_resource type="PackedScene" uid="uid://d3pnv6nmkbx8f" path="res://scenes/audio/shop_sound_effects.tscn" id="24_6nbx6"]
 
 [node name="Shop" type="Node2D" unique_id=873135676]
 script = ExtResource("1_lx5au")
@@ -206,6 +209,14 @@ offset_right = 1135.0
 offset_bottom = -681.0
 relative_size = 105.0
 
+[node name="Audio" type="Node" parent="." unique_id=2040134253]
+script = ExtResource("22_lxs01")
+metadata/_custom_type_script = "uid://b1c55a37rings"
+
+[node name="GUISoundEffects" parent="Audio" unique_id=999180488 instance=ExtResource("22_ru2r1")]
+
+[node name="ShopSoundEffects" parent="Audio" unique_id=1283923835 instance=ExtResource("24_6nbx6")]
+
 [connection signal="confirmed" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
 [connection signal="hovered" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_hovered"]
 [connection signal="stopped_hovering" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_stopped_hovering"]
@@ -218,6 +229,7 @@ relative_size = 105.0
 [connection signal="stopped_hovering" from="RerollUpgradeContainer/MarginContainer/Control/HoverGoldVisual" to="RerollUpgradeContainer" method="_on_hover_gold_visual_stopped_hovering"]
 [connection signal="hovered" from="UpgradeContainer" to="." method="_on_hovered"]
 [connection signal="stopped_hovering" from="UpgradeContainer" to="." method="_on_stopped_hovering"]
+[connection signal="upgrade_not_allowed" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_not_allowed"]
 [connection signal="upgrade_selected" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected"]
 [connection signal="upgrade_selected_too_expensive" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected_too_expensive"]
 [connection signal="open_stats_menu" from="StatsPanelContainer" to="." method="_on_stats_panel_container_open_stats_menu"]

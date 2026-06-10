@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://qsdmuvp0323q"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_h453k"]
+[ext_resource type="Texture2D" uid="uid://b7d5ch4ug66su" path="res://assets/sprites/upgrades/laser_comes_earlier_small.png" id="2_xbuw1"]
+
+[resource]
+script = ExtResource("1_h453k")
+upgrade_name = "Laser Comes Earlier"
+upgrade_desc = "Laser is activated 2 Bricks earlier"
+upgrade_target = 3
+attribute_changed = 12
+number_change = 2.0
+textures = Array[Texture2D]([ExtResource("2_xbuw1")])
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

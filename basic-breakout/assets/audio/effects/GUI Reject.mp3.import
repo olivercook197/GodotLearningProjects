@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cv4v7d4wun55a"
+path="res://.godot/imported/GUI Reject.mp3-140151287b84dd7c1ee069af9f414fd1.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/effects/GUI Reject.mp3"
+dest_files=["res://.godot/imported/GUI Reject.mp3-140151287b84dd7c1ee069af9f414fd1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

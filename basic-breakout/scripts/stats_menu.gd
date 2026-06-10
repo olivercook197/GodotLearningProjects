@@ -32,6 +32,8 @@ var stats_to_display_in_game = {
 	"Paddle Length": {"label": "Paddle Length", "value": GlobalVariables.paddle_x_length, "percent": true},
 	"Paddle Speed": {"label": "Paddle Speed", "value": GlobalVariables.paddle_speed, "percent": false},
 	
+	"Remaining Bricks laser threshold": {"label": "Remaining Bricks laser threshold", "value": GlobalVariables.laser_threshold, "percent": false},
+	
 	"Chance to score and not increase speed": {"label": "Chance to score and not increase speed", "value": GlobalVariables.score_without_speed, "percent": true},
 	
 	"Powerup Chance": {"label": "Powerup Chance", "value": GlobalVariables.powerup_chance, "percent": true},
@@ -50,6 +52,8 @@ var stats_to_display_in_game = {
 
 
 var stats_to_display_all_time = {
+	"High Score": {"label": "High Score", "value": GlobalVariables.high_score, "percent": false},
+	
 	"Games Played": {"label": "Games Played", "value": MetaStats.lifetime_stats[MetaStats.GAMES_PLAYED], "percent": false},
 	
 	"Gold Gained": {"label": "Gold Gained", "value": MetaStats.lifetime_stats[MetaStats.GOLD_EARNED], "percent": false},
@@ -59,6 +63,7 @@ var stats_to_display_all_time = {
 	"XP Gained": {"label": "XP Gained", "value": MetaStats.lifetime_stats[MetaStats.XP_GAINED], "percent": false},
 
 	"Level Ups Taken": {"label": "Level Ups Taken", "value": MetaStats.lifetime_stats[MetaStats.LEVEL_UPS_TAKEN], "percent": false},
+	"Unique Level Ups Taken": {"label": "Unique Level Ups Taken", "value": str(MetaStats.lifetime_stats[MetaStats.UNIQUE_LEVEL_UPS_TAKEN].size()) + "/" + str(determine_number_of_total_levels()), "percent": false, "unique" : true},
 	"Upgrades Taken": {"label": "Upgrades Taken", "value": MetaStats.lifetime_stats[MetaStats.UPGRADES_TAKEN], "percent": false},
 	"Lives Lost": {"label": "Lives Lost", "value": MetaStats.lifetime_stats[MetaStats.LIVES_LOST], "percent": false},
 
@@ -73,6 +78,19 @@ signal stat_menu_closed
 
 var tween: Tween
 
+func determine_number_of_total_levels():
+	var dir := DirAccess.open("res://level_ups/data/")
+	if dir == null:
+		return 0
+	var count := 0
+	dir.list_dir_begin()
+	var file_name := dir.get_next()
+	while file_name != "":
+		if !dir.current_is_dir():
+			count += 1
+		file_name = dir.get_next()
+	dir.list_dir_end()
+	return count
 
 func display_in_game_stats():
 	add_extra_stats()
@@ -88,7 +106,9 @@ func display_in_game_stats():
 
 func display_all_time_stats():
 	for stat in stats_to_display_all_time:
-		if stats_to_display_all_time[stat].percent:
+		if stats_to_display_all_time[stat].has("unique"):
+			pass
+		elif stats_to_display_all_time[stat].percent:
 			stats_to_display_all_time[stat].value = convert_num_to_percentage(stats_to_display_all_time[stat].value, stats_to_display_all_time[stat].get("alter_percent", false))
 		else:
 			stats_to_display_all_time[stat].value = int(stats_to_display_all_time[stat].value)

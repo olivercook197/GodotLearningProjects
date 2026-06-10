@@ -7,6 +7,7 @@ const Scenes = {
 @onready var xp_panel_container: PanelContainer = $"../../XPPanelContainer"
 @onready var xp_sound_effects: AudioStreamPlayer2D = $"../../Audio/XPSoundEffects"
 @onready var powerup_manager: Node = $"../PowerupManager"
+@onready var audio: Audio = $"../../Audio"
 
 var game_scene: Node
 
@@ -30,4 +31,4 @@ func _on_xp_collected(xp_collected):
 	xp_panel_container.update_xp(true)
 	Signals.xp_gained.emit(actual_collected_xp)
 	xp_sound_effects.play_xp_collected(xp_collected)
-	game_scene.balance_sounds()
+	audio.balance_sounds()

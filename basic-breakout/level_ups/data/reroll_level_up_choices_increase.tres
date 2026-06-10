@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://dei4vuxdw7b2j"]
+
+[ext_resource type="PackedScene" uid="uid://bls6xn0pol2hl" path="res://level_ups/scenes/reroll_level_up_choices_increase.tscn" id="1_0ed7t"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_tljqc"]
+
+[resource]
+script = ExtResource("1_tljqc")
+id = 22
+option_name = "Reroll Level Up Choices Increase"
+modifier_scene = ExtResource("1_0ed7t")
+stat_requirements_to_unlock = Array[int]([1])
+requirement_minimum = 250.0
+one_time = true
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

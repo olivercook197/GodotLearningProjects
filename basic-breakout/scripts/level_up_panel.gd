@@ -59,11 +59,17 @@ func load_all_level_ups(path: String) -> Array:
 		return level_ups
 	
 	dir.list_dir_begin()
-	var file_name = dir.get_next()
+	var file_name := dir.get_next()
 	
 	while file_name != "":
-		if file_name.ends_with(".tres"):
-			var full_path = path + "/" + file_name
+		var load_name := file_name
+		
+		if load_name.ends_with(".remap"):
+			load_name = load_name.trim_suffix(".remap")
+		
+
+		if load_name.ends_with(".tres"):
+			var full_path = path + "/" + load_name
 			var resource = load(full_path)
 			var add_level_up = true
 			if resource is LevelUpOption:
@@ -83,6 +89,8 @@ func load_all_level_ups(path: String) -> Array:
 					
 				if add_level_up:
 					level_ups.append(resource)
+			else:
+				print("Not LevelUpOption: ", resource)
 		
 		file_name = dir.get_next()
 	

@@ -39,7 +39,7 @@ signal stopped_hovering
 func _ready():
 	assert(button != null, "HoverAnimator: button_path invalid")	# set in Inspector
 	assert(visual != null, "HoverAnimator: visual_path invalid")	# set in Inspector
-
+	assert(GuiSoundEffects != null, "HoverAnimator: GuiSoundEffects invalid")
 	base_scale = visual.scale
 	base_colour = visual.modulate
 	visual.pivot_offset = button.size / 2
@@ -72,6 +72,7 @@ func _on_mouse_exited():
 func _on_button_down():
 	if is_disabled: 
 		return
+	GuiSoundEffects.play_click_down()
 	if button_has_requirements_to_press:
 		# let external logic decide
 		pressed.emit()
@@ -82,18 +83,22 @@ func _on_button_down():
 
 func _on_button_up():
 	if not is_pressed:
+		GuiSoundEffects.play_click_up()
 		return
 	
 	if stay_pressed and is_hovered:
 		pass
 	else:
+		GuiSoundEffects.play_click_up()
 		is_pressed = false
 	update_visual()
 	
 	if is_hovered:
 		confirmed.emit(button)
+		GuiSoundEffects.play_click_up()
 
 func reject_press():
+	GuiSoundEffects.play_click_up()
 	is_pressed = false
 	reset_rotation()
 	animate(base_scale * hover_scale if is_hovered else base_scale, hover_colour if is_hovered else base_colour)

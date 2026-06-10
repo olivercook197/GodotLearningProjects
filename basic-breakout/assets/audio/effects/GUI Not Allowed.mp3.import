@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b0ill6or0jsoa"
+path="res://.godot/imported/GUI Not Allowed.mp3-552d4c0e8aac27d28fca26e03ec534a1.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/effects/GUI Not Allowed.mp3"
+dest_files=["res://.godot/imported/GUI Not Allowed.mp3-552d4c0e8aac27d28fca26e03ec534a1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

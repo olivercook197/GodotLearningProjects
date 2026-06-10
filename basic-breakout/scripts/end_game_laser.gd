@@ -32,7 +32,10 @@ func _ready() -> void:
 	sprite_2d_top.visible = false
 	position.y += 2000
 	area_2d.monitoring = true
+	if LevelUpVariables.laser_burns_hotter:
+		scale.x = 1.2
 	start_animation()
+
 
 
 
@@ -54,16 +57,20 @@ func start_animation():
 
 
 func _process(delta: float) -> void:
+	var collision
+	if moving:
+		position.x += (140 + GlobalVariables.ball_speed * 0.01) * delta
+		
 	if stopping:
-		color_rect.size.y -= 1450 * delta
+		color_rect.size.y -= 1400 * delta
 		
 		if color_rect.size.y <= 1:
 			queue_free()
+		collision = move_and_collide(Vector2(0, -500) * delta)
+	else:
+		collision = move_and_collide(Vector2(0, -1500) * delta)
 	
-	if moving:
-		position.x += (140 + GlobalVariables.ball_speed * 0.01) * delta
 	
-	var collision = move_and_collide(Vector2(0, -1500) * delta)
 
 	var lowest := get_lowest_brick()
 	if collision:
@@ -72,7 +79,7 @@ func _process(delta: float) -> void:
 			started_moving = true
 		if lowest == collision.get_collider():
 			sprite_2d_top.visible = true
-			var collider := collision.get_collider()
+			var collider = collision.get_collider()
 			if collider.script == Brick:
 				collider.play_destruction_animation()
 				target_y = collider.position.y + 800

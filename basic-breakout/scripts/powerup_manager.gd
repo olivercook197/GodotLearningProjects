@@ -15,6 +15,7 @@ enum PowerupType {
 
 @onready var powerup_sound_effects: AudioStreamPlayer2D = $"../../Audio/PowerupSoundEffects"
 @onready var xp_manager: Node = $"../XPManager"
+@onready var audio: Audio = $"../../Audio"
 
 var game_scene: Node
 
@@ -35,7 +36,7 @@ func spawn(scene: PackedScene, pos := Vector2.ZERO) -> Node:
 	return node
 
 func _on_powerup_collected(powerup):
-	game_scene.balance_sounds()
+	audio.balance_sounds()
 	powerup_sound_effects.play_gain_powerup()
 	if LevelUpVariables.powerup_gives_xp_gold_score:
 		GlobalVariables.current_score += 5 * GlobalVariables.score_multiplier

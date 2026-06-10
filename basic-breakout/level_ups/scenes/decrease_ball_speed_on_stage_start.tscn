@@ -8,7 +8,7 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_dsf8r")
-description = "Decrease the Ball Speed by 75 at the start of each stage"
+description = "Decrease the Ball Speed by 50 at the start of each stage"
 id = 17
 metadata/_custom_type_script = "uid://b12k8s4ltppra"
 

@@ -9,9 +9,8 @@ const Scenes = {
 	"options_menu": preload("uid://cqnaxtof0tjio")
 }
 
-@onready var world_border: Area2D = $WorldBorder
+@onready var world_border: Area2D = $CarryThrough/WorldBorder
 @onready var game_over_panel: Panel = $CarryThrough/GameOver/Panel
-@onready var stage_win_panel: PanelContainer = $CarryThrough/StageWin/PanelContainer
 @onready var score_label: PanelContainer = $CarryThrough/ScorePanelContainer
 @onready var game_over_label: Label = $CarryThrough/GameOver/Panel/GameOverLabel
 @onready var carry_through: Node2D = $CarryThrough
@@ -25,8 +24,7 @@ const Scenes = {
 @onready var brick_sound_effects: AudioStreamPlayer2D = $CarryThrough/Audio/BrickSoundEffects
 @onready var xp_sound_effects: AudioStreamPlayer2D = $CarryThrough/Audio/XPSoundEffects
 @onready var powerup_sound_effects: AudioStreamPlayer2D = $CarryThrough/Audio/PowerupSoundEffects
-@onready var audio: Node = $CarryThrough/Audio
-@onready var options_menu: Control = $CarryThrough/OptionsMenu
+@onready var audio: Audio = $CarryThrough/Audio
 @onready var stage_manager: Node = $CarryThrough/Managers/StageManager
 @onready var xp_manager: Node = $CarryThrough/Managers/XPManager
 @onready var powerup_manager: Node = $CarryThrough/Managers/PowerupManager
@@ -87,8 +85,6 @@ func _input(event):
 	#powerup.powerup_collected.connect(_on_powerup_collected)
 	#powerup.add_to_group("powerup")
 
-func _on_boundary_player_colliding():
-	$Paddle._player_colliding()
 
 func _on_brick_hit(body):
 	if not body.is_in_group("bricks"):
@@ -96,11 +92,11 @@ func _on_brick_hit(body):
 	update_gold()
 	score_label.update_score()
 	brick_sound_effects.play_brick_hit()
-	balance_sounds()
+	audio.balance_sounds()
 
 func _on_brick_destroyed(position: Vector2, powerup_spawn: bool, extra_xp: bool = false):
 	brick_sound_effects.play_brick_destroyed()
-	balance_sounds()
+	audio.balance_sounds()
 
 	if extra_xp:
 		xp_manager.instantiate_xp(position + Vector2(30, 0))
@@ -146,10 +142,13 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 			life_manager.remove_life()
 			
 			for slow_ball in get_group("slow_ball"):
-				await slow_ball.animate_destroy()
+				if slow_ball != null:
+					await slow_ball.animate_destroy()
 				slow_ball.queue_free()
 			for xp in get_group("xp"):
 				xp.go_to_paddle()
+			for ball in get_group("main_ball"):
+				ball.queue_free()
 		
 		stage_manager.stop_level_timers()
 		Signals.lives_lost.emit()
@@ -172,7 +171,7 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 			
 		
 		else:
-			stage_manager.create_balls()
+			stage_manager.call_deferred("create_balls")
 
 	else:
 		if LevelUpVariables.slow_ball_bounces_off_bottom:
@@ -181,8 +180,8 @@ func _on_world_border_body_entered(body: Node2D) -> void:
 			body.queue_free()
 
 func _on_world_border_area_entered(area: Area2D) -> void:
-	if !area.get_parent() in get_group("invincible"):
-		area.get_parent().queue_free()
+	if not area.get_parent().is_in_group("invincible"):
+		area.get_parent().call_deferred("queue_free")
 
 func show_dark_background():
 	var darken_background = Scenes.darken_background.instantiate()
@@ -286,17 +285,6 @@ func _go_to_shop(restart = false):
 	if restart:
 		Signals.games_played.emit()
 	go_to_shop.emit()
-
-func balance_sounds():
-	for child in audio.get_children():
-		if child is AudioStreamPlayer2D and not child.is_in_group("keep_volume"):
-			for sound in child.get_children():
-				create_tween().tween_property(
-					sound,
-					"volume_db",
-					sound.volume_db - 2,
-					0.05
-			)
 
 func _open_options():
 	if current_esc_menu:

@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bvsnkrb2jgfjy" path="res://scenes/tooltip_container.tscn" id="9_agpv0"]
 [ext_resource type="PackedScene" uid="uid://cp1tk5ip3vxtn" path="res://scenes/stats_panel_container.tscn" id="10_0dtk1"]
 [ext_resource type="PackedScene" uid="uid://dlyhte50bodef" path="res://scenes/blurred_background.tscn" id="11_ftyf1"]
+[ext_resource type="Script" uid="uid://b1c55a37rings" path="res://scenes/audio.gd" id="11_ipbad"]
 [ext_resource type="PackedScene" uid="uid://r4bpeuxrc65i" path="res://scenes/audio/brick_sound_effects.tscn" id="12_kr1px"]
 [ext_resource type="PackedScene" uid="uid://p23ym147kr64" path="res://scenes/audio/xp_sound_effects.tscn" id="13_nlhlo"]
 [ext_resource type="PackedScene" uid="uid://dg2l73btgdotf" path="res://scenes/audio/powerup_sound_effects.tscn" id="14_3p06v"]
@@ -142,6 +143,7 @@ offset_bottom = -330.0
 scale = Vector2(1.5, 1.5)
 
 [node name="Audio" type="Node" parent="CarryThrough" unique_id=1295195184]
+script = ExtResource("11_ipbad")
 
 [node name="BrickSoundEffects" parent="CarryThrough/Audio" unique_id=374442224 instance=ExtResource("12_kr1px")]
 

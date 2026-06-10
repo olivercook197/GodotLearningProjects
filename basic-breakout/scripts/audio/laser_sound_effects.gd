@@ -21,4 +21,6 @@ func play_laser_active():
 
 func stop_audio():
 	var tween = create_tween()
-	tween.tween_property(self, "volume_db", -80, 1)
+	var laser_sound = get_child(0)
+	tween.tween_property(laser_sound, "volume_db", -65, 5)
+	tween.set_ease(Tween.EASE_IN)

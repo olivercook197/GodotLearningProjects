@@ -8,6 +8,7 @@ class_name UpgradeHandler
 
 signal upgrade_bought
 signal upgrade_clicked_too_expensive
+signal upgrade_not_allowed
 
 var data: UpgradeTemplate
 
@@ -32,12 +33,13 @@ func _on_pressed():
 			return
 		elif data.attribute_changed == 8 and GlobalVariables.remaining_lives == GlobalVariables.max_lives:
 			hover.reject_press()
+			upgrade_not_allowed.emit()
 			return
 	
 	hover.accept_press()
 
 func _on_confirmed(button):
-	GlobalVariables.gold -= cost
+	#GlobalVariables.gold -= cost
 	
 	# wait one frame (or small delay) so release animation plays
 	await get_tree().process_frame

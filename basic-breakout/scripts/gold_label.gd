@@ -20,6 +20,11 @@ func update_gold():
 	animate_to(base_colour)
 
 func indicate_too_expensive():
+	var current_colour
+	if is_previewing:
+		current_colour = preview_colour
+	else:
+		current_colour = get("theme_override_colors/font_color")
 	if tween:
 		tween.kill()
 	
@@ -29,7 +34,7 @@ func indicate_too_expensive():
 	tween.parallel().tween_property(self, "modulate", flash_colour, 0.1)
 	
 	tween.tween_property(self, "scale", base_scale, 0.1)
-	tween.parallel().tween_property(self, "modulate", base_colour, 0.1)
+	tween.parallel().tween_property(self, "modulate", current_colour, 0.1)
 
 func indicate_future_gold(gold_cost: int, positive: bool = false):
 	is_previewing = true

@@ -155,6 +155,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("7_ugig1")
 
+[connection signal="upgrade_clicked_too_expensive" from="UpgradeContainer/MarginContainer/VBoxContainer/Control/UpgradeHandler" to="." method="_on_upgrade_handler_upgrade_clicked_too_expensive"]
 [connection signal="upgrade_clicked_too_expensive" from="UpgradeContainer/MarginContainer/VBoxContainer/Control/UpgradeHandler" to="UpgradeContainer" method="_on_upgrade_handler_upgrade_clicked_too_expensive"]
+[connection signal="upgrade_not_allowed" from="UpgradeContainer/MarginContainer/VBoxContainer/Control/UpgradeHandler" to="." method="_on_upgrade_handler_upgrade_not_allowed"]
 [connection signal="hovered" from="UpgradeContainer/MarginContainer/VBoxContainer/Control/HoverGoldVisual" to="UpgradeContainer" method="_on_hover_gold_visual_hovered"]
 [connection signal="stopped_hovering" from="UpgradeContainer/MarginContainer/VBoxContainer/Control/HoverGoldVisual" to="UpgradeContainer" method="_on_hover_gold_visual_stopped_hovering"]

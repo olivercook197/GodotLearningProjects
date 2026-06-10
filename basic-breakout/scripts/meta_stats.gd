@@ -12,6 +12,7 @@ const UPGRADES_TAKEN = "upgrades_taken"
 const LIVES_LOST = "lives_lost"
 const REROLLS = "rerolls"
 const HIGHEST_STAGE = "highest_stage"
+const UNIQUE_LEVEL_UPS_TAKEN = "unique_level_ups_taken"
 
 
 var lifetime_stats := {
@@ -25,7 +26,8 @@ var lifetime_stats := {
 	UPGRADES_TAKEN: 0,
 	LIVES_LOST: 0,
 	REROLLS: 0,
-	HIGHEST_STAGE: 0
+	HIGHEST_STAGE: 0,
+	UNIQUE_LEVEL_UPS_TAKEN: []
 }
 
 var current_run_stats := {
@@ -39,7 +41,8 @@ var current_run_stats := {
 	UPGRADES_TAKEN: 0,
 	LIVES_LOST: 0,
 	REROLLS: 0,
-	HIGHEST_STAGE: 0
+	HIGHEST_STAGE: 0,
+	UNIQUE_LEVEL_UPS_TAKEN: []
 }
 
 func _ready() -> void:
@@ -85,16 +88,22 @@ func _on_reroll():
 
 
 func _game_over():
-	add_stat_current_run(MOST_XP_GAINED, current_run_stats[XP_GAINED])
-	add_stat_current_run(HIGHEST_STAGE, GlobalVariables.stage)
+	#add_stat_current_run(MOST_XP_GAINED, current_run_stats[XP_GAINED])
+	#add_stat_current_run(HIGHEST_STAGE, GlobalVariables.stage)
 	add_run_stats_to_main_stats()
 	reset_current_stats()
 	save_stats()
 
 func add_run_stats_to_main_stats():
 	for global_stat in lifetime_stats:
-		if global_stat == MOST_XP_GAINED or global_stat == HIGHEST_STAGE:
-			pass
+		if global_stat == MOST_XP_GAINED:
+			lifetime_stats[global_stat] = max(lifetime_stats[global_stat], current_run_stats[global_stat])
+		elif global_stat == HIGHEST_STAGE:
+			lifetime_stats[global_stat] = max(lifetime_stats[global_stat],current_run_stats[global_stat])
+		elif global_stat == UNIQUE_LEVEL_UPS_TAKEN:
+			for level_up in current_run_stats[global_stat]:
+				if level_up not in lifetime_stats[global_stat]:
+					lifetime_stats[global_stat].append(level_up)
 		else:
 			lifetime_stats[global_stat] += current_run_stats[global_stat]
 	pass
@@ -106,11 +115,14 @@ func save_stats():
 func load_stats():
 	if not FileAccess.file_exists(SAVE_PATH):
 		return
-	
+
 	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	var text = file.get_as_text()
-	
-	lifetime_stats = JSON.parse_string(text)
+
+	var loaded_stats = JSON.parse_string(text)
+	if loaded_stats is Dictionary:
+		for key in loaded_stats:
+			lifetime_stats[key] = loaded_stats[key]
 
 func add_stat_current_run(stat, number_added: float = 1.0):
 	current_run_stats[stat] += number_added
@@ -127,5 +139,6 @@ func reset_current_stats():
 	UPGRADES_TAKEN: 0,
 	LIVES_LOST: 0,
 	REROLLS: 0,
-	HIGHEST_STAGE: 0
+	HIGHEST_STAGE: 0,
+	UNIQUE_LEVEL_UPS_TAKEN: []
 }

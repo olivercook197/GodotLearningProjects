@@ -24,6 +24,8 @@ func on_ready() -> void:
 func _on_level_up_option_level_up_chosen() -> void:
 	apply_level_up()
 	LevelUpVariables.taken_level_ups[id] = true
+	if id not in MetaStats.current_run_stats[MetaStats.UNIQUE_LEVEL_UPS_TAKEN]:
+		MetaStats.current_run_stats[MetaStats.UNIQUE_LEVEL_UPS_TAKEN].append(id)
 	
 	level_up_chosen.emit(update_gold_label, gold_gained)
 

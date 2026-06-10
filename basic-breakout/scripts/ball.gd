@@ -1,9 +1,9 @@
 class_name Ball extends CharacterBody2D
 
 @onready var ball_sound_effects: AudioStreamPlayer2D = $Audio/BallSoundEffects
+@onready var audio: Audio = $Audio
 
 signal hit_brick
-signal sound_played
 
 var in_motion = false
 var paddle: PlayerPaddle = null
@@ -113,7 +113,7 @@ func _physics_process(delta: float) -> void:
 				else:
 					velocity = Vector2(cos(angle), sin(angle)) * max_speed
 				ball_sound_effects.play_wall_hit()
-				sound_played.emit()
+				audio.balance_sounds()
 			position += collision.get_normal() * 1.0
 
 

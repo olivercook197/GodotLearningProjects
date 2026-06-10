@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dws8eb6qk8evi"]
+
+[ext_resource type="Script" uid="uid://capr35due67lu" path="res://scripts/audio/gui_sound_effects.gd" id="1_hulsy"]
+
+[node name="GUISoundEffects" type="AudioStreamPlayer2D" unique_id=888517278]
+process_mode = 3
+script = ExtResource("1_hulsy")

@@ -27,10 +27,12 @@ func apply_upgrade(upgrade_data: UpgradeTemplate):
 		change_paddle_speed()
 	elif data.attribute_changed == 11:
 		change_xp_gain()
+	elif data.attribute_changed == 12:
+		change_laser_threshold()
 
 func change_speed_ball():
 	if data.percentage:
-		GlobalVariables.ball_speed += GlobalVariables.ball_speed * data.number_change
+		GlobalVariables.ball_speed += int(GlobalVariables.ball_speed * data.number_change * 0.01) - 1
 	else:
 		GlobalVariables.ball_speed += int(data.number_change)
 
@@ -79,3 +81,6 @@ func change_paddle_speed():
 
 func change_xp_gain():
 	GlobalVariables.bonus_xp_percent += data.number_change
+
+func change_laser_threshold():
+	GlobalVariables.laser_threshold += data.number_change

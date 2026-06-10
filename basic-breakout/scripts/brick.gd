@@ -1,7 +1,6 @@
 class_name Brick extends StaticBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-@onready var brick_sound_effects: AudioStreamPlayer2D = $BrickSoundEffects
 @onready var animated_sprite_2d_2: AnimatedSprite2D = $AnimatedSprite2D2
 
 signal hit
@@ -64,6 +63,9 @@ func play_destruction_animation():
 		var shake_tween = create_tween()
 		var amplitude := 0.05
 		var duration := 0.43
+		if LevelUpVariables.laser_burns_hotter:
+			amplitude = 0.06
+			duration = 0.14
 
 		for i in range(16):
 			shake_tween.tween_property(
@@ -108,10 +110,11 @@ func play_destruction_animation():
 		
 		
 		await animated_sprite_2d.animation_finished
-		get_tree().get_nodes_in_group("main_ball")[0].hit_brick_logic(self)
-		if brick_type == 3:
-			brick_type = 4
+		if get_tree().get_nodes_in_group("main_ball")[0] != null:
 			get_tree().get_nodes_in_group("main_ball")[0].hit_brick_logic(self)
+			if brick_type == 3:
+				brick_type = 4
+				get_tree().get_nodes_in_group("main_ball")[0].hit_brick_logic(self)
 		
 		on_hit(false, frame)
 		if frame == 3:

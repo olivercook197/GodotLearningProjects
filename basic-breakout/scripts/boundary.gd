@@ -1,6 +1,6 @@
 class_name Boundary extends StaticBody2D
 
-@onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var collision_shape: CollisionShape2D = $BoundaryCollisionShape2D
 
 signal player_colliding
 

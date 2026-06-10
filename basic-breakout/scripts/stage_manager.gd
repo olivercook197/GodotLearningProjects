@@ -15,6 +15,7 @@ const Scenes = {
 signal stage_started
 signal stage_completed
 signal next_stage_requested
+signal sound_played
 
 var brick_count := 0
 var main_ball: Ball
@@ -25,7 +26,7 @@ var game_scene: Node
 
 func start_stage():
 	brick_count = 0
-
+	GlobalVariables.local_gold_multiplier = 1
 	create_boundaries()
 	create_paddle(GlobalVariables.paddle_position)
 	create_balls()
@@ -78,7 +79,6 @@ func create_balls():
 
 func spawn_ball(spawn_slow_ball = false, spawn_main_ball = false, spawn_to_right = false):
 	var ball = spawn(Scenes.ball)
-	ball.sound_played.connect(game_scene.balance_sounds)
 	ball.get_paddle()
 	if spawn_slow_ball:
 		ball.make_slow_ball()
@@ -175,7 +175,6 @@ func _destroy_random_brick():
 	if destroyed_brick != null:
 		for ball:Ball in game_scene.get_group("main_ball"):
 			ball.hit_brick_logic(destroyed_brick)
-		destroyed_brick.on_hit()
 
 func create_timer_no_powerup(duration: float, callback: Callable, one_shot := true) -> Timer:
 	var timer: Timer = Scenes.ten_second_timer.instantiate()
@@ -214,3 +213,6 @@ func instantiate_laser(pos: Vector2):
 
 func get_main_ball() -> Ball:
 	return main_ball
+
+func _sound_played():
+	sound_played.emit()

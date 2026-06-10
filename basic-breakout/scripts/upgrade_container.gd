@@ -18,6 +18,7 @@ var int_gold_cost: int = 0
 
 signal upgrade_selected(data: UpgradeTemplate, paid_cost: int)
 signal upgrade_selected_too_expensive
+signal upgrade_not_allowed
 
 signal hovered
 signal stopped_hovering
@@ -100,3 +101,8 @@ func _on_hover_gold_visual_hovered() -> void:
 
 func _on_hover_gold_visual_stopped_hovering() -> void:
 	stopped_hovering.emit()
+
+
+func _on_upgrade_handler_upgrade_not_allowed() -> void:
+	upgrade_not_allowed.emit()
+	pass # Replace with function body.

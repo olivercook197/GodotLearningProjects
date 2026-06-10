@@ -1,5 +1,7 @@
 extends Node2D
 
+# edit when upgrades can show up in remove_upgrades() function
+
 signal go_to_game
 
 const upgrade_panel_scene = preload("uid://diprgck8e6i3a")	#UpgradeContainer that contains UI for buying upgrade
@@ -17,9 +19,8 @@ const DARKEN_BACKGROUND = preload("uid://cy4yhp5w1mhqn")
 const OPTIONS_MENU = preload("uid://cqnaxtof0tjio")
 
 
-
 @onready var gold_label: Label = $GoldPanelContainer/GoldLabel
-@onready var upgrade_item_button: TextureButton = $UpgradeContainer/MarginContainer/VBoxContainer/Control/UpgradeItemButton
+@onready var upgrade_container: Control = $UpgradeContainer
 @onready var gold_panel_container: PanelContainer = $GoldPanelContainer
 @onready var apply_upgrade: Node = $ApplyUpgrade
 @onready var life_manager: Node = $LifeManager
@@ -30,12 +31,18 @@ const OPTIONS_MENU = preload("uid://cqnaxtof0tjio")
 @onready var reroll_hover_animator: HoverAnimator = $RerollUpgradeContainer/MarginContainer/Control/HoverAnimator
 @onready var tooltip: PanelContainer = $TooltipPanelContainer
 @onready var darken_background: Control = $DarkenBackground
-@onready var options_menu: Control = $OptionsMenu
+@onready var options_menu: Control = $OptionsButton
+@onready var gui_sound_effects: AudioStreamPlayer2D = $Audio/GUISoundEffects
+@onready var audio: Audio = $Audio
+@onready var shop_sound_effects: AudioStreamPlayer2D = $Audio/ShopSoundEffects
+
+
 
 var upgrade_data_path = "res://upgrades/data/"
 
 var upgrade_position := Vector2(-1225, -450)
 var rerolls = GlobalVariables.max_rerolls
+var upgrade_item_button: TextureButton
 
 
 func _ready() -> void:
@@ -53,7 +60,7 @@ func _ready() -> void:
 
 
 func _on_upgrade_item_button_pressed() -> void:
-	upgrade_item_button.disabled = true
+	upgrade_container.button.disabled = true
 
 func _on_hover_animator_confirmed(button_clicked) -> void:
 	if button_clicked.name == next_stage_button.name:
@@ -67,6 +74,7 @@ func _on_hover_animator_confirmed(button_clicked) -> void:
 			GlobalVariables.gold -= (GlobalVariables.stage + 1)
 			gold_panel_container.update_gold()
 			refresh_upgrades()
+			shop_sound_effects.play_reroll()
 			rerolls -= 1
 			if rerolls <= 0:
 				button_clicked.disabled = true
@@ -78,6 +86,9 @@ func _on_hover_animator_confirmed(button_clicked) -> void:
 
 func _on_upgrade_container_upgrade_selected_too_expensive() -> void:
 	gold_panel_container.flash()
+	audio.balance_sounds()
+	gui_sound_effects.play_gui_reject()
+	gui_sound_effects.play_gui_not_allowed()
 
 
 func _on_upgrade_container_upgrade_selected(data: UpgradeTemplate, gold_cost: int) -> void:
@@ -93,26 +104,42 @@ func _on_upgrade_container_upgrade_selected(data: UpgradeTemplate, gold_cost: in
 		life_manager.add_lives_to_scene()
 	tooltip.visible = false
 
+func _on_upgrade_container_upgrade_not_allowed():
+	audio.balance_sounds()
+	gui_sound_effects.play_gui_reject()
+
 func load_all_upgrades(path: String) -> Array:
 	var upgrades: Array = []
-	
-	var dir = DirAccess.open(path)
+	var dir := DirAccess.open(path)
+
 	if dir == null:
 		push_error("Failed to open upgrades folder")
 		return upgrades
-	
+
 	dir.list_dir_begin()
-	var file_name = dir.get_next()
-	
+
+	var file_name := dir.get_next()
+
 	while file_name != "":
-		if file_name.ends_with(".tres"):
-			var resource = load(path + "/" + file_name)
+
+		var load_name := file_name
+		
+		# Convert exported filenames back to their real resource names
+		if load_name.ends_with(".remap"):
+			load_name = load_name.trim_suffix(".remap")
+
+		if load_name.ends_with(".tres"):
+
+			var resource = load(path + "/" + load_name)
+
 			if resource is UpgradeTemplate:
 				upgrades.append(resource)
-		
+			else:
+				print("Not UpgradeTemplate: ", resource)
+
 		file_name = dir.get_next()
-	
 	dir.list_dir_end()
+	print("Total upgrades:", upgrades.size())
 	return upgrades
 
 func get_random_upgrades(count: int) -> Array:
@@ -131,11 +158,18 @@ func remove_upgrades(upgrades: Array):
 				pass
 			else:
 				valid_upgrades.append(upgrade)
-		elif upgrade.attribute_changed == 0 and GlobalVariables.ball_speed < 850:	# ball speed down only shows up if it's high enough
-			pass
-		elif upgrade.attribute_changed == 10 and GlobalVariables.ball_speed < 1400:	# paddle speed up only shows up if ball speed is low enough
+		elif upgrade.attribute_changed == 0:	# ball speed down only shows up if it's high enough, different value for percentage
+			if upgrade.percentage == true and GlobalVariables.ball_speed < 1200:
+				pass
+			elif upgrade.percentage == false and GlobalVariables.ball_speed < 850:
+				pass
+			else:
+				valid_upgrades.append(upgrade)
+		elif upgrade.attribute_changed == 10 and GlobalVariables.ball_speed < 1400:	# paddle speed up only shows up if ball speed is high enough
 			pass
 		elif upgrade.attribute_changed == 11 and GlobalVariables.bonus_xp_percent == 0:	# bonus xp only shows up if the player has obtained a bonus xp level up
+			pass
+		elif upgrade.attribute_changed == 12 and LevelUpVariables.laser_burns_hotter == false:	# increasing laser threshold only shows up specific level up obtained
 			pass
 		else:
 			valid_upgrades.append(upgrade) 
@@ -150,8 +184,10 @@ func refresh_upgrades():
 	for u in selected_upgrades.size():
 		var upgrade = upgrade_panel_scene.instantiate()
 		upgrade.data = selected_upgrades[u]
+		add_child(upgrade)
 		upgrade.upgrade_selected.connect(_on_upgrade_container_upgrade_selected)
 		upgrade.upgrade_selected_too_expensive.connect(_on_upgrade_container_upgrade_selected_too_expensive)
+		upgrade.upgrade_not_allowed.connect(_on_upgrade_container_upgrade_not_allowed)
 		upgrade.hovered.connect(_on_hovered)
 		upgrade.stopped_hovering.connect(_on_stopped_hovering)
 		if u == 0:
@@ -163,7 +199,6 @@ func refresh_upgrades():
 		elif u == 3:
 			upgrade.position = Vector2(upgrade_position.x + 1650, upgrade_position.y + 580)
 				
-		add_child(upgrade)
 		upgrade.add_to_group("upgrades")
 		upgrade.add_to_group("upgrades_can_be_removed")
 	
@@ -221,7 +256,6 @@ func _on_options_button_pressed() -> void:
 	option.closed.connect(_on_options_menu_closed)
 	add_child(option)
 	get_tree().paused = true
-
 
 
 func _on_options_menu_closed() -> void:
