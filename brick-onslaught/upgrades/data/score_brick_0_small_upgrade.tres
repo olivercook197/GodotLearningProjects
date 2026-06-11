@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://xq4g4rwbyrc"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_hucd7"]
+[ext_resource type="Texture2D" uid="uid://bhpwbpo2ru16b" path="res://assets/sprites/upgrades/score_brick_0_small_upgrade.png" id="2_hucd7"]
+
+[resource]
+script = ExtResource("1_hucd7")
+upgrade_name = "Brick Score Increase"
+upgrade_desc = "Hitting this brick increases score by 1"
+upgrade_target = 2
+attribute_changed = 3
+brick_affected = 0
+number_change = 1.0
+textures = Array[Texture2D]([ExtResource("2_hucd7")])
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

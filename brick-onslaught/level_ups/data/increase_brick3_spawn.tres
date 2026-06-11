@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://b83fdfqxoac8l"]
+
+[ext_resource type="PackedScene" uid="uid://bsveyqejsbkq8" path="res://level_ups/scenes/increase_brick3_spawn.tscn" id="1_1wfec"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="2_0v5hh"]
+
+[resource]
+script = ExtResource("2_0v5hh")
+id = 4
+option_name = "Increase Angry Brick Spawn Chance"
+modifier_scene = ExtResource("1_1wfec")
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

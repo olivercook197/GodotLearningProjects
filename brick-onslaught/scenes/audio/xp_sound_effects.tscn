@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://p23ym147kr64"]
+
+[ext_resource type="Script" uid="uid://c7vp3gkhcgprq" path="res://scripts/audio/xp_sound_effects.gd" id="1_16ir3"]
+
+[node name="XPSoundEffects" type="AudioStreamPlayer2D" unique_id=978236768]
+script = ExtResource("1_16ir3")

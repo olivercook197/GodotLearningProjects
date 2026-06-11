@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b1nt201b0d43g"]
+
+[ext_resource type="Script" uid="uid://cxhonvgonwpn6" path="res://level_ups/scripts/laser_comes_earlier.gd" id="1_3llu6"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_1mj6q"]
+[ext_resource type="Texture2D" uid="uid://c2stbuy5dabmg" path="res://assets/sprites/level_up/laser_comes_earlier.png" id="3_gxpfq"]
+
+[node name="LaserComesEarlier" type="Control" unique_id=618100558]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3llu6")
+description = "Laser is activated 6 Bricks earlier"
+id = 16
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_1mj6q")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_gxpfq")

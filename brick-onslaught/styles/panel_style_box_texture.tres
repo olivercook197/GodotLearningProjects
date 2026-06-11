@@ -1,0 +1,8 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://mv2yh1c7vr2k"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rm3ow"]
+load_path = "res://.godot/imported/scalable_panel.png-7a9ba92372ef312ae92e1c089438d60c.ctex"
+
+[resource]
+texture = SubResource("CompressedTexture2D_rm3ow")
+region_rect = Rect2(50.378, 36.541, 51.005, 39.809)

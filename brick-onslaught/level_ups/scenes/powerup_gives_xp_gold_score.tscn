@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dw7xy37nxywey"]
+
+[ext_resource type="Script" uid="uid://d3yygqm1iqeis" path="res://level_ups/scripts/powerup_gives_xp_gold_score.gd" id="1_cl4i1"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_t7td3"]
+[ext_resource type="Texture2D" uid="uid://bbfi4va2nbwkl" path="res://assets/sprites/level_up/powerup_gives_xp_gold_score.png" id="3_t7td3"]
+
+[node name="PowerupGivesXpGoldScore" type="Control" unique_id=1961458603]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cl4i1")
+description = "Collecting a powerup gives 5 XP, Gold and Score"
+id = 15
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_t7td3")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_t7td3")

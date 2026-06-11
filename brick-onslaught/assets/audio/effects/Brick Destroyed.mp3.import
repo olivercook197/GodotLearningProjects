@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://7nr3632cemye"
+path="res://.godot/imported/Brick Destroyed.mp3-a896d2d8831c60986cc786b5f23be449.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/effects/Brick Destroyed.mp3"
+dest_files=["res://.godot/imported/Brick Destroyed.mp3-a896d2d8831c60986cc786b5f23be449.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,321 @@
+[gd_scene format=3 uid="uid://cvxqf1v5li07v"]
+
+[ext_resource type="Texture2D" uid="uid://bmykkfihsihq4" path="res://assets/gui/info_panel_thick_border.png" id="1_s2thd"]
+[ext_resource type="Script" uid="uid://bc6xfgfic0sv8" path="res://scripts/stats_menu.gd" id="2_khwun"]
+[ext_resource type="Texture2D" uid="uid://cbsmmpldx250o" path="res://assets/gui/yellow_panel_thick_border.png" id="3_4hldr"]
+[ext_resource type="Texture2D" uid="uid://bfk17cncaqwfq" path="res://assets/gui/scroll_bar.png" id="4_khwun"]
+[ext_resource type="Texture2D" uid="uid://b0tkxy1vfinow" path="res://assets/gui/delete_button.png" id="4_rewml"]
+[ext_resource type="Texture2D" uid="uid://db0ix1ky8a0x8" path="res://assets/gui/scroll_icon.png" id="4_v28qv"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="5_04bas"]
+[ext_resource type="Texture2D" uid="uid://bdstvbbqgjv46" path="res://assets/gui/scroll_icon_pressed.png" id="5_s2thd"]
+[ext_resource type="Texture2D" uid="uid://bt2pie0jsxymn" path="res://assets/gui/close_button.png" id="7_4hldr"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rewml"]
+texture = ExtResource("1_s2thd")
+texture_margin_left = 36.0
+texture_margin_top = 22.0
+texture_margin_right = 36.0
+texture_margin_bottom = 22.0
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xr0we"]
+texture = ExtResource("3_4hldr")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rewml"]
+
+[sub_resource type="DPITexture" id="DPITexture_04bas"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24\" height=\"32\" viewBox=\"0 0 6.35 8.467\"><defs><linearGradient id=\"a\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\".3\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><linearGradient xlink:href=\"#a\" id=\"b\" x1=\"4.233\" x2=\"4.233\" y1=\"0\" y2=\"6.35\" gradientTransform=\"translate(-8.467)\" gradientUnits=\"userSpaceOnUse\"/></defs><path fill=\"url(#b)\" d=\"M-8.467 0H0V6.35H-8.467z\" paint-order=\"fill markers stroke\" transform=\"rotate(-90)\"/></svg>
+"
+
+[sub_resource type="DPITexture" id="DPITexture_rewml"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"32\" height=\"24\" viewBox=\"0 0 8.467 6.35\"><defs><linearGradient id=\"a\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\".3\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><linearGradient xlink:href=\"#a\" id=\"b\" x1=\"4.233\" x2=\"4.233\" y1=\"0\" y2=\"6.35\" gradientUnits=\"userSpaceOnUse\"/></defs><path fill=\"url(#b)\" d=\"M0 0H8.467V6.35H0z\" paint-order=\"fill markers stroke\"/></svg>
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xr0we"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.75)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0sfrv"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_01rek"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dbere"]
+content_margin_left = 50.0
+texture = ExtResource("4_v28qv")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 7.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_drvno"]
+content_margin_left = 50.0
+texture = ExtResource("5_s2thd")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 7.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c6i0g"]
+content_margin_left = 50.0
+texture = ExtResource("4_khwun")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iox73"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="Theme" id="Theme_drvno"]
+ScrollContainer/colors/scroll_hint_horizontal_color = Color(0, 0, 0, 1)
+ScrollContainer/colors/scroll_hint_vertical_color = Color(0, 0, 0, 1)
+ScrollContainer/icons/scroll_hint_horizontal = SubResource("DPITexture_04bas")
+ScrollContainer/icons/scroll_hint_vertical = SubResource("DPITexture_rewml")
+ScrollContainer/styles/focus = SubResource("StyleBoxFlat_xr0we")
+ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_0sfrv")
+VScrollBar/icons/decrement = SubResource("ImageTexture_01rek")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_01rek")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_01rek")
+VScrollBar/icons/increment = SubResource("ImageTexture_01rek")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_01rek")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_01rek")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_dbere")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_dbere")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_drvno")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_c6i0g")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_iox73")
+
+[sub_resource type="Theme" id="Theme_rewml"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vhqjr"]
+load_path = "res://.godot/imported/yellow_panel.png-dca13dff4269f1924fd59a6cf014afd0.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0sfrv"]
+texture = SubResource("CompressedTexture2D_vhqjr")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="StatsMenuContainer" type="PanelContainer" unique_id=612498449]
+z_index = 500
+custom_minimum_size = Vector2(1500, 1250)
+offset_left = -750.0
+offset_top = -625.0
+offset_right = 750.0
+offset_bottom = 625.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_rewml")
+script = ExtResource("2_khwun")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=328881482]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=50280586]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1436198946]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1498250220]
+custom_minimum_size = Vector2(1325, 120)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_xr0we")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Title" unique_id=2063227553]
+custom_minimum_size = Vector2(1398, 120)
+layout_mode = 0
+offset_right = 1398.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 86
+text = "Stats"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeleteDataButton" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1119270754]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rewml")
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer/DeleteDataButton" unique_id=1517187500]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/DeleteDataButton/TextureButton" unique_id=440590701]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_rewml")
+
+[node name="HoverAnimator" type="Node" parent="MarginContainer/VBoxContainer/HBoxContainer/DeleteDataButton" unique_id=367169525]
+script = ExtResource("5_04bas")
+hover_scale = 1.0
+press_scale = 0.8
+hover_colour = Color(0.83033526, 0.83033514, 0.83033514, 1)
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../TextureButton/TextureRect")
+metadata/_custom_type_script = "uid://b6qc7edybv8sl"
+
+[node name="CloseButton" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1729158168]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" unique_id=1225636206]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/CloseButton/TextureButton" unique_id=1344266166]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_4hldr")
+
+[node name="HoverAnimator" type="Node" parent="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" unique_id=2062434841]
+script = ExtResource("5_04bas")
+hover_scale = 1.0
+press_scale = 0.8
+hover_colour = Color(0.83033526, 0.83033514, 0.83033514, 1)
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../TextureButton/TextureRect")
+metadata/_custom_type_script = "uid://b6qc7edybv8sl"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=416698849]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_drvno")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=1069017100]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Control" type="Control" parent="." unique_id=738057638]
+visible = false
+layout_mode = 2
+
+[node name="DeleteStatsConfirmationWindow" type="PanelContainer" parent="Control" unique_id=53643879]
+z_index = 10
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -200.0
+offset_right = 400.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_rewml")
+theme_override_styles/panel = SubResource("StyleBoxTexture_0sfrv")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/DeleteStatsConfirmationWindow" unique_id=1191896525]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/DeleteStatsConfirmationWindow/MarginContainer" unique_id=1005601151]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/DeleteStatsConfirmationWindow/MarginContainer/VBoxContainer" unique_id=1110502677]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Are you sure you want to delete all progress? This is final!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/DeleteStatsConfirmationWindow/MarginContainer/VBoxContainer" unique_id=939029128]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Button" type="Button" parent="Control/DeleteStatsConfirmationWindow/MarginContainer/VBoxContainer/HBoxContainer" unique_id=126770307]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Yes"
+
+[node name="Button2" type="Button" parent="Control/DeleteStatsConfirmationWindow/MarginContainer/VBoxContainer/HBoxContainer" unique_id=822762269]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 3
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "No"
+
+[connection signal="confirmed" from="MarginContainer/VBoxContainer/HBoxContainer/DeleteDataButton/HoverAnimator" to="." method="_on_delete_button_hover_animator_confirmed"]
+[connection signal="confirmed" from="MarginContainer/VBoxContainer/HBoxContainer/CloseButton/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
+[connection signal="pressed" from="Control/DeleteStatsConfirmationWindow/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_yes_delete_button_pressed"]
+[connection signal="pressed" from="Control/DeleteStatsConfirmationWindow/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="_on_no_delete_button_2_pressed"]

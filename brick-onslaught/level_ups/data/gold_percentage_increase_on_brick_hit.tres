@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://cqutfmyjwbata"]
+
+[ext_resource type="PackedScene" uid="uid://d1unp20ix0uhh" path="res://level_ups/scenes/gold_percentage_increase_on_brick_hit.tscn" id="1_85p16"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_pcefr"]
+
+[resource]
+script = ExtResource("1_pcefr")
+id = 21
+option_name = "Gold Percentage Increase on Brick Hit"
+modifier_scene = ExtResource("1_85p16")
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bxbjj6ib3qjvu"]
+
+[ext_resource type="Script" uid="uid://lembcl6m585l" path="res://scripts/level_up_variables.gd" id="1_l4c63"]
+
+[node name="LevelUpVariables" type="Node2D" unique_id=1595047244]
+script = ExtResource("1_l4c63")

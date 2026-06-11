@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://coq3cxe61e4jn"]
+
+[ext_resource type="Script" uid="uid://rlccnbqesj6s" path="res://level_ups/scripts/brick_0_gold_multiplier_increase.gd" id="1_omt5j"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_6gsu8"]
+[ext_resource type="Texture2D" uid="uid://bfwlvbyvt6e87" path="res://assets/sprites/level_up/brick0_gold_multiplier_increase.png" id="3_q1h0m"]
+
+[node name="Brick0GoldMultiplierIncrease" type="Control" unique_id=2087444992]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_omt5j")
+description = "Whenever a Happy Brick  increases score multiplier it also increases the gold multiplier by 1%"
+id = 14
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_6gsu8")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_q1h0m")

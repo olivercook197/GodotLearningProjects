@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://v8fpufi4pvw"]
+
+[ext_resource type="PackedScene" uid="uid://yl41dqwlhs6k" path="res://level_ups/scenes/increase_brick0_spawn.tscn" id="1_hyaee"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_nhhk8"]
+
+[resource]
+script = ExtResource("1_nhhk8")
+id = 1
+option_name = "Increase Happy Brick Spawn Chance"
+modifier_scene = ExtResource("1_hyaee")
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

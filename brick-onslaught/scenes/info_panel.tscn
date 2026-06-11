@@ -1,0 +1,662 @@
+[gd_scene format=3 uid="uid://bc5s4ostxbm0l"]
+
+[ext_resource type="Script" uid="uid://s2m28o3uwsd4" path="res://scripts/info_panel.gd" id="1_ktb4k"]
+[ext_resource type="Texture2D" uid="uid://drvn81ycdam5f" path="res://assets/gui/yellow_panel.png" id="1_mxpga"]
+[ext_resource type="PackedScene" uid="uid://bcm8le2ykp4gg" path="res://scenes/info_panel_button.tscn" id="2_mxpga"]
+[ext_resource type="Texture2D" uid="uid://cbsmmpldx250o" path="res://assets/gui/yellow_panel_thick_border.png" id="3_0j73f"]
+[ext_resource type="Texture2D" uid="uid://bt2pie0jsxymn" path="res://assets/gui/close_button.png" id="4_gomkd"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="5_skfax"]
+[ext_resource type="Texture2D" uid="uid://db0ix1ky8a0x8" path="res://assets/gui/scroll_icon.png" id="7_vwy1n"]
+[ext_resource type="Texture2D" uid="uid://bdstvbbqgjv46" path="res://assets/gui/scroll_icon_pressed.png" id="8_5yatp"]
+[ext_resource type="Texture2D" uid="uid://bfk17cncaqwfq" path="res://assets/gui/scroll_bar.png" id="9_fgc43"]
+[ext_resource type="Texture2D" uid="uid://dgs42iey0hjrt" path="res://assets/sprites/tutorial/happy_brick.png" id="10_5yatp"]
+[ext_resource type="Texture2D" uid="uid://grvyptsa7bb0" path="res://assets/sprites/tutorial/worried_brick.png" id="11_fgc43"]
+[ext_resource type="Texture2D" uid="uid://bbpy4urfwwf83" path="res://assets/sprites/tutorial/scared_brick.png" id="12_phkm4"]
+[ext_resource type="Texture2D" uid="uid://4nrbv6oakwyl" path="res://assets/sprites/tutorial/angry_brick.png" id="13_3rbxs"]
+[ext_resource type="Texture2D" uid="uid://clurcbjccgt8g" path="res://assets/sprites/tutorial/life_powerup.png" id="14_wyaf2"]
+[ext_resource type="Texture2D" uid="uid://4eb8c4deqj1s" path="res://assets/sprites/tutorial/gold_powerup.png" id="15_aceqi"]
+[ext_resource type="Texture2D" uid="uid://cucmvkdslmu6y" path="res://assets/sprites/tutorial/double_gold_powerup.png" id="16_qb0sy"]
+[ext_resource type="Texture2D" uid="uid://bknobf8euw6hj" path="res://assets/sprites/tutorial/paddle_powerup.png" id="17_cvrku"]
+[ext_resource type="Texture2D" uid="uid://dy2s4mmgpcbkt" path="res://assets/sprites/tutorial/xp_magnet_powerup.png" id="18_bivfs"]
+[ext_resource type="Texture2D" uid="uid://cc55r5h463vsw" path="res://assets/sprites/tutorial/xp_panel.png" id="19_qb0sy"]
+[ext_resource type="Texture2D" uid="uid://c4telrwojb0gd" path="res://assets/sprites/tutorial/levelup_panel.png" id="20_cvrku"]
+[ext_resource type="Texture2D" uid="uid://culhenee035a7" path="res://assets/sprites/tutorial/end_game_laser_static.png" id="21_bivfs"]
+[ext_resource type="Script" uid="uid://cqxkwph4n37o8" path="res://scripts/open_close_animation.gd" id="21_cvrku"]
+
+[sub_resource type="Theme" id="Theme_wrceg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rai61"]
+texture = ExtResource("1_mxpga")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwy1n"]
+texture = ExtResource("3_0j73f")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0j73f"]
+texture = ExtResource("1_mxpga")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwy1n"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_3rbxs"]
+Panel/styles/panel = SubResource("StyleBoxFlat_vwy1n")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ftjoh"]
+texture = ExtResource("1_mxpga")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="DPITexture" id="DPITexture_khwun"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24\" height=\"32\" viewBox=\"0 0 6.35 8.467\"><defs><linearGradient id=\"a\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\".3\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><linearGradient xlink:href=\"#a\" id=\"b\" x1=\"4.233\" x2=\"4.233\" y1=\"0\" y2=\"6.35\" gradientTransform=\"translate(-8.467)\" gradientUnits=\"userSpaceOnUse\"/></defs><path fill=\"url(#b)\" d=\"M-8.467 0H0V6.35H-8.467z\" paint-order=\"fill markers stroke\" transform=\"rotate(-90)\"/></svg>
+"
+
+[sub_resource type="DPITexture" id="DPITexture_4hldr"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"32\" height=\"24\" viewBox=\"0 0 8.467 6.35\"><defs><linearGradient id=\"a\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\".3\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><linearGradient xlink:href=\"#a\" id=\"b\" x1=\"4.233\" x2=\"4.233\" y1=\"0\" y2=\"6.35\" gradientUnits=\"userSpaceOnUse\"/></defs><path fill=\"url(#b)\" d=\"M0 0H8.467V6.35H0z\" paint-order=\"fill markers stroke\"/></svg>
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04bas"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.75)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rewml"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_khwun"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_04bas"]
+content_margin_left = 50.0
+texture = ExtResource("7_vwy1n")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 7.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0sfrv"]
+content_margin_left = 50.0
+texture = ExtResource("8_5yatp")
+texture_margin_left = 6.0
+texture_margin_top = 7.0
+texture_margin_right = 6.0
+texture_margin_bottom = 7.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_01rek"]
+content_margin_left = 50.0
+texture = ExtResource("9_fgc43")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbere"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="Theme" id="Theme_phkm4"]
+ScrollContainer/colors/scroll_hint_horizontal_color = Color(0, 0, 0, 1)
+ScrollContainer/colors/scroll_hint_vertical_color = Color(0, 0, 0, 1)
+ScrollContainer/icons/scroll_hint_horizontal = SubResource("DPITexture_khwun")
+ScrollContainer/icons/scroll_hint_vertical = SubResource("DPITexture_4hldr")
+ScrollContainer/styles/focus = SubResource("StyleBoxFlat_04bas")
+ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_rewml")
+VScrollBar/icons/decrement = SubResource("ImageTexture_khwun")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_khwun")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_khwun")
+VScrollBar/icons/increment = SubResource("ImageTexture_khwun")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_khwun")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_khwun")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_04bas")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_04bas")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_0sfrv")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_01rek")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_dbere")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qb0sy"]
+load_path = "res://.godot/imported/xp_crystal.png-85ca092c05f28a5aad881fd9b681a178.ctex"
+
+[node name="InfoPanel" type="Control" unique_id=1622891747]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ktb4k")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=874544742]
+layout_mode = 0
+offset_right = 1250.0
+offset_bottom = 974.0
+theme = SubResource("Theme_wrceg")
+theme_override_styles/panel = SubResource("StyleBoxTexture_rai61")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1999247621]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1783875917]
+layout_mode = 2
+
+[node name="Title" type="Panel" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=687564529]
+custom_minimum_size = Vector2(1175, 120)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_vwy1n")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/Title" unique_id=1597821305]
+custom_minimum_size = Vector2(1175, 120)
+layout_mode = 0
+offset_right = 1175.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 86
+text = "Info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Panel" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=190119974]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/VBoxContainer/HBoxContainer2/CloseButton" unique_id=657430584]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer2/CloseButton/TextureButton" unique_id=2090342686]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_gomkd")
+
+[node name="HoverAnimator" type="Node" parent="PanelContainer/VBoxContainer/HBoxContainer2/CloseButton" unique_id=173190460]
+script = ExtResource("5_skfax")
+hover_scale = 1.0
+press_scale = 0.8
+hover_colour = Color(0.83033526, 0.83033514, 0.83033514, 1)
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../TextureButton/TextureRect")
+metadata/_custom_type_script = "uid://b6qc7edybv8sl"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=110911095]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1984364144]
+custom_minimum_size = Vector2(300, 710)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_0j73f")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=206976864]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="InfoPanelButton" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=1761201844 instance=ExtResource("2_mxpga")]
+layout_mode = 2
+
+[node name="InfoPanelButton2" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=1444970495 instance=ExtResource("2_mxpga")]
+layout_mode = 2
+option = 1
+
+[node name="InfoPanelButton3" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=49138123 instance=ExtResource("2_mxpga")]
+layout_mode = 2
+option = 2
+
+[node name="InfoPanelButton4" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=199252166 instance=ExtResource("2_mxpga")]
+layout_mode = 2
+option = 3
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1175575924]
+custom_minimum_size = Vector2(930, 710)
+layout_mode = 2
+theme = SubResource("Theme_3rbxs")
+theme_override_styles/panel = SubResource("StyleBoxTexture_ftjoh")
+
+[node name="BrickScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2" unique_id=1420218980]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_phkm4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer" unique_id=1748125871]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=728169942]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer/HBoxContainer" unique_id=1411678740]
+layout_mode = 2
+texture = ExtResource("10_5yatp")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer/HBoxContainer" unique_id=777110572]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Happy Brick"
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=1271604092]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Happy bricks add 1 score and 1 gold when hit. They also increase the speed of the ball by 1. They have a 20% chance of increasing the score multiplier by +0.01x."
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=1266729129]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=1386933344]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer/HBoxContainer2" unique_id=73186720]
+layout_mode = 2
+texture = ExtResource("11_fgc43")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer/HBoxContainer2" unique_id=154261696]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Worried Brick"
+
+[node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=1043101382]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Worried bricks add 2 score and 1 gold when hit. They also increase the speed of the ball by 2. They have a 20% chance of dropping double XP."
+autowrap_mode = 3
+
+[node name="Label6" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=1570780371]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=298326694]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1803949217]
+layout_mode = 2
+texture = ExtResource("12_phkm4")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer/HBoxContainer3" unique_id=173880406]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Scared Brick"
+
+[node name="Label7" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=1446441058]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Scared bricks add 5 score and 1 gold when hit. They also increase the speed of the ball by 5. They have double the normal chance of dropping a powerup."
+autowrap_mode = 3
+
+[node name="Label8" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=1018604521]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=2109221809]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer/HBoxContainer4" unique_id=582413644]
+layout_mode = 2
+texture = ExtResource("13_3rbxs")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer/HBoxContainer4" unique_id=1172837569]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Angry Brick"
+
+[node name="Label9" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/BrickScrollContainer/VBoxContainer" unique_id=1244494197]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Angry bricks add 10 score and 1 gold when hit. They also increase the speed of the ball by 10. When hit, they turn into a Cracked Brick, which when hit increases score and gold by double that of the Angry Brick."
+autowrap_mode = 3
+
+[node name="PowerupScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2" unique_id=1272924671]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_phkm4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer" unique_id=42918743]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=180418699]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer" unique_id=1596391220]
+layout_mode = 2
+texture = ExtResource("14_wyaf2")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer" unique_id=1552892856]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Extra Life"
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=1981944229]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Refills an empty life."
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=999740025]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=1650559268]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer2" unique_id=191507330]
+layout_mode = 2
+texture = ExtResource("15_aceqi")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer2" unique_id=745738497]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Extra Gold"
+
+[node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=91202885]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Gain Gold equal to 5 times the current Stage, plus 5."
+autowrap_mode = 3
+
+[node name="Label6" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=1620160672]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=1898467695]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer3" unique_id=870244594]
+layout_mode = 2
+texture = ExtResource("16_qb0sy")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1650571544]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Double Gold"
+
+[node name="Label7" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=121882448]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Doubles all Gold earned from Bricks for the next 10 seconds."
+autowrap_mode = 3
+
+[node name="Label8" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=556021216]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=1671886203]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer4" unique_id=1513272567]
+layout_mode = 2
+texture = ExtResource("17_cvrku")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer4" unique_id=1591419847]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Side Panels"
+
+[node name="Label9" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=1387181303]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Adds 2 side panels to the paddle for 20 seconds."
+autowrap_mode = 3
+
+[node name="Label10" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=1713309477]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=1729269809]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer5" unique_id=910185125]
+layout_mode = 2
+texture = ExtResource("18_bivfs")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer/HBoxContainer5" unique_id=1253482870]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "XP Magnet"
+
+[node name="Label11" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/PowerupScrollContainer/VBoxContainer" unique_id=1125000277]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Causes all XP to be attracted to the paddle for 30 seconds."
+autowrap_mode = 3
+
+[node name="XPScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2" unique_id=388445892]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_phkm4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer" unique_id=1567966098]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer" unique_id=393367656]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer/HBoxContainer" unique_id=1617991691]
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_qb0sy")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer/HBoxContainer" unique_id=926805064]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "XP"
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer" unique_id=1232446610]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "XP is dropped whenever a Brick is destroyed. To collect it, it must be caught on the paddle. XP crystals come in various colours. The bigger they are, the more XP they grant. Each 100 score, increases the value of all XP by 1%."
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer" unique_id=224009842]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer" unique_id=1832104831]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer/HBoxContainer2" unique_id=1919493879]
+layout_mode = 2
+texture = ExtResource("19_qb0sy")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer/HBoxContainer2" unique_id=604435370]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Level up threshold"
+
+[node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer" unique_id=1103803779]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Collecting enough XP will cause you to level up. This resets your XP back to 0, and increases the level up threshold by 25. "
+autowrap_mode = 3
+
+[node name="Label6" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer" unique_id=710326031]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer" unique_id=902986743]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1335473848]
+layout_mode = 2
+texture = ExtResource("20_cvrku")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer/HBoxContainer3" unique_id=1303004705]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Reward"
+
+[node name="Label7" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/XPScrollContainer/VBoxContainer" unique_id=228702952]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "At the end of the stage, you will be presented with a selection of level ups. You can only choose 1."
+autowrap_mode = 3
+
+[node name="LaserScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2" unique_id=272842441]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_phkm4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer" unique_id=1699405211]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer" unique_id=1874398278]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer/HBoxContainer" unique_id=1611457362]
+layout_mode = 2
+texture = ExtResource("21_bivfs")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer/HBoxContainer" unique_id=960413049]
+custom_minimum_size = Vector2(400, 280)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Laser"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer" unique_id=2027465376]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "When there are only 8 bricks remaining, the laser is activated. It moves across the screen, destroying all bricks it touches."
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2/LaserScrollContainer/VBoxContainer" unique_id=1152093867]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="OpenCloseAnimation" type="Node" parent="." unique_id=686781089 node_paths=PackedStringArray("target")]
+script = ExtResource("21_cvrku")
+target = NodePath("..")
+
+[connection signal="confirmed" from="PanelContainer/VBoxContainer/HBoxContainer2/CloseButton/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
+[connection signal="button_pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/InfoPanelButton" to="." method="_on_info_panel_button_button_pressed"]
+[connection signal="button_pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/InfoPanelButton2" to="." method="_on_info_panel_button_button_pressed"]
+[connection signal="button_pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/InfoPanelButton3" to="." method="_on_info_panel_button_button_pressed"]
+[connection signal="button_pressed" from="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/InfoPanelButton4" to="." method="_on_info_panel_button_button_pressed"]

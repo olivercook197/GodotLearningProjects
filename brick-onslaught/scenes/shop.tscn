@@ -1,0 +1,236 @@
+[gd_scene format=3 uid="uid://cykrxgq8alrd2"]
+
+[ext_resource type="Script" uid="uid://cev0rhr8fmqao" path="res://scripts/shop.gd" id="1_lx5au"]
+[ext_resource type="StyleBox" uid="uid://mv2yh1c7vr2k" path="res://styles/panel_style_box_texture.tres" id="2_ajxib"]
+[ext_resource type="Texture2D" uid="uid://b77vt1bfxdet" path="res://assets/sprites/upgrades/upgrade_empty.png" id="5_2fc2m"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="5_8r1wq"]
+[ext_resource type="PackedScene" uid="uid://bsnn4vlv74skv" path="res://scenes/gold_panel_container.tscn" id="5_ajxib"]
+[ext_resource type="Texture2D" uid="uid://be6ecnejeplmw" path="res://assets/sprites/upgrades/reroll_empty.png" id="6_24it5"]
+[ext_resource type="Texture2D" uid="uid://d2ddfpven1tug" path="res://assets/sprites/reroll.png" id="7_44xle"]
+[ext_resource type="Script" uid="uid://r12yuhqe2pmv" path="res://scripts/apply_upgrade.gd" id="7_ajxib"]
+[ext_resource type="Script" uid="uid://xbgkxo0pn33n" path="res://scripts/reroll_upgrade_container.gd" id="7_j14q8"]
+[ext_resource type="Texture2D" uid="uid://bqcbpk4daejcl" path="res://assets/sprites/proceed.png" id="7_y6sft"]
+[ext_resource type="PackedScene" uid="uid://e6e34qc12hoc" path="res://scenes/score_panel_container.tscn" id="8_y6sft"]
+[ext_resource type="Script" uid="uid://dbgf6ptmasj3e" path="res://scripts/upgrade_handler.gd" id="9_7mqwv"]
+[ext_resource type="PackedScene" uid="uid://ckjkx1p1yic24" path="res://scenes/life_manager.tscn" id="9_m4ofw"]
+[ext_resource type="PackedScene" uid="uid://diprgck8e6i3a" path="res://scenes/upgrade_container.tscn" id="10_1v8qu"]
+[ext_resource type="Script" uid="uid://c8wlk5bmlf2j2" path="res://scripts/hover_gold_visual.gd" id="10_gobkm"]
+[ext_resource type="Resource" uid="uid://c6fhvqbvdij22" path="res://upgrades/unique_data/gain_life.tres" id="11_44xle"]
+[ext_resource type="PackedScene" uid="uid://bvsnkrb2jgfjy" path="res://scenes/tooltip_container.tscn" id="17_5u241"]
+[ext_resource type="PackedScene" uid="uid://cp1tk5ip3vxtn" path="res://scenes/stats_panel_container.tscn" id="18_yuijs"]
+[ext_resource type="PackedScene" uid="uid://dlyhte50bodef" path="res://scenes/blurred_background.tscn" id="20_aa4hd"]
+[ext_resource type="PackedScene" uid="uid://cy4yhp5w1mhqn" path="res://scenes/darken_background.tscn" id="21_68utx"]
+[ext_resource type="PackedScene" uid="uid://bwvur7ica41s6" path="res://scenes/options_button.tscn" id="21_ru2r1"]
+[ext_resource type="Script" uid="uid://b1c55a37rings" path="res://scenes/audio.gd" id="22_lxs01"]
+[ext_resource type="PackedScene" uid="uid://dws8eb6qk8evi" path="res://scenes/audio/gui_sound_effects.tscn" id="22_ru2r1"]
+[ext_resource type="PackedScene" uid="uid://d3pnv6nmkbx8f" path="res://scenes/audio/shop_sound_effects.tscn" id="24_6nbx6"]
+
+[node name="Shop" type="Node2D" unique_id=873135676]
+script = ExtResource("1_lx5au")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1793390718]
+zoom = Vector2(0.5, 0.5)
+
+[node name="GoldPanelContainer" parent="." unique_id=1896753921 instance=ExtResource("5_ajxib")]
+process_mode = 1
+offset_top = 414.0
+offset_bottom = 481.0
+gold_text_size = 72
+
+[node name="NextStageContainer" type="PanelContainer" parent="." unique_id=153716866]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 527.0
+offset_right = 110.0
+offset_bottom = 647.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_ajxib")
+
+[node name="MarginContainer" type="MarginContainer" parent="NextStageContainer" unique_id=754333847]
+layout_mode = 2
+theme_override_constants/margin_left = 125
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 125
+theme_override_constants/margin_bottom = 70
+
+[node name="Control" type="Control" parent="NextStageContainer/MarginContainer" unique_id=1836713117]
+layout_mode = 2
+
+[node name="NextStageButton" type="TextureButton" parent="NextStageContainer/MarginContainer/Control" unique_id=1770536555]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="NextStageContainer/MarginContainer/Control/NextStageButton" unique_id=117651582]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_y6sft")
+
+[node name="HoverAnimator" type="Node" parent="NextStageContainer/MarginContainer/Control" unique_id=973840802]
+script = ExtResource("5_8r1wq")
+press_scale = 0.6
+disabled_texture = ExtResource("5_2fc2m")
+button_path = NodePath("../NextStageButton")
+visual_path = NodePath("../NextStageButton/TextureRect")
+
+[node name="RerollUpgradeContainer" type="PanelContainer" parent="." unique_id=990453516]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 164.0
+offset_right = 100.0
+offset_bottom = 364.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_ajxib")
+script = ExtResource("7_j14q8")
+
+[node name="MarginContainer" type="MarginContainer" parent="RerollUpgradeContainer" unique_id=1539426670]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Control" type="Control" parent="RerollUpgradeContainer/MarginContainer" unique_id=250852806]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="RerollUpgradeButton" type="TextureButton" parent="RerollUpgradeContainer/MarginContainer/Control" unique_id=1875935453]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="RerollUpgradeContainer/MarginContainer/Control/RerollUpgradeButton" unique_id=1534311578]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_44xle")
+stretch_mode = 2
+
+[node name="HoverAnimator" type="Node" parent="RerollUpgradeContainer/MarginContainer/Control" unique_id=985427162]
+script = ExtResource("5_8r1wq")
+press_scale = 0.6
+disabled_texture = ExtResource("6_24it5")
+button_path = NodePath("../RerollUpgradeButton")
+visual_path = NodePath("../RerollUpgradeButton/TextureRect")
+button_has_requirements_to_press = true
+
+[node name="UpgradeHandler" type="Node" parent="RerollUpgradeContainer/MarginContainer/Control" unique_id=1062121364]
+script = ExtResource("9_7mqwv")
+hover_animator_path = NodePath("../HoverAnimator")
+
+[node name="HoverGoldVisual" type="Node" parent="RerollUpgradeContainer/MarginContainer/Control" unique_id=1683856534]
+script = ExtResource("10_gobkm")
+button_path = NodePath("../RerollUpgradeButton")
+metadata/_custom_type_script = "uid://c8wlk5bmlf2j2"
+
+[node name="ApplyUpgrade" type="Node" parent="." unique_id=812743779]
+script = ExtResource("7_ajxib")
+
+[node name="ScorePanelContainer" parent="." unique_id=551707213 instance=ExtResource("8_y6sft")]
+
+[node name="LifeManager" parent="." unique_id=568853142 instance=ExtResource("9_m4ofw")]
+
+[node name="UpgradeContainer" parent="." unique_id=1612555950 instance=ExtResource("10_1v8qu")]
+offset_top = -676.0
+offset_bottom = -233.0
+size_flags_stretch_ratio = 0.79
+data = ExtResource("11_44xle")
+
+[node name="TooltipPanelContainer" parent="." unique_id=752457451 instance=ExtResource("17_5u241")]
+offset_left = 140.477
+offset_top = 109.54896
+offset_right = 627.477
+offset_bottom = 192.54895
+
+[node name="StatsPanelContainer" parent="." unique_id=453277515 instance=ExtResource("18_yuijs")]
+
+[node name="DarkenBackground" parent="." unique_id=897837134 instance=ExtResource("21_68utx")]
+visible = false
+mouse_default_cursor_shape = 5
+
+[node name="Background" parent="." unique_id=1034735998 instance=ExtResource("20_aa4hd")]
+scale = Vector2(1.5, 1.5)
+animation = &"5"
+
+[node name="OptionsButton" parent="." unique_id=1554728108 instance=ExtResource("21_ru2r1")]
+offset_left = 1135.0
+offset_top = -681.0
+offset_right = 1135.0
+offset_bottom = -681.0
+relative_size = 105.0
+
+[node name="Audio" type="Node" parent="." unique_id=2040134253]
+script = ExtResource("22_lxs01")
+metadata/_custom_type_script = "uid://b1c55a37rings"
+
+[node name="GUISoundEffects" parent="Audio" unique_id=999180488 instance=ExtResource("22_ru2r1")]
+
+[node name="ShopSoundEffects" parent="Audio" unique_id=1283923835 instance=ExtResource("24_6nbx6")]
+
+[connection signal="confirmed" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
+[connection signal="hovered" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_hovered"]
+[connection signal="stopped_hovering" from="NextStageContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_stopped_hovering"]
+[connection signal="hovered" from="RerollUpgradeContainer" to="." method="_on_reroll_upgrade_container_hovered"]
+[connection signal="stopped_hovering" from="RerollUpgradeContainer" to="." method="_on_reroll_upgrade_container_stopped_hovering"]
+[connection signal="too_expensive" from="RerollUpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected_too_expensive"]
+[connection signal="confirmed" from="RerollUpgradeContainer/MarginContainer/Control/HoverAnimator" to="." method="_on_hover_animator_confirmed"]
+[connection signal="upgrade_clicked_too_expensive" from="RerollUpgradeContainer/MarginContainer/Control/UpgradeHandler" to="RerollUpgradeContainer" method="_on_upgrade_handler_upgrade_clicked_too_expensive"]
+[connection signal="hovered" from="RerollUpgradeContainer/MarginContainer/Control/HoverGoldVisual" to="RerollUpgradeContainer" method="_on_hover_gold_visual_hovered"]
+[connection signal="stopped_hovering" from="RerollUpgradeContainer/MarginContainer/Control/HoverGoldVisual" to="RerollUpgradeContainer" method="_on_hover_gold_visual_stopped_hovering"]
+[connection signal="hovered" from="UpgradeContainer" to="." method="_on_hovered"]
+[connection signal="stopped_hovering" from="UpgradeContainer" to="." method="_on_stopped_hovering"]
+[connection signal="upgrade_not_allowed" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_not_allowed"]
+[connection signal="upgrade_selected" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected"]
+[connection signal="upgrade_selected_too_expensive" from="UpgradeContainer" to="." method="_on_upgrade_container_upgrade_selected_too_expensive"]
+[connection signal="open_stats_menu" from="StatsPanelContainer" to="." method="_on_stats_panel_container_open_stats_menu"]
+[connection signal="pressed" from="OptionsButton" to="." method="_on_options_button_pressed"]

@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://b7omtkbw6pmv5"]
+
+[ext_resource type="Texture2D" uid="uid://drvn81ycdam5f" path="res://assets/gui/yellow_panel.png" id="1_0v3bg"]
+[ext_resource type="Script" uid="uid://lb7w8dsgcryn" path="res://scripts/main_menu_button.gd" id="1_nosb7"]
+[ext_resource type="Texture2D" uid="uid://carpu8iwujvmi" path="res://assets/gui/text/start_text_75%_height.png" id="2_0v3bg"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="4_hw7vt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nosb7"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_hw7vt"]
+Panel/styles/panel = SubResource("StyleBoxFlat_nosb7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fph6u"]
+texture = ExtResource("1_0v3bg")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="MainMenuButton" type="Control" unique_id=388084710]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -990.0
+offset_top = -417.5
+offset_right = -290.0
+offset_bottom = -302.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_nosb7")
+main_texture = ExtResource("2_0v3bg")
+
+[node name="VisualRoot" type="Control" parent="." unique_id=681809301]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(350, 57.5)
+
+[node name="PanelContainer" type="PanelContainer" parent="VisualRoot" unique_id=1163831208]
+layout_mode = 1
+offset_right = 700.0
+offset_bottom = 115.0
+pivot_offset = Vector2(350, 57.5)
+theme = SubResource("Theme_hw7vt")
+theme_override_styles/panel = SubResource("StyleBoxTexture_fph6u")
+
+[node name="TextureButton" type="TextureButton" parent="VisualRoot/PanelContainer" unique_id=813607148]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VisualRoot/PanelContainer/TextureButton" unique_id=453572600]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -50.0
+offset_right = 275.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0v3bg")
+
+[node name="HoverAnimator" type="Node" parent="." unique_id=338377437]
+script = ExtResource("4_hw7vt")
+hover_scale = 1.0
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../VisualRoot/PanelContainer/TextureButton/TextureRect")
+button_has_requirements_to_press = true
+metadata/_custom_type_script = "uid://b6qc7edybv8sl"
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=1762202525]
+custom_minimum_size = Vector2(700, 115)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="hovered" from="HoverAnimator" to="." method="_on_hover_animator_hovered"]
+[connection signal="pressed" from="HoverAnimator" to="." method="_on_hover_animator_pressed"]
+[connection signal="stopped_hovering" from="HoverAnimator" to="." method="_on_hover_animator_stopped_hovering"]
+[connection signal="button_up" from="TextureButton" to="." method="_on_texture_button_button_up"]
+[connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
+[connection signal="mouse_exited" from="TextureButton" to="." method="_on_texture_button_mouse_exited"]

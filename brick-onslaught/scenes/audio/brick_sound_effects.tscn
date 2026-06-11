@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://r4bpeuxrc65i"]
+
+[ext_resource type="Script" uid="uid://jxpada0dc0c4" path="res://scripts/audio/brick_sound_effects.gd" id="1_tfp53"]
+
+[node name="BrickSoundEffects" type="AudioStreamPlayer2D" unique_id=374442224]
+bus = &"Sound Effects"
+script = ExtResource("1_tfp53")

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bsnn4vlv74skv"]
+
+[ext_resource type="Script" uid="uid://chq8ikome3gj4" path="res://scripts/gold_panel_container.gd" id="1_4oyuc"]
+[ext_resource type="Texture2D" uid="uid://dotul7ovdgy88" path="res://assets/gui/scalable_panel.png" id="1_sm0c0"]
+[ext_resource type="Script" uid="uid://m5girvi7aav6" path="res://scripts/gold_label.gd" id="2_4oyuc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vfxrd"]
+texture = ExtResource("1_sm0c0")
+region_rect = Rect2(50.378357, 36.54079, 51.00493, 39.808727)
+
+[sub_resource type="Theme" id="Theme_inv1a"]
+Panel/styles/panel = SubResource("StyleBoxTexture_vfxrd")
+
+[node name="GoldPanelContainer" type="PanelContainer" unique_id=1896753921]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.5
+offset_top = 395.0
+offset_right = 90.5
+offset_bottom = 462.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4oyuc")
+
+[node name="Panel2" type="Panel" parent="." unique_id=1150400140]
+z_index = 99
+layout_mode = 2
+theme = SubResource("Theme_inv1a")
+
+[node name="GoldLabel" type="Label" parent="." unique_id=1956984189]
+z_index = 100
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "Gold: 0"
+horizontal_alignment = 1
+script = ExtResource("2_4oyuc")

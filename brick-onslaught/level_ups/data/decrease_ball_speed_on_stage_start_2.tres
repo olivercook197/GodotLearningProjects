@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://bko6tuos14d8m"]
+
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_kr64k"]
+[ext_resource type="PackedScene" uid="uid://bqo07dpgmhju6" path="res://level_ups/scenes/decrease_ball_speed_on_stage_start_2.tscn" id="1_qo3af"]
+
+[resource]
+script = ExtResource("1_kr64k")
+id = 18
+option_name = "Decrease Ball Speed on Stage Start 2"
+modifier_scene = ExtResource("1_qo3af")
+stat_requirements_to_unlock = Array[int]([6])
+requirement_minimum = 1200.0
+one_time = true
+levelup_requirements_to_unlock = Array[int]([5])
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

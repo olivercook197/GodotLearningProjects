@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cuaeu3do68vtt"]
+
+[ext_resource type="Texture2D" uid="uid://bsiu2wn385ayr" path="res://assets/sprites/ball.png" id="1_7s4qf"]
+[ext_resource type="Script" uid="uid://c8vxyjxf8l5j3" path="res://scripts/ball.gd" id="1_cxlvu"]
+[ext_resource type="Script" uid="uid://b1c55a37rings" path="res://scenes/audio.gd" id="3_4dx81"]
+[ext_resource type="PackedScene" uid="uid://3mqcjkj8qpka" path="res://scenes/audio/ball_sound_effects.tscn" id="3_f7cbr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cxlvu"]
+radius = 2.1023796
+
+[node name="Ball" type="CharacterBody2D" unique_id=79486230]
+z_index = 6
+script = ExtResource("1_cxlvu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2061327106]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_cxlvu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1464904510]
+texture = ExtResource("1_7s4qf")
+
+[node name="Audio" type="Node" parent="." unique_id=524286919]
+script = ExtResource("3_4dx81")
+metadata/_custom_type_script = "uid://b1c55a37rings"
+
+[node name="BallSoundEffects" parent="Audio" unique_id=708313574 instance=ExtResource("3_f7cbr")]

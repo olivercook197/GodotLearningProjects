@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeTemplate" format=3 uid="uid://q8rybomfn1v7"]
+
+[ext_resource type="Script" uid="uid://bqtob7nsgri3w" path="res://upgrades/systems/upgrade_template.gd" id="1_gkqx7"]
+[ext_resource type="Texture2D" uid="uid://dfq6w21ammur2" path="res://assets/sprites/upgrades/xp_up_small_upgrade.png" id="2_ufart"]
+
+[resource]
+script = ExtResource("1_gkqx7")
+upgrade_name = "Increase XP Gain"
+upgrade_desc = "Increases value of all xp by 10%"
+upgrade_target = 3
+attribute_changed = 11
+number_change = 0.1
+textures = Array[Texture2D]([ExtResource("2_ufart")])
+metadata/_custom_type_script = "uid://bqtob7nsgri3w"

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://cbnrr6baj66aq"]
+
+[ext_resource type="Script" uid="uid://cytux0d47cdp4" path="res://scripts/level_up_option.gd" id="1_kgdxn"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="2_kgdxn"]
+[ext_resource type="Texture2D" uid="uid://civmgu2mlaj1x" path="res://assets/sprites/level_up/levelup_empty.tres.png" id="3_jg08a"]
+[ext_resource type="Script" uid="uid://d4ki8r5ar1qx5" path="res://scripts/level_up_handler.gd" id="4_vroac"]
+
+[node name="LevelUpOption" type="MarginContainer" unique_id=1842081542]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+script = ExtResource("1_kgdxn")
+
+[node name="Control" type="Control" parent="." unique_id=2049881807]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="UpgradeItemButton" type="TextureButton" parent="Control" unique_id=869807618]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 100)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="Control/UpgradeItemButton" unique_id=408504470]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 3
+
+[node name="HoverAnimator" type="Node" parent="Control" unique_id=217898299]
+script = ExtResource("2_kgdxn")
+press_scale = 0.6
+disabled_texture = ExtResource("3_jg08a")
+button_path = NodePath("../UpgradeItemButton")
+visual_path = NodePath("../UpgradeItemButton/TextureRect")
+button_has_requirements_to_press = true
+
+[node name="LevelUpHandler" type="Node" parent="Control" unique_id=265246658]
+script = ExtResource("4_vroac")
+hover_animator_path = NodePath("../HoverAnimator")
+
+[connection signal="hovered" from="Control/HoverAnimator" to="." method="_on_hover_animator_hovered"]
+[connection signal="stopped_hovering" from="Control/HoverAnimator" to="." method="_on_hover_animator_stopped_hovering"]
+[connection signal="level_up_chosen" from="Control/LevelUpHandler" to="." method="_on_level_up_handler_level_up_chosen"]

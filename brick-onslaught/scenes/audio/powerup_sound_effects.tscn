@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dg2l73btgdotf"]
+
+[ext_resource type="Script" uid="uid://dk4skknxbwyo5" path="res://scripts/audio/powerup_sound_effects.gd" id="1_6nhgr"]
+
+[node name="PowerupSoundEffects" type="AudioStreamPlayer2D" unique_id=615118438]
+script = ExtResource("1_6nhgr")

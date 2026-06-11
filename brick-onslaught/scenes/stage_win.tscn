@@ -1,0 +1,172 @@
+[gd_scene format=3 uid="uid://cimjfypa0s4n4"]
+
+[ext_resource type="Script" uid="uid://cimpgwu71frgr" path="res://scripts/stage_win.gd" id="1_3rdsb"]
+[ext_resource type="Texture2D" uid="uid://drvn81ycdam5f" path="res://assets/gui/yellow_panel.png" id="2_1hspy"]
+[ext_resource type="Texture2D" uid="uid://bivfo1dvqeqx" path="res://assets/gui/text/proceed_text.png" id="2_80e7l"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="3_1hspy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqmqr"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_sugp2"]
+Panel/styles/panel = SubResource("StyleBoxFlat_kqmqr")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dpxte"]
+load_path = "res://.godot/imported/yellow_panel_thick_border.png-f77dd6c30f1b481491c602278dc5830a.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5lwaw"]
+texture = SubResource("CompressedTexture2D_dpxte")
+texture_margin_left = 11.0
+texture_margin_top = 11.0
+texture_margin_right = 11.0
+texture_margin_bottom = 11.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyxaa"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_80e7l"]
+Panel/styles/panel = SubResource("StyleBoxFlat_hyxaa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1hspy"]
+texture = ExtResource("2_1hspy")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="StageWin" type="Node2D" unique_id=1719585696]
+script = ExtResource("1_3rdsb")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1444466114]
+z_index = 500
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -472.0
+offset_top = -49.5
+offset_right = 472.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_sugp2")
+theme_override_styles/panel = SubResource("StyleBoxTexture_5lwaw")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=394699286]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1483679095]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1443408127]
+z_index = 100
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 72
+text = "Congratulations, stage won!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1663906691]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="VisualRoot" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/Control" unique_id=1618299890]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Control/VisualRoot" unique_id=1473764090]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -70.0
+offset_right = 360.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(350, 0)
+theme = SubResource("Theme_80e7l")
+theme_override_styles/panel = SubResource("StyleBoxTexture_1hspy")
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/Control/VisualRoot/PanelContainer" unique_id=1012184426]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Control/VisualRoot/PanelContainer/TextureButton" unique_id=2087237427]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -63.0
+offset_right = 350.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_80e7l")
+
+[node name="HoverAnimator" type="Node" parent="PanelContainer/MarginContainer/VBoxContainer/Control" unique_id=677146913]
+script = ExtResource("3_1hspy")
+hover_scale = 1.0
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../VisualRoot/PanelContainer/TextureButton/TextureRect")
+button_has_requirements_to_press = true
+metadata/_custom_type_script = "uid://b6qc7edybv8sl"
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/Control" unique_id=556289564]
+custom_minimum_size = Vector2(710, 140)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -354.5
+offset_top = -70.0
+offset_right = 355.5
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="hovered" from="PanelContainer/MarginContainer/VBoxContainer/Control/HoverAnimator" to="." method="_on_hover_animator_hovered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Control/HoverAnimator" to="." method="_on_hover_animator_pressed"]
+[connection signal="stopped_hovering" from="PanelContainer/MarginContainer/VBoxContainer/Control/HoverAnimator" to="." method="_on_hover_animator_stopped_hovering"]
+[connection signal="button_up" from="PanelContainer/MarginContainer/VBoxContainer/Control/TextureButton" to="." method="_on_texture_button_button_up"]

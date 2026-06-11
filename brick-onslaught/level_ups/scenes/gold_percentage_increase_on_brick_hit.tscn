@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://d1unp20ix0uhh"]
+
+[ext_resource type="Script" uid="uid://cvxnvx7m3kso4" path="res://level_ups/scripts/gold_percentage_increase_on_brick_hit.gd" id="1_e0g8f"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_ipilg"]
+[ext_resource type="Texture2D" uid="uid://cjlc7ogbvwkim" path="res://assets/sprites/level_up/gold_percentage_increase_on_brick_hit.png" id="3_fj3xs"]
+
+[node name="GoldPercentageIncreaseOnBrickHit" type="Control" unique_id=1115199477]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_e0g8f")
+description = "Increase gold gained when hitting a brick by 10%"
+id = 21
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_ipilg")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.00003
+offset_right = 165.00003
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_fj3xs")

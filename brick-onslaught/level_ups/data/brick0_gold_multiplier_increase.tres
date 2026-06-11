@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://bgffhv2itgusn"]
+
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_dpogi"]
+[ext_resource type="PackedScene" uid="uid://coq3cxe61e4jn" path="res://level_ups/scenes/brick0_gold_multiplier_increase.tscn" id="1_scpht"]
+
+[resource]
+script = ExtResource("1_dpogi")
+id = 14
+option_name = "Happy Brick Gold Multiplier Increase"
+modifier_scene = ExtResource("1_scpht")
+one_time = true
+levelup_requirements_to_unlock = Array[int]([1])
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

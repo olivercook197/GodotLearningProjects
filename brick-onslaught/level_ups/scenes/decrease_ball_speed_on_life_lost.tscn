@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cx3qscl0cblk5"]
+
+[ext_resource type="Script" uid="uid://de6anhwe060et" path="res://level_ups/scripts/decrease_ball_speed_on_life_lost.gd" id="1_vowg7"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_jtjhk"]
+[ext_resource type="Texture2D" uid="uid://1mjvcvtfecqv" path="res://assets/sprites/level_up/decrease_ball_speed_on_life_lost.png" id="3_47eus"]
+
+[node name="DecreaseBallSpeedOnLifeLost" type="Control" unique_id=941817420]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vowg7")
+description = "Whenever you lose a life, decrease the Ball Speed by 50"
+id = 19
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_jtjhk")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_47eus")

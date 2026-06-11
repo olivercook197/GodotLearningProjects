@@ -1,0 +1,40 @@
+class_name Boundary extends StaticBody2D
+
+@onready var collision_shape: CollisionShape2D = $BoundaryCollisionShape2D
+
+signal player_colliding
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+
+
+func set_position_and_size(rect: Rect2):
+	position = rect.position
+	
+	var shape = RectangleShape2D.new()
+	shape.size = rect.size
+	$BoundaryCollisionShape2D.shape = shape
+	
+	if shape is RectangleShape2D:
+		shape.size = rect.size
+
+	var tiles_wide = int(rect.size[0]/16)
+	var tiles_tall = int(rect.size[1]/16)
+	#print(str(tiles_tall) + ", " + str(tiles_wide))
+	
+	for i in tiles_wide + 1:
+		for j in tiles_tall:
+			$TileMapLayer.set_cell(Vector2(-tiles_wide / 2 - 1 + i,-tiles_tall / 2 + j), 
+			0, Vector2(i % 3, j % 3))
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.get_parent() == PlayerPaddle:
+		player_colliding.emit()
+	elif area.get_parent() == Ball:
+		pass
+	else:
+		print(str(area) + " destroyed") 
+		area.queue_free()

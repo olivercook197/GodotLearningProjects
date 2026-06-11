@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://cqjbbv7efhlix"]
+
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_klkpg"]
+[ext_resource type="PackedScene" uid="uid://0saftcr6x8p2" path="res://level_ups/scenes/laser_burns_hotter.tscn" id="1_p18im"]
+
+[resource]
+script = ExtResource("1_klkpg")
+id = 20
+option_name = "Laser Burns Hotter"
+modifier_scene = ExtResource("1_p18im")
+one_time = true
+levelup_requirements_to_unlock = Array[int]([6])
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

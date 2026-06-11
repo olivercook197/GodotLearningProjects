@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://bu3q6yjbjtgri"]
+
+[ext_resource type="PackedScene" uid="uid://c76bcvlerwruq" path="res://level_ups/scenes/brick1_xp_drop_increase.tscn" id="1_77u50"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_ht6m7"]
+
+[resource]
+script = ExtResource("1_ht6m7")
+id = 12
+option_name = "Worried Brick XP Drop Increase"
+modifier_scene = ExtResource("1_77u50")
+one_time = true
+levelup_requirements_to_unlock = Array[int]([2])
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

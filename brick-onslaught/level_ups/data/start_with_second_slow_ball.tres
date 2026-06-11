@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelUpOption" format=3 uid="uid://0uxb1olxqph0"]
+
+[ext_resource type="PackedScene" uid="uid://bxjg1kkrvco7g" path="res://level_ups/scenes/start_with_second_slow_ball.tscn" id="1_31gqt"]
+[ext_resource type="Script" uid="uid://d1rpkpv0hr805" path="res://level_ups/systems/level_up_option.gd" id="1_idtup"]
+
+[resource]
+script = ExtResource("1_idtup")
+id = 11
+option_name = "Start With Second Slow Ball"
+modifier_scene = ExtResource("1_31gqt")
+one_time = true
+levelup_requirements_to_unlock = Array[int]([0])
+metadata/_custom_type_script = "uid://d1rpkpv0hr805"

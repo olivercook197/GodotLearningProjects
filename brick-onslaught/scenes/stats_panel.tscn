@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bi8usuqall7p8"]
+
+[ext_resource type="Texture2D" uid="uid://drvn81ycdam5f" path="res://assets/gui/yellow_panel.png" id="1_11237"]
+[ext_resource type="Script" uid="uid://bpqd34aixig08" path="res://scripts/stats_panel.gd" id="2_x23uq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2thd"]
+texture = ExtResource("1_11237")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[node name="StatsPanel" type="Panel" unique_id=1154840910]
+custom_minimum_size = Vector2(1324, 100)
+offset_right = 1300.0
+offset_bottom = 100.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_s2thd")
+script = ExtResource("2_x23uq")
+
+[node name="NameLabel" type="Label" parent="." unique_id=1537860035]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 0
+offset_left = 15.0
+offset_right = 315.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 60
+text = "Ball Speed"
+vertical_alignment = 1
+
+[node name="ValueLabel" type="Label" parent="." unique_id=448155917]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+offset_left = 1055.0
+offset_right = 1303.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 60
+text = "750"
+horizontal_alignment = 2
+vertical_alignment = 1

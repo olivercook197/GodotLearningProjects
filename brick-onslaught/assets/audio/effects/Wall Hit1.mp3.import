@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://mamfymb0dn75"
+path="res://.godot/imported/Wall Hit1.mp3-2f74314fd0f9be5168fcbad9db286070.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/effects/Wall Hit1.mp3"
+dest_files=["res://.godot/imported/Wall Hit1.mp3-2f74314fd0f9be5168fcbad9db286070.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

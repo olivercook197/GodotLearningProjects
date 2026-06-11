@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bls6xn0pol2hl"]
+
+[ext_resource type="Script" uid="uid://c68rd1hv4fpcu" path="res://level_ups/scripts/reroll_level_up_choices_increase.gd" id="1_h12kr"]
+[ext_resource type="PackedScene" uid="uid://cbnrr6baj66aq" path="res://scenes/level_up_option.tscn" id="2_m24w7"]
+[ext_resource type="Texture2D" uid="uid://04qsn6jmugl7" path="res://assets/sprites/level_up/reroll_level_up_choices_increase.png" id="3_h12kr"]
+
+[node name="RerollLevelUpChoicesIncrease" type="Control" unique_id=1818846797]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_h12kr")
+description = "Gain an extra reroll and an additional level up option"
+id = 22
+metadata/_custom_type_script = "uid://b12k8s4ltppra"
+
+[node name="LevelUpOption" parent="." unique_id=1842081542 instance=ExtResource("2_m24w7")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_right = 165.0
+offset_bottom = 330.0
+grow_horizontal = 2
+main_texture = ExtResource("3_h12kr")

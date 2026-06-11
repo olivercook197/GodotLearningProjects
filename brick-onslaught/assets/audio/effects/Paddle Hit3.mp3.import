@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b4vrn0f2pj82k"
+path="res://.godot/imported/Paddle Hit3.mp3-94b0d2aa535812113a1e9f9f78d42eeb.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/effects/Paddle Hit3.mp3"
+dest_files=["res://.godot/imported/Paddle Hit3.mp3-94b0d2aa535812113a1e9f9f78d42eeb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

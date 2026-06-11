@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bcm8le2ykp4gg"]
+
+[ext_resource type="Texture2D" uid="uid://b8gxqhf1kv5oj" path="res://assets/gui/info_panel.png" id="1_7epmo"]
+[ext_resource type="Script" uid="uid://coctr30n8ey52" path="res://scripts/info_panel_button.gd" id="2_ftkr5"]
+[ext_resource type="Script" uid="uid://b6qc7edybv8sl" path="res://scripts/hover_animation.gd" id="3_0y8gc"]
+
+[sub_resource type="Theme" id="Theme_gomkd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_skfax"]
+texture = ExtResource("1_7epmo")
+texture_margin_left = 22.0
+texture_margin_top = 7.0
+texture_margin_right = 22.0
+texture_margin_bottom = 7.0
+axis_stretch_vertical = 2
+
+[node name="InfoPanelButton" type="Panel" unique_id=1761201844]
+custom_minimum_size = Vector2(0, 100)
+theme = SubResource("Theme_gomkd")
+theme_override_styles/panel = SubResource("StyleBoxTexture_skfax")
+script = ExtResource("2_ftkr5")
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=2114393384]
+custom_minimum_size = Vector2(290, 100)
+layout_mode = 0
+offset_right = 190.0
+
+[node name="Label" type="Label" parent="." unique_id=1427315276]
+layout_mode = 0
+offset_right = 290.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 50
+text = "Bricks"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverAnimator" type="Node" parent="." unique_id=684717045]
+script = ExtResource("3_0y8gc")
+pressed_colour = Color(0.83137256, 0.83137256, 0.6117647, 1)
+button_path = NodePath("../TextureButton")
+visual_path = NodePath("../Label")
+stay_pressed = true
+metadata/_custom_type_script = "uid://b6qc7edybv8sl"
+
+[connection signal="confirmed" from="HoverAnimator" to="." method="_on_hover_animator_confirmed"]
